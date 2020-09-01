@@ -1,0 +1,9 @@
+
+# collider.jam
+.meta.cache
+out
+dist
+*.tar
+*.tgz
+*.zip
+
