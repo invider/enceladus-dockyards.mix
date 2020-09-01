@@ -6,11 +6,11 @@ module.exports = function() {
     ctx.canvas.height = _._$.env.tune.height
 
     lab.spawn(dna.ShipGrid, {
-        x: 8,
-        y: 8,
+        x: 6,
+        y: 12,
     })
     lab.spawn(dna.ShipGrid, {
-        x: 88,
-        y: 8,
+        x: 86,
+        y: 12,
     })
 }

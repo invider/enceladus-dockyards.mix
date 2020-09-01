@@ -1,6 +1,6 @@
 module.exports = {
+    Z: 0,
     draw: function() {
-        ctx.fillStyle = '#60c070'
-        ctx.fillRect(0, 0, ctx.width, ctx.height)
+        background(env.style.color.bg0)
     }
 }

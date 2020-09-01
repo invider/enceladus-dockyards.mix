@@ -12,9 +12,9 @@ class ShipGrid {
         lineWidth(1)
         alpha(1)
 
-        const s = 8
-        for (let x = 0; x < 8; x++) {
-            for (let y = 0; y < 8; y++) {
+        const s = 14
+        for (let y = 0; y < 7; y++) {
+            for (let x = 0; x < 5; x++) {
                 rect(x*s, y*s, s, s)
             }
         }
