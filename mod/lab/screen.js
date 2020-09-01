@@ -1,7 +1,7 @@
 module.exports = {
 
     draw: function() {
-        const screen = mod['screen-buf']
+        const screen = mod['boy-buf']
 
         const w = env.tune.width*4
         const h = env.tune.height*4
