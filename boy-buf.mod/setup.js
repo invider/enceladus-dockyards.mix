@@ -13,6 +13,7 @@ module.exports = function() {
         x: 6,
         y: 12,
     })
+    lab.control.player.bindAll(left)
 
     const right = lab.spawn(dna.ShipGrid, {
         name: 'right',

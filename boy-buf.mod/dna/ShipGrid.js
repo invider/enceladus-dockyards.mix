@@ -12,6 +12,23 @@ class ShipGrid {
             // set default
             this.layout = dna.spec.layout.basic
         }
+        this.target = {
+            x: 2,
+            y: 3,
+        }
+    }
+
+    activate(action) {
+        log('do #' + action)
+
+        let nx = this.target.x
+        let ny = this.target.y
+    }
+
+    act(action) {
+    }
+
+    stop(action) {
     }
 
     draw() {
