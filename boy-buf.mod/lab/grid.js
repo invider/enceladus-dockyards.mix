@@ -1,9 +1,6 @@
 const Z = 1
 
 function draw() {
-    save()
-    translate(.5, .5)
-
     const w = ctx.width
     const h = ctx.height
     const step = 16
@@ -20,6 +17,4 @@ function draw() {
         x = 0
         y += step
     }
-
-    restore()
 }

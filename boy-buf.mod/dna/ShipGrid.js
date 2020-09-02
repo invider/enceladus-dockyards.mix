@@ -42,7 +42,7 @@ class ShipGrid {
 
     draw() {
         save()
-        translate(this.x, this.y)
+        translate(this.x + .5, this.y + .5)
         
         lineWidth(1)
 
