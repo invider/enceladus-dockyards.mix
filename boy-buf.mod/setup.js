@@ -12,8 +12,9 @@ module.exports = function() {
     augment(lab.screen.menu, dna.trait.hidable)
     lab.screen.touch('design')
     augment(lab.screen.design, dna.trait.hidable)
-    lab.screen.touch('battle')
-    augment(lab.screen.battle, dna.trait.hidable, {
+
+    lab.screen.touch('battle', dna.trait.hidable)
+    augment(lab.screen.battle, {
         show: function() {
             this.hidden = false
             lab.control.player.bindAll(left)
