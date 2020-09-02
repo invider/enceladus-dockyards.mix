@@ -1,13 +1,5 @@
 const Z = 21
 
-function show() {
-    this.hidden = false
-}
-
-function hide() {
-    this.hidden = true
-}
-
 function draw() {
     alignCenter()
     baseMiddle()

@@ -2,7 +2,7 @@ const style = {
     font: '8px retro',
 
     color: {
-        border: '#253026',
+        border: '#252123',
 
         // kirokaze gb palette
         c0: '#332c50',

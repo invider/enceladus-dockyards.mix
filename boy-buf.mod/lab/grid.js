@@ -1,5 +1,7 @@
 const Z = 1
 
+const hidden = true
+
 function draw() {
     const w = ctx.width
     const h = ctx.height

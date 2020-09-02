@@ -1,27 +1,7 @@
 module.exports = function() {
     _$.boy = _ // mix shortcut
 
-    // setup gameboy screen resolution
-    ctx.width = _._$.env.tune.width
-    ctx.height = _._$.env.tune.height
-    ctx.canvas.width = _._$.env.tune.width
-    ctx.canvas.height = _._$.env.tune.height
-
-    // create screens
-    lab.screen.touch('menu')
-    augment(lab.screen.menu, dna.trait.hidable)
-    lab.screen.touch('design')
-    augment(lab.screen.design, dna.trait.hidable)
-
-    lab.screen.touch('battle', dna.trait.hidable)
-    augment(lab.screen.battle, {
-        show: function() {
-            this.hidden = false
-            lab.control.player.bindAll(left)
-        }
-    })
-    lab.screen.touch('score')
-    augment(lab.screen.score, dna.trait.hidable)
+    lib.gen.screen()
 
     // create ship grids
     const left = lab.screen.battle.spawn(dna.ShipGrid, {
@@ -44,7 +24,7 @@ module.exports = function() {
 
     lab.vfx.transit({
         fadein: 0,
-        keep: 1,
+        keep: 2,
         onFadeOut: function() {
             lab.screen.show()
             lab.screen.title.show()
