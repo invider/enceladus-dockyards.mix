@@ -9,13 +9,7 @@ function screen() {
     lab.screen.touch('menu')
     augment(lab.screen.menu, dna.trait.hidable)
 
-    const design = lab.screen.touch('design')
-    augment(design, dna.trait.hidable)
-    design.spawn(dna.Designer, {
-        name: 'designer',
-        x: ctx.width/2 + 4,
-        y: 4,
-    })
+    lib.gen.design()
 
     lab.screen.touch('battle', dna.trait.hidable)
     augment(lab.screen.battle, {

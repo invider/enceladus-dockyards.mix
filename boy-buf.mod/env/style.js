@@ -1,5 +1,6 @@
 const style = {
     font: '8px retro',
+    titleFont: '8px gameboy',
 
     titleTimeout: 2,
 

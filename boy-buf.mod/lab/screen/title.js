@@ -13,6 +13,7 @@ function keep(time) {
 }
 
 function fadeOut() {
+    lab.control.player.unbindAll(this)
     lab.vfx.transit({
         fadein: 1,
         hold: .5,
@@ -28,12 +29,12 @@ function draw() {
     alignCenter()
     baseMiddle()
     fill(env.style.color.c3)
-    font('8px gameboy')
+    font(env.style.titleFont)
     text('Enceladus Dockyards', rx(.5), ry(.5))
 
     alignRight()
     baseBottom()
-    font('8px retro')
+    font(env.style.font)
     text('by Igor Khotin', rx(1)-8, ry(1)-8)
 }
 

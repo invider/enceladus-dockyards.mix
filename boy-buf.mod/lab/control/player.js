@@ -13,10 +13,15 @@ function bindAll(target) {
     if (!ctrl[playerId]) ctrl[playerId] = []
 }
 
+function unbindAll(target) {
+    targetMap[0] = false
+    if (target) target.player = 0
+}
+
 function release(playerId) {
     const target = targetMap[playerId]
     if (target) {
-        target.playerId = 0
+        target.player = 0
         targetMap[playerId] = false
     }
 }
