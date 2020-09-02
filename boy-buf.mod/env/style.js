@@ -3,6 +3,8 @@ const style = {
 
     titleTimeout: 2,
 
+    cellSize: 14,
+
     color: {
         border: '#252123',
 

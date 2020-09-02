@@ -46,7 +46,7 @@ class ShipGrid {
         
         lineWidth(1)
 
-        const s = 14
+        const s = env.style.cellSize
         for (let y = 0; y < 7; y++) {
             for (let x = 0; x < 5; x++) {
                 const type = this.layout[y][x]

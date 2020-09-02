@@ -2,17 +2,18 @@
 function handleControl(e) {
     switch(e.code) {
         case 'Minus':
-            // TODO zoom out
+            _$.env.tune.scale *= (1 - _$.env.tune.scaleFactor)
             break
-        case 'Plus':
-            // TODO zoom in
+
+        case 'Equal':
+            _$.env.tune.scale *= (1 + _$.env.tune.scaleFactor)
             break
 
         case 'Escape':
             // TODO reset the game?
             break
         case 'F8':
-            lib.img.screenshot('enceladus-dockyards')
+            _$.lib.img.screenshot('enceladus-dockyards')
             break
     }
 }

@@ -4,8 +4,8 @@ module.exports = {
     draw: function() {
         const screen = mod['boy-buf']
 
-        const w = env.tune.width*4
-        const h = env.tune.height*4
+        const w = env.tune.width * env.tune.scale
+        const h = env.tune.height * env.tune.scale
         const hb = (ctx.width - w)/2
         const vb = (ctx.height - h)/2
         ctx.imageSmoothingEnabled = false
