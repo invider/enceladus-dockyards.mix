@@ -5,11 +5,17 @@ function screen() {
     ctx.canvas.width = _._$.env.tune.width
     ctx.canvas.height = _._$.env.tune.height
 
-    // create screens
+    // create sub-screens
     lab.screen.touch('menu')
     augment(lab.screen.menu, dna.trait.hidable)
-    lab.screen.touch('design')
-    augment(lab.screen.design, dna.trait.hidable)
+
+    const design = lab.screen.touch('design')
+    augment(design, dna.trait.hidable)
+    design.spawn(dna.Designer, {
+        name: 'designer',
+        x: ctx.width/2 + 4,
+        y: 4,
+    })
 
     lab.screen.touch('battle', dna.trait.hidable)
     augment(lab.screen.battle, {

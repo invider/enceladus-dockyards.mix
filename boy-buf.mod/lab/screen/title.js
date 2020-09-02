@@ -18,7 +18,7 @@ function fadeOut() {
         hold: .5,
         onFadeOut: function() {
             lab.screen.title.hide()
-            lab.screen.battle.show()
+            trap('design')
         },
         fadeout: 2,
     })
