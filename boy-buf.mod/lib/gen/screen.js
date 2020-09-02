@@ -13,6 +13,7 @@ function screen() {
 
     lab.screen.touch('battle', dna.trait.hidable)
     augment(lab.screen.battle, {
+        // TODO refactor on hide and bind trait
         show: function() {
             this.hidden = false
             lab.control.player.bindAll(lab.screen.battle.left)
@@ -21,5 +22,5 @@ function screen() {
     lab.screen.touch('score')
     augment(lab.screen.score, dna.trait.hidable)
 
-    augment(lab.screen.title, dna.trait.hidable)
+    augment(lab.screen.title, dna.trait.hideAndBind)
 }
