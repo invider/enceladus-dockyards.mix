@@ -49,9 +49,15 @@ class ShipGrid {
         const s = 14
         for (let y = 0; y < 7; y++) {
             for (let x = 0; x < 5; x++) {
-                if (this.layout[y][x] > 0) {
-                    stroke(env.style.color.bg1)
+                const type = this.layout[y][x]
+                if (type > 0) {
+                    stroke(env.style.color.c1)
                     rect(x*s, y*s, s, s)
+
+                    if (type === 1) {
+                        stroke(env.style.color.c2)
+                        rect(x*s+6, y*s+6, s-12, s-12)
+                    }
                 }
             }
         }
@@ -59,9 +65,10 @@ class ShipGrid {
         if (this.player) {
             const x = this.target.x
             const y = this.target.y
-            stroke(env.style.color.fg0)
+            stroke(env.style.color.c3)
             rect(x*s, y*s, s, s)
         }
+
         restore()
     }
 }

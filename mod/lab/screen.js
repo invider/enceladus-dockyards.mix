@@ -1,4 +1,5 @@
 module.exports = {
+    Z: 1,
 
     draw: function() {
         const screen = mod['boy-buf']

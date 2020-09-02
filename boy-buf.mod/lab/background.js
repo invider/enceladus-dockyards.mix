@@ -1,6 +1,6 @@
 module.exports = {
     Z: 0,
     draw: function() {
-        background(env.style.color.bg0)
+        background(env.style.color.c0)
     }
 }
