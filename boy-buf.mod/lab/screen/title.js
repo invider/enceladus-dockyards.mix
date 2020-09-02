@@ -4,7 +4,7 @@ let timeout = 0
 function evo(dt) {
     if (timeout > 0) {
         timeout -= dt
-        if (timeout < 0) fadeOut()
+        if (timeout < 0) this.fadeOut()
     }
 }
 
@@ -13,6 +13,8 @@ function keep(time) {
 }
 
 function fadeOut() {
+    if (this.state) return
+    this.state = 1
     lab.control.player.unbindAll(this)
     lab.vfx.transit({
         fadein: 1,
@@ -39,5 +41,5 @@ function draw() {
 }
 
 function activate(action) {
-    fadeOut()
+    this.fadeOut()
 }
