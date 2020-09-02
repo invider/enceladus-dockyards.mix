@@ -27,12 +27,21 @@ module.exports = function() {
         keep: 2.5,
         onFadeOut: function() {
             lab.screen.show()
-            lab.screen.title.show()
-            lab.control.player.bindAll(lab.screen.title)
+            trap('start')
+            //lab.control.player.bindAll(lab.screen.title)
         },
         fadeout: 2,
         onComplete: function() {
             lab.screen.title.keep(env.style.titleTimeout)
         }
     })
+
+
+    // debug config
+    if (_$.env.config.design) {
+        _.trap.attach(function start() {
+            log('hyperjump to design')
+            trap('design')
+        })
+    }
 }
