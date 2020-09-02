@@ -1,6 +1,8 @@
 const style = {
     font: '8px retro',
 
+    titleTimeout: 2,
+
     color: {
         border: '#252123',
 

@@ -24,12 +24,15 @@ module.exports = function() {
 
     lab.vfx.transit({
         fadein: 0,
-        keep: 2,
+        keep: 2.5,
         onFadeOut: function() {
             lab.screen.show()
             lab.screen.title.show()
             lab.control.player.bindAll(lab.screen.title)
         },
         fadeout: 2,
+        onComplete: function() {
+            lab.screen.title.keep(env.style.titleTimeout)
+        }
     })
 }
