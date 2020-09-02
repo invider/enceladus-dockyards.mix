@@ -1,4 +1,5 @@
 const style = {
+    font: '8px retro',
 
     color: {
         border: '#253026',
