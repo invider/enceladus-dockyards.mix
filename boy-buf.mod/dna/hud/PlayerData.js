@@ -1,4 +1,4 @@
-class LayoutData {
+class PlayerData {
 
     constructor(st) {
         augment(this, st)
@@ -6,12 +6,10 @@ class LayoutData {
     }
 
     draw() {
+        if (!this.player) return
+
         save()
         translate(this.x, this.y)
-
-        const control = lab.screen.layout.control
-        const player = control.currentPlayer()
-        const blueprint = control.currentBlueprint()
 
         baseTop()
         alignRight()
@@ -19,9 +17,13 @@ class LayoutData {
         font(env.style.font)
 
         const x = this.x
-        text(player.title, x, 2)
-        text('$' + player.balance, x, 12)
+        text(this.player.title, x, 2)
+        text('$' + this.player.balance, x, 12)
 
         restore()
+    }
+
+    setPlayer(player) {
+        this.player = player
     }
 }

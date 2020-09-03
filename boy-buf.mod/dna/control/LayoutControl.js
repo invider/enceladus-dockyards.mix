@@ -28,6 +28,7 @@ class LayoutControl {
         this.player = player
         this.state = 0
         this.compileBlueprints()
+        this.__.playerData.setPlayer(player)
     }
 
     next() {
