@@ -26,6 +26,7 @@ class LayoutControl {
 
     selectFor(player) {
         this.player = player
+        this.state = 0
         this.compileBlueprints()
     }
 
@@ -45,6 +46,27 @@ class LayoutControl {
         this.sync()
     }
 
+    done() {
+        if (this.state) return
+        this.state = 1
+        lab.control.player.unbindAll(this)
+
+        const player = this.player
+        const blueprint = this.currentBlueprint()
+        lab.vfx.transit({
+            fadein: 1,
+            hold: .5,
+            onFadeOut: function() {
+                lab.screen.layout.hide()
+                trap('design', {
+                    player: player,
+                    blueprint: blueprint,
+                })
+            },
+            fadeout: 2,
+        })
+    }
+
     sync() {
         this.__.grid.setBlueprint(this.currentBlueprint())
     }
@@ -62,6 +84,7 @@ class LayoutControl {
         switch(action) {
             case 2: this.prev(); break;
             case 4: this.next(); break;
+            case 5: this.done(); break;
         }
     }
 }

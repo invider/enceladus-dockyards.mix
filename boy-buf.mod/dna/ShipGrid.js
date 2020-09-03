@@ -30,7 +30,8 @@ class ShipGrid {
             case 4: nx++; break;
         }
 
-        if (this.layout[ny] && this.layout[ny][nx] > 0) {
+        const type = this.blueprint.cellType(nx, ny)
+        if (type > 0) {
             this.target.x = nx
             this.target.y = ny
         }
@@ -64,7 +65,7 @@ class ShipGrid {
             }
         }
 
-        if (this.player) {
+        if (this.playerId) {
             const x = this.target.x
             const y = this.target.y
             stroke(env.style.color.c3)

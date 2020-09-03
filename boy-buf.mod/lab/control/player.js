@@ -7,7 +7,7 @@ const targetMap = []
 
 function bindAll(target) {
     const playerId = 0
-    target.player = playerId + 1
+    target.playerId = playerId + 1
 
     targetMap[playerId] = target
     if (!ctrl[playerId]) ctrl[playerId] = []
@@ -15,13 +15,13 @@ function bindAll(target) {
 
 function unbindAll(target) {
     targetMap[0] = false
-    if (target) target.player = 0
+    if (target) target.playerId = 0
 }
 
 function release(playerId) {
     const target = targetMap[playerId]
     if (target) {
-        target.player = 0
+        target.playerId = 0
         targetMap[playerId] = false
     }
 }

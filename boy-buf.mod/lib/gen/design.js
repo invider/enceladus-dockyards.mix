@@ -1,11 +1,6 @@
 function design() {
     const design = lab.screen.touch('design')
-    augment(design, dna.trait.hidable, {
-        show: function() {
-            this.hidden = false
-            lab.control.player.bindAll(lab.screen.design)
-        }
-    })
+    augment(design, dna.trait.hidable)
 
     design.spawn(dna.hud.Frame, {
         title: 'blueprint',
@@ -14,9 +9,9 @@ function design() {
         w: ctx.width/2 - 2,
         h: ctx.height - 1,
     })
-    design.spawn(dna.ShipGrid, {
+    const grid = design.spawn(dna.ShipGrid, {
         Z: 11,
-        name: 'blueprint',
+        name: 'grid',
         x: 4,
         y: 24,
         layout: dna.spec.layout.whale,
@@ -29,9 +24,14 @@ function design() {
         w: ctx.width/2 - 2,
         h: ctx.height - 1,
     })
-    design.spawn(dna.Designer, {
+    const designer = design.spawn(dna.Designer, {
         name: 'designer',
         x: ctx.width/2 + 4,
         y: 16,
+    })
+
+    design.spawn(dna.control.DesignControl, {
+        grid: grid,
+        designer: designer,
     })
 }
