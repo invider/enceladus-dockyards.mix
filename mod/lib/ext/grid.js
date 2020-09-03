@@ -1,6 +1,4 @@
 function grid(src) {
-    console.dir(src)
-
     const layout = []
     layout.space = 0
     layout.shell = 0
