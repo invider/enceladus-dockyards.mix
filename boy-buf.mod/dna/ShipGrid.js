@@ -8,9 +8,11 @@ class ShipGrid {
     constructor(st) {
         augment(this, df)
         augment(this, st)
-        if (!this.layout) {
-            // set default
-            this.layout = dna.spec.layout.basic
+        if (!this.blueprint) {
+            // create a default blueprint
+            this.blueprint = new dna.Blueprint({
+                layout: dna.spec.layout.basic,
+            })
         }
         this.target = {
             x: 2,
@@ -49,7 +51,7 @@ class ShipGrid {
         const s = env.style.cellSize
         for (let y = 0; y < 7; y++) {
             for (let x = 0; x < 5; x++) {
-                const type = this.layout[y][x]
+                const type = this.blueprint.cellType(x, y)
                 if (type > 0) {
                     stroke(env.style.color.c1)
                     rect(x*s, y*s, s, s)
