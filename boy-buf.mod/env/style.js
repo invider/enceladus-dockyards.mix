@@ -2,7 +2,7 @@ const style = {
     font: '8px retro',
     titleFont: '8px gameboy',
 
-    titleTimeout: 2,
+    titleTimeout: 4,
 
     cellSize: 14,
 
