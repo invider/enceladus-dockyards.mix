@@ -54,6 +54,7 @@ class Frame {
         restore()
 
         if (this.title) this.drawTitle()
+        if (this.drawContent) this.drawContent()
         
         restore()
     }
