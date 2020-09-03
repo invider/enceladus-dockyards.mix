@@ -56,7 +56,7 @@ class Designer {
         baseTop()
         font(env.style.font)
         fill(env.style.color.c0)
-        text(pod.name, floor(this.w/2), 10)
+        text(pod.title, floor(this.w/2), 10)
 
         restore()
     }

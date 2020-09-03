@@ -1,5 +1,6 @@
 const df = {
     name: 'pod',
+    title: 'pod mk1',
     cost: 10,
     hits: 100,
 }
