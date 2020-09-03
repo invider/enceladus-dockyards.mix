@@ -5,16 +5,13 @@ class DesignControl {
         augment(this, st)
     }
 
-    compilePods() {
-    }
-
     setupDesign(player, blueprint) {
         this.player = player
         this.blueprint = blueprint
         this.player.buy(blueprint.estimateCost())
         this.grid.setBlueprint(blueprint)
 
-        this.compilePods()
+        this.designer.compilePods()
 
         this.selectPod()
     }
