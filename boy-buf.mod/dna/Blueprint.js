@@ -25,9 +25,6 @@ class Blueprint {
         this.w = w
         this.h = h
         this.grid = grid
-
-        this.grid[27] = 'laser'
-        this.grid[28] = 'missile'
     }
 
 

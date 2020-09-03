@@ -30,7 +30,10 @@ class Designer {
     }
 
     place() {
-        this.__.control.placePod('laser')
+        const pod = this.currentPod()
+        if (pod) {
+            this.__.control.placePod(pod)
+        }
     }
 
     activate(action) {

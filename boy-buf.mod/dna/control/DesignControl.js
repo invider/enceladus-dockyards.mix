@@ -26,6 +26,7 @@ class DesignControl {
     placePod(pod) {
         this.__.parts.active = false
         this.__.blueprint.active = true
+        this.grid.pod = pod
         lab.control.player.unbindAll(this.designer)
         lab.control.player.bindAll(this.grid)
     }
