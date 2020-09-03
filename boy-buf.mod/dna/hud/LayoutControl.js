@@ -49,6 +49,10 @@ class LayoutControl {
         this.__.grid.setBlueprint(this.currentBlueprint())
     }
 
+    currentPlayer() {
+        return this.player
+    }
+
     currentBlueprint() {
         return this.blueprints[this.current]
     }

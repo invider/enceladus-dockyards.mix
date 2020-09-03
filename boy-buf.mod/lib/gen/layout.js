@@ -8,11 +8,11 @@ function layout() {
     })
 
     const W = ctx.width/2 - 2
-    const B = floor((ctx.width - W)/2)
+    const BX = floor(ctx.width * .2)
 
     layout.spawn(dna.hud.Frame, {
         title: 'layout',
-        x: B,
+        x: BX,
         y: 0,
         w: W,
         h: ctx.height - 1,
@@ -31,10 +31,15 @@ function layout() {
         }
     })
 
+    layout.spawn(dna.hud.LayoutData, {
+        x: rx(1) - 1,
+        color: env.style.color.c3,
+    })
+
     const grid = layout.spawn(dna.ShipGrid, {
         Z: 11,
         name: 'grid',
-        x: B + 4,
+        x: BX + 4,
         y: 32,
         layout: dna.spec.layout.whale,
     })
