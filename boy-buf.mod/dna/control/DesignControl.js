@@ -25,10 +25,30 @@ class DesignControl {
     }
 
     placePod(pod) {
-        this.__.parts.active = false
-        this.__.blueprint.active = true
-        this.grid.pod = pod
-        lab.control.player.unbindAll(this.designer)
-        lab.control.player.bindAll(this.grid)
+        if (!pod) return
+
+        if (pod.name === 'build') {
+            this.build()
+        } else {
+            this.__.parts.active = false
+            this.__.blueprint.active = true
+            this.grid.pod = pod
+            lab.control.player.unbindAll(this.designer)
+            lab.control.player.bindAll(this.grid)
+        }
+    }
+
+    build() {
+        log('Build the ship!')
+        const screen = this.__
+        lab.vfx.transit({
+            fadein: 1,
+            keep: .5,
+            onFadeOut: function() {
+                screen.hide()
+                trap('start')
+            },
+            fadeout: 2,
+        })
     }
 }
