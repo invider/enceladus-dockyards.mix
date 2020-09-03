@@ -24,7 +24,7 @@ function design() {
         w: ctx.width/2 - 2,
         h: ctx.height - 1,
     })
-    const designer = design.spawn(dna.Designer, {
+    const designer = design.spawn(dna.hud.Designer, {
         name: 'designer',
         x: ctx.width/2 + 4,
         y: 16,
