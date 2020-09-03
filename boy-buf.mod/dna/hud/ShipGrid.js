@@ -81,6 +81,12 @@ class ShipGrid {
                         stroke(env.style.color.c2)
                         line(x*s+5, y*s+1, x*s+5, y*s+13)
                         line(x*s+8, y*s+1, x*s+8, y*s+13)
+                    } else if (pod === 'armor') {
+                        stroke(env.style.color.c2)
+                        rect(x*s+2, y*s+2, s-4, s-4)
+                    } else if (pod !== 'free') {
+                        stroke(env.style.color.c1)
+                        rect(x*s+2, y*s+2, s-4, s-4)
                     }
                 }
             }
