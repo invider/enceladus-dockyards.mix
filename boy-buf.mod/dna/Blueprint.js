@@ -25,6 +25,9 @@ class Blueprint {
         this.w = w
         this.h = h
         this.grid = grid
+
+        this.grid[27] = 'laser'
+        this.grid[28] = 'missile'
     }
 
 
@@ -47,10 +50,12 @@ class Blueprint {
     }
 
     podAt(x, y) {
-
+        return (this.grid[y * this.w + x] || 'x')
     }
 
     placePod(x, y, pod) {
-
+        if (x < 0 || x >= this.w) return
+        if (y < 0 || y >= this.h) return
+        this.grid[y * this.w + x] = pod
     }
 }

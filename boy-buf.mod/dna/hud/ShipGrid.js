@@ -52,7 +52,9 @@ class ShipGrid {
         const s = env.style.cellSize
         for (let y = 0; y < 7; y++) {
             for (let x = 0; x < 5; x++) {
+                /*
                 const type = this.blueprint.cellType(x, y)
+            
                 if (type > 0) {
                     stroke(env.style.color.c1)
                     rect(x*s, y*s, s, s)
@@ -60,6 +62,25 @@ class ShipGrid {
                     if (type === 1) {
                         stroke(env.style.color.c2)
                         rect(x*s+6, y*s+6, s-12, s-12)
+                    }
+                }
+                */
+                const pod = this.blueprint.podAt(x, y)
+
+                if (pod !== 'x') {
+                    stroke(env.style.color.c1)
+                    rect(x*s, y*s, s, s)
+
+                    if (pod === 'shell') {
+                        stroke(env.style.color.c2)
+                        rect(x*s+6, y*s+6, s-12, s-12)
+                    } else if (pod === 'laser') {
+                        stroke(env.style.color.c2)
+                        line(x*s+7, y*s+1, x*s+7, y*s+13)
+                    } else if (pod === 'missile') {
+                        stroke(env.style.color.c2)
+                        line(x*s+5, y*s+1, x*s+5, y*s+13)
+                        line(x*s+8, y*s+1, x*s+8, y*s+13)
                     }
                 }
             }
