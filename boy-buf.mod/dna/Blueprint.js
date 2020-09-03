@@ -7,8 +7,16 @@ class Blueprint {
     }
 
     estimateCost() {
-        // TODO calculate cost of all included pods
-        return this.layout.cost
+        if (!this.cost) {
+            // calculate and buffer the cost
+            this.cost = this.layout.cost
+            // TODO calculate cost of all included pods
+        }
+        return this.cost
+    }
+
+    space() {
+        return this.layout.space
     }
 
     cellType(x, y) {

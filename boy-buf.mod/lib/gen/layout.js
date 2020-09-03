@@ -24,7 +24,10 @@ function layout() {
             baseTop()
             alignCenter()
             fill(this.color)
-            text(blueprint.name, x, 14)
+
+            text(blueprint.name, x, 12)
+            text('$' + blueprint.estimateCost(), x, 20)
+            text('space: ' + blueprint.space(), x, 134)
         }
     })
 
@@ -32,7 +35,7 @@ function layout() {
         Z: 11,
         name: 'grid',
         x: B + 4,
-        y: 24,
+        y: 32,
         layout: dna.spec.layout.whale,
     })
 
