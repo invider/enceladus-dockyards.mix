@@ -26,6 +26,10 @@ function design() {
             }
             this.__.control.selectPod()
         },
+        back: function() {
+            this.pod = null
+            this.__.control.selectPod()
+        }
     })
 
     const designerFrame = design.spawn(dna.hud.Frame, {
