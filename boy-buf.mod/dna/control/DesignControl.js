@@ -10,6 +10,7 @@ class DesignControl {
         this.blueprint = blueprint
         this.player.buy(blueprint.estimateCost())
         this.grid.setBlueprint(blueprint)
+        this.playerData.setPlayer(player)
 
         this.designer.compilePods()
 

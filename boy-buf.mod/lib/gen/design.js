@@ -47,8 +47,16 @@ function design() {
         h: designerFrame.h - 16,
     })
 
+    const playerData = design.spawn(dna.hud.PlayerData, {
+        name: 'playerData',
+        x: ctx.width,
+        y: designerFrame.y + designerFrame.h + 4,
+        color: env.style.color.c3,
+    })
+
     design.spawn(dna.control.DesignControl, {
         grid: grid,
         designer: designer,
+        playerData: playerData,
     })
 }

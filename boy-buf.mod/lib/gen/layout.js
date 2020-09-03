@@ -33,7 +33,8 @@ function layout() {
 
     layout.spawn(dna.hud.PlayerData, {
         name: 'playerData',
-        x: rx(1) - 1,
+        x: ctx.width - 1,
+        y: 2,
         color: env.style.color.c3,
     })
 
