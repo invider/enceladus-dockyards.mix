@@ -36,7 +36,7 @@ function layout() {
         color: env.style.color.c3,
     })
 
-    const grid = layout.spawn(dna.ShipGrid, {
+    const grid = layout.spawn(dna.hud.ShipGrid, {
         Z: 11,
         name: 'grid',
         x: BX + 4,
@@ -44,7 +44,7 @@ function layout() {
         layout: dna.spec.layout.whale,
     })
 
-    layout.spawn(dna.hud.LayoutControl, {
+    layout.spawn(dna.control.LayoutControl, {
         grid: grid,
     })
 }

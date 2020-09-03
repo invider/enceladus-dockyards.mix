@@ -9,7 +9,7 @@ function design() {
         w: ctx.width/2 - 2,
         h: ctx.height - 1,
     })
-    const grid = design.spawn(dna.ShipGrid, {
+    const grid = design.spawn(dna.hud.ShipGrid, {
         Z: 11,
         name: 'grid',
         x: 4,

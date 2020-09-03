@@ -9,14 +9,14 @@ function battle() {
     })
 
     // create ship grids
-    const left = lab.screen.battle.spawn(dna.ShipGrid, {
+    const left = lab.screen.battle.spawn(dna.hud.ShipGrid, {
         Z: 11,
         name: 'left',
         x: 6,
         y: 12,
     })
 
-    const right = lab.screen.battle.spawn(dna.ShipGrid, {
+    const right = lab.screen.battle.spawn(dna.hud.ShipGrid, {
         Z: 11,
         name: 'right',
         x: 86,
