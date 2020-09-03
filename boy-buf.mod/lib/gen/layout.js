@@ -3,23 +3,29 @@ function layout() {
 
     augment(layout, {
         activate: function(action) {
-            log('making #' + action)
+            this.control.activate(action)
         }
     })
 
+    const W = ctx.width/2 - 2
+    const B = floor((ctx.width - W)/2)
+
     layout.spawn(dna.Frame, {
         title: 'layout',
-        x: 0,
+        x: B,
         y: 0,
-        w: ctx.width/2 - 2,
+        w: W,
         h: ctx.height - 1,
     })
-    layout.spawn(dna.ShipGrid, {
+    const grid = layout.spawn(dna.ShipGrid, {
         Z: 11,
         name: 'layout',
-        x: 4,
+        x: B + 4,
         y: 24,
         layout: dna.spec.layout.whale,
     })
-        
+
+    layout.spawn(dna.hud.LayoutControl, {
+        grid: grid,
+    })
 }
