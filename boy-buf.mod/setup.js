@@ -3,7 +3,6 @@ module.exports = function() {
 
     lib.gen.screen()
 
-    
     lab.screen.hideAll()
 
     lab.vfx.transit({
@@ -17,10 +16,10 @@ module.exports = function() {
     })
 
     // debug config
-    if (_$.env.config.design) {
+    if (_$.env.config.newGame) {
         _.trap.attach(function start() {
-            log('hyperjump to design')
-            trap('design')
+            log('hyperjump to newgame')
+            trap('newGame')
         })
     }
 }
