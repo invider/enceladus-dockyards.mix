@@ -28,6 +28,8 @@ class ShipGrid {
             case 2: nx--; break;
             case 3: ny++; break;
             case 4: nx++; break;
+            case 5: this.apply(); return;
+            case 6: this.back();  return;
         }
 
         const type = this.blueprint.cellType(nx, ny)
@@ -37,11 +39,9 @@ class ShipGrid {
         }
     }
 
-    act(action) {
-    }
+    apply() {}
 
-    stop(action) {
-    }
+    back() {}
 
     draw() {
         save()

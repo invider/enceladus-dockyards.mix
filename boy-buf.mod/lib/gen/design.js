@@ -14,20 +14,25 @@ function design() {
         name: 'grid',
         x: 4,
         y: 24,
-        layout: dna.spec.layout.whale,
+        apply: function() {
+            // TODO place the pod and reduce the balance
+            this.__.control.selectPod()
+        },
     })
 
-    design.spawn(dna.hud.Frame, {
+    const designerFrame = design.spawn(dna.hud.Frame, {
         title: 'parts',
         x: ctx.width/2 + 1,
         y: 0,
         w: ctx.width/2 - 2,
-        h: ctx.height - 1,
+        h: ctx.height - 24,
     })
     const designer = design.spawn(dna.hud.Designer, {
         name: 'designer',
-        x: ctx.width/2 + 4,
-        y: 16,
+        x: designerFrame.x + 2,
+        y: designerFrame.y + 12,
+        w: designerFrame.w - 4,
+        h: designerFrame.h - 16,
     })
 
     design.spawn(dna.control.DesignControl, {
