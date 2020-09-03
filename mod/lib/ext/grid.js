@@ -2,6 +2,8 @@ function grid(src) {
     console.dir(src)
 
     const layout = []
+    layout.space = 0
+    layout.shell = 0
 
     let y = 0
     src.split('\n').forEach(l => {
@@ -24,9 +26,19 @@ function grid(src) {
             const row = []
             for (let x = 0; x < l.length; x++) {
                 const c = l.charAt(x).toLowerCase()
-                if (c === 'x') row[x] = 1 // external shell
-                else if (c === '*') row[x] = 2 // internal hull
-                else row[x] = 0
+                if (c === 'x') {
+                    // external shell
+                    row[x] = 1 
+                    layout.space ++
+                    layout.shell ++
+                } else if (c === '*') {
+                    // internal hull
+                    row[x] = 2 
+                    layout.space ++
+                } else {
+                    // the cell is outside of the hull
+                    row[x] = 0
+                }
             }
             layout[y++] = row
         }
