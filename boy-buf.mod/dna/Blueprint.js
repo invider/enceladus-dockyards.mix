@@ -1,3 +1,7 @@
+const X = 'x'
+const SHELL = 'shell'
+const FREE = 'free'
+
 class Blueprint {
 
     constructor(st) {
@@ -16,9 +20,9 @@ class Blueprint {
             for (let x = 0; x < w; x++) {
                 const type = this.layout[y][x]
 
-                let cell = 'x'
-                if (type === 1) cell = 'shell'
-                else if (type === 2) cell = 'free'
+                let cell = X
+                if (type === 1) cell = SHELL
+                else if (type === 2) cell = FREE
                 grid[y*w + x] = cell
             }
         }
@@ -54,5 +58,22 @@ class Blueprint {
         if (x < 0 || x >= this.w) return
         if (y < 0 || y >= this.h) return
         this.grid[y * this.w + x] = pod
+    }
+
+    removePod(x, y) {
+        if (x < 0 || x >= this.w) return
+        if (y < 0 || y >= this.h) return
+        const pod = (this.grid[y * this.w + x] || X)
+        if (pod === X || pod === FREE || pod === SHELL) return
+
+        const type = this.cellType(x, y)
+        if (type === 0) return
+
+        let cell = FREE
+        if (type === 1) cell = SHELL
+
+        this.grid[y * this.w + x] = cell
+
+        return pod
     }
 }

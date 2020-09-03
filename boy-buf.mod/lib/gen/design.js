@@ -16,15 +16,27 @@ function design() {
         y: 24,
         apply: function() {
             if (this.pod) {
-                if (this.__.control.player.buy(this.pod.cost)) {
-                    this.blueprint.placePod(
-                        this.target.x,
-                        this.target.y,
-                        this.pod.name
-                    )
-                    // TODO play placement sfx
+                if (this.pod.name === 'remove') {
+                    const podName = this.blueprint.removePod(
+                        this.target.x, this.target.y)
+                    if (podName) {
+                        // TODO determine pod price
+                        this.__.control.player.sell(5)
+                        // TODO play remove sfx
+                    } else {
+                        // TODO play denied sfx
+                    }
                 } else {
-                    // TODO play denied sfx
+                    if (this.__.control.player.buy(this.pod.cost)) {
+                        this.blueprint.placePod(
+                            this.target.x,
+                            this.target.y,
+                            this.pod.name
+                        )
+                        // TODO play placement sfx
+                    } else {
+                        // TODO play denied sfx
+                    }
                 }
             }
         },

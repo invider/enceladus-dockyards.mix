@@ -16,4 +16,8 @@ class Player {
         this.balance -= cost
         return true
     }
+
+    sell(cost) {
+        this.balance += cost
+    }
 }
