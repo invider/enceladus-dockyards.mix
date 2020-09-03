@@ -24,7 +24,7 @@ function design() {
                     this.pod.name
                 )
             }
-            this.__.control.selectPod()
+            //this.__.control.selectPod()
         },
         back: function() {
             this.pod = null
