@@ -15,16 +15,18 @@ function design() {
         x: 4,
         y: 24,
         apply: function() {
-            // TODO place the pod and reduce the balance
             if (this.pod) {
-                this.__.control.player.buy(this.pod.cost)
-                this.blueprint.placePod(
-                    this.target.x,
-                    this.target.y,
-                    this.pod.name
-                )
+                if (this.__.control.player.buy(this.pod.cost)) {
+                    this.blueprint.placePod(
+                        this.target.x,
+                        this.target.y,
+                        this.pod.name
+                    )
+                    // TODO play placement sfx
+                } else {
+                    // TODO play denied sfx
+                }
             }
-            //this.__.control.selectPod()
         },
         back: function() {
             this.pod = null
