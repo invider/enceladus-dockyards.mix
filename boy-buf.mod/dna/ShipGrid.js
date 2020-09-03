@@ -73,4 +73,8 @@ class ShipGrid {
 
         restore()
     }
+
+    setBlueprint(blueprint) {
+        this.blueprint = blueprint
+    }
 }

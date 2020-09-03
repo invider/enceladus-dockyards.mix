@@ -29,7 +29,34 @@ class LayoutControl {
         this.compileBlueprints()
     }
 
+    next() {
+        this.current ++
+        if (this.current >= this.blueprints.length) {
+            this.current = 0
+        }
+        this.sync()
+    }
+
+    prev() {
+        this.current --
+        if (this.current < 0) {
+            this.current = this.blueprints.length - 1
+        }
+        this.sync()
+    }
+
+    sync() {
+        this.__.grid.setBlueprint(this.currentBlueprint())
+    }
+
+    currentBlueprint() {
+        return this.blueprints[this.current]
+    }
+
     activate(action) {
-        log('more #' + action)
+        switch(action) {
+            case 2: this.prev(); break;
+            case 4: this.next(); break;
+        }
     }
 }

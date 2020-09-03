@@ -7,7 +7,7 @@ function design() {
         }
     })
 
-    design.spawn(dna.Frame, {
+    design.spawn(dna.hud.Frame, {
         title: 'blueprint',
         x: 0,
         y: 0,
@@ -22,7 +22,7 @@ function design() {
         layout: dna.spec.layout.whale,
     })
 
-    design.spawn(dna.Frame, {
+    design.spawn(dna.hud.Frame, {
         title: 'parts',
         x: ctx.width/2 + 1,
         y: 0,
