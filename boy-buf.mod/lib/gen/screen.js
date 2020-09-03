@@ -9,6 +9,7 @@ function screen() {
     lab.screen.touch('menu')
     augment(lab.screen.menu, dna.trait.hidable)
 
+    lib.gen.layout()
     lib.gen.design()
     lib.gen.battle()
 

@@ -7,5 +7,5 @@ function newGame() {
         name: 'playerB',
     })
 
-    trap('design')
+    trap('layout')
 }
