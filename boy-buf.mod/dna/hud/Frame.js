@@ -1,6 +1,7 @@
 class Frame {
     constructor(st) {
         augment(this, st)
+        if (!this.name && this.title) this.name = this.title
         if (!this.color) this.color = env.style.color.c1
         if (!this.activeColor) this.activeColor = env.style.color.c2
     }
