@@ -21,7 +21,7 @@ function fadeOut() {
         hold: .5,
         onFadeOut: function() {
             lab.screen.title.hide()
-            trap('design')
+            trap('newGame') // TODO retarget to main menu
         },
         fadeout: 2,
     })
