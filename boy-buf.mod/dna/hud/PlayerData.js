@@ -8,19 +8,15 @@ class PlayerData {
     draw() {
         if (!this.player) return
 
-        save()
-        translate(this.x, this.y)
-
         baseTop()
         alignRight()
         fill(this.color)
         font(env.style.font)
 
         const x = this.x
-        text(this.player.title, x, 2)
-        text('$' + this.player.balance, x, 12)
-
-        restore()
+        const y = this.y
+        text(this.player.title, x, y)
+        text('$' + this.player.balance, x, y+10)
     }
 
     setPlayer(player) {
