@@ -58,6 +58,7 @@ class LayoutControl {
     }
 
     activate(action) {
+        log('action #' + action)
         switch(action) {
             case 2: this.prev(); break;
             case 4: this.next(); break;

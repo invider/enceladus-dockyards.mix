@@ -41,6 +41,8 @@ function target(playerId) {
 function act(action, playerId) {
     //if (!playerId) playerId = 0
     playerId = 0
+    if (action === 6) action = 4 // map X to A
+    if (action === 7) action = 5 // map Y to B
 
     const target = targetMap[playerId]
     if (!target && env.state === 'play') {
@@ -60,6 +62,8 @@ function act(action, playerId) {
 function stop(action, playerId) {
     //if (!playerId) playerId = 0
     playerId = 0
+    if (action === 6) action = 4 // map X to A
+    if (action === 7) action = 5 // map Y to B
 
     if (ctrl[playerId]) {
         if (ctrl[playerId][action]) {

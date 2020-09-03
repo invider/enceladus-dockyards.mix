@@ -1,7 +1,7 @@
 const keyboard = [
     [ 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyE', 'KeyQ', 'Space', 'KeyZ' ],
     [ 'ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight',
-        'ShiftRight', 'Enter', 'PageDown', 'End' ],
+        'Enter', 'ShiftRight', 'PageDown', 'End' ],
     [ 'Numpad8', 'Numpad4', 'Numpad2', 'Numpad6',
         'Numpad9', 'Numpad7', 'NumpadEnter', 'Numpad0' ],
 ]
