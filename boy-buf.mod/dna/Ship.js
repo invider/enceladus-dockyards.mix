@@ -85,7 +85,9 @@ class Ship {
         if (actionPod) {
             log('taking action by ' + actionPod.title)
             if (actionPod.activate) {
-                actionPod.activate(target)
+                const x = RND(4)
+                const y = RND(6)
+                actionPod.activate(target, x, y)
             } else {
                 log("can't activate " + actionPod.name)
             }
