@@ -40,6 +40,16 @@ class Ship {
         this.grid[y * this.w + x] = pod
     }
 
+    removePod(pod) {
+        for (let i = 0; i < this.grid.length; i++) {
+            if (this.grid[i] === pod) {
+                this.grid[i] = null
+            }
+        }
+        const i = this.pods.indexOf(pod)
+        if (i > 0) this.pods.splice(i, 1)
+    }
+
     removePodAt(x, y) {
         const pod = this.grid[y*this.w + x]
         if (!pod) return
