@@ -66,14 +66,14 @@ class Designer {
         save()
         translate(this.x, this.y)
 
-        fill(env.style.color.c1)
-        rect(0, 0, this.w, this.h)
+        //fill(env.style.color.c1)
+        //rect(0, 0, this.w, this.h)
 
         const pod = this.currentPod()
         alignCenter()
         baseTop()
         font(env.style.font)
-        fill(env.style.color.c0)
+        fill(env.style.color.c3)
         text(pod.title || pod.name, floor(this.w/2), 10)
 
         restore()
