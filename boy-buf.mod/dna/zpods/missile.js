@@ -21,5 +21,7 @@ class missile extends dna.Pod {
 
     activate(target, x, y) {
         target.hit(this.attack, this.name, x, y)
+        // consider all missiles are gone here
+        this.ship.removePod(this)
     }
 }
