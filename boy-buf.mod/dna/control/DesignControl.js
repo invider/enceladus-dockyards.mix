@@ -72,11 +72,13 @@ class DesignControl {
         const ship = new dna.Ship(this.blueprint)
         const shipB = new dna.Ship(this.blueprint)
 
+        const control = this
         const activeScreen = this.__
         lab.vfx.transit({
             fadein: 1,
             keep: .5,
             onFadeOut: function() {
+                control.unbindAll()
                 activeScreen.hide()
                 trap('battle', {
                     shipA: ship,
@@ -85,5 +87,10 @@ class DesignControl {
             },
             fadeout: 2,
         })
+    }
+
+    unbindAll() {
+        lab.control.player.unbindAll(this.grid)
+        lab.control.player.unbindAll(this.designer)
     }
 }
