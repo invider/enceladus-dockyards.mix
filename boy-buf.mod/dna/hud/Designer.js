@@ -12,9 +12,12 @@ class Designer {
     compilePods() {
         this.current = 0
         const pods = []
+        const price = {}
 
-        dna.zpods._ls.forEach(pod => {
-            pods.push(new pod())
+        dna.zpods._ls.forEach(podCons => {
+            const pod = new podCons()
+            pods.push(pod)
+            price[pod.name] = pod.cost
         })
 
         // special actions
@@ -25,16 +28,19 @@ class Designer {
             name: 'build',
         })
         this.pods = pods
+        this.price = price
     }
 
     next() {
         this.current ++
         if (this.current >= this.pods.length) this.current = 0
+        // TODO play swith sfx
     }
 
     prev() {
         this.current --
         if (this.current < 0) this.current = this.pods.length - 1
+        // TODO play swith sfx
     }
 
     place() {
@@ -50,6 +56,10 @@ class Designer {
             case 4: this.next();  break;
             case 5: this.place(); break;
         }
+    }
+
+    podPrice(podName) {
+        return (this.price[podName] || 0)
     }
 
     draw() {

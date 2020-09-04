@@ -20,8 +20,8 @@ function design() {
                     const podName = this.blueprint.removePod(
                         this.target.x, this.target.y)
                     if (podName) {
-                        // TODO determine pod price
-                        this.__.control.player.sell(5)
+                        const price = this.__.designer.podPrice(podName)
+                        this.__.control.player.sell(price)
                         // TODO play remove sfx
                     } else {
                         // TODO play denied sfx
