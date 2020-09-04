@@ -36,7 +36,8 @@ class BattleControl {
             } else {
                 source.takeAction(selected, target)
             }
-            control.turnB()
+
+            setTimeout(() => { control.turnB() }, 1000)
         })
     }
 
@@ -57,7 +58,7 @@ class BattleControl {
             } else {
                 source.takeAction(selected, target)
             }
-            control.nextTurn()
+            setTimeout(() => { control.nextTurn() }, 1000)
         })
     }
 
