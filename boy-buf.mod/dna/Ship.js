@@ -15,11 +15,20 @@ class Ship {
                 const podCons = podDNA[podName]
                 if (podCons) {
                     const pod = new podCons()
-                    console.dir(pod)
                     this.mountPod(pod, x, y)
                 }
             }
         }
+    }
+
+    cellType(x, y) {
+        return this.blueprint.cellType(x, y)
+    }
+
+    podAt(x, y) {
+        const pod = this.grid[y + this.w + x]
+        if (pod) return pod.name
+        return this.blueprint.podAt(x, y)
     }
 
     mountPod(pod, x, y) {
