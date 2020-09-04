@@ -70,7 +70,6 @@ class DesignControl {
         this.state = 1
 
         const ship = new dna.Ship(this.blueprint)
-        console.dir(ship)
         const shipB = new dna.Ship(this.blueprint)
 
         const activeScreen = this.__

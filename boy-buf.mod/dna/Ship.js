@@ -1,6 +1,7 @@
 class Ship {
 
     constructor(blueprint) {
+        this.name = blueprint.name
         this.blueprint = blueprint
         this.w = blueprint.w
         this.h = blueprint.h
@@ -38,4 +39,28 @@ class Ship {
         this.pods.push(pod)
         this.grid[y * this.w + x] = pod
     }
+
+    // raise shields and recharge weapons
+    chargeForBattle() {
+        this.pods.forEach(pod => {
+            if (pod.init) pod.init()
+        })
+    }
+
+    actionsAvailable() {
+    }
+
+    // distribute energy from reactor cores
+    distributeEnergy() {
+    }
+
+    // combine energy from all shield gens
+    // into a single shield value
+    chargeShields() {
+    }
+
+    // activate repair modules
+    repairCycle() {
+    }
+
 }
