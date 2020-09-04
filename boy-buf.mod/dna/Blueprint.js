@@ -71,6 +71,15 @@ class Blueprint {
         return this.layout[y][x]
     }
 
+    cellAt(x, y) {
+        const type = this.cellType(x, y)
+        switch (type) {
+            case 1: return SHELL;
+            case 2: return FREE;
+        }
+        return X
+    }
+
     podAt(x, y) {
         return (this.grid[y * this.w + x] || 'x')
     }
