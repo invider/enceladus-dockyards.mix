@@ -48,6 +48,11 @@ class Ship {
     }
 
     actionsAvailable() {
+        // TODO analyze pods
+        //      figure out what weapons are charged and ready to fire
+        actions = {}
+        this.pods.forEach(pod => {
+        })
     }
 
     // distribute energy from reactor cores

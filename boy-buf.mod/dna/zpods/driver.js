@@ -1,9 +1,30 @@
+const df = {
+    name: 'driver',
+    title: 'Mass Driver',
+    system: true,
+    cost: 100,
+    hits: 50,
+    effective: .5,
+    charge: 100,
+    attack: 70,
+}
+
 class driver extends dna.Pod {
 
     constructor(st) {
         super(st)
-        this.name = 'driver'
-        this.title = 'Mass Driver'
-        this.cost = 200
+        augment(this, df)
+        this.df = df
+    }
+
+    init() {
+        this.charge = this.df.charge
+    }
+
+    triggerOn() {
+        if (this.hits > this.df.hits * this.df.effective
+                && this.charge === this.df.charge) {
+            return 'Mass Driver'
+        }
     }
 }
