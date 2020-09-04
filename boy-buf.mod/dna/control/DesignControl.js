@@ -40,6 +40,9 @@ class DesignControl {
 
     build() {
         log('Build the ship!')
+        const ship = new dna.Ship(this.blueprint)
+        console.dir(ship)
+
         const screen = this.__
         lab.vfx.transit({
             fadein: 1,

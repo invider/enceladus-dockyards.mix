@@ -1,4 +1,4 @@
-class Laser extends dna.Pod {
+class laser extends dna.Pod {
 
     constructor(st) {
         super(st)

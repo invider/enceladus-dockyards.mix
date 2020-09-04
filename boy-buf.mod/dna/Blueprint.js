@@ -34,13 +34,13 @@ class Blueprint {
 
 
     estimateCost(priceFun) {
-        if (!priceFun) {
+        if (priceFun) {
             // calculate and buffer the cost
             this.cost = this.layout.cost
             // TODO calculate cost of all included pods
             for (let y = 0; y < this.h; y++) {
                 for (let x = 0; x < this.w; x++) {
-                    this.cost += priceFun( podAt(x, y) )
+                    this.cost += priceFun( this.podAt(x, y) )
                 }
             }
         }

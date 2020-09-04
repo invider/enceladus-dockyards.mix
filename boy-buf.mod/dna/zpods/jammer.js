@@ -1,4 +1,4 @@
-class Jammer extends dna.Pod {
+class jammer extends dna.Pod {
 
     constructor(st) {
         super(st)

@@ -1,4 +1,4 @@
-class Missile extends dna.Pod {
+class missile extends dna.Pod {
 
     constructor(st) {
         super(st)

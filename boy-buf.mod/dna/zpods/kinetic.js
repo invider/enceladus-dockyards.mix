@@ -1,4 +1,4 @@
-class KineticShell extends dna.Pod {
+class kinetic extends dna.Pod {
 
     constructor(st) {
         super(st)

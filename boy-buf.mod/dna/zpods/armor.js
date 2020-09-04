@@ -1,4 +1,4 @@
-class ArmorPlating extends dna.Pod {
+class armor extends dna.Pod {
 
     constructor(st) {
         super(st)
