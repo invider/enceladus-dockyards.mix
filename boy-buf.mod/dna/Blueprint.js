@@ -85,4 +85,17 @@ class Blueprint {
 
         return pod
     }
+
+    dump() {
+        return {
+            name: this.name,
+            cost: this.cost,
+            layout: this.layout,
+            grid: this.grid,
+        }
+    }
+
+    download() {
+        lib.util.downloadJSON( this.dump() )
+    }
 }
