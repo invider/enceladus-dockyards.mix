@@ -10,6 +10,7 @@ class Blueprint {
         if (!this.grid) this.fillGrid()
         if (!this.name) this.name = this.layout.name
         if (!this.cost) this.cost = this.layout.cost
+        if (!this.hits) this.hits = 0
         if (!this.space) this.space = this.layout.space
     }
 
@@ -37,7 +38,6 @@ class Blueprint {
         if (priceFun) {
             // calculate and buffer the cost
             this.cost = this.layout.cost
-            // TODO calculate cost of all included pods
             for (let y = 0; y < this.h; y++) {
                 for (let x = 0; x < this.w; x++) {
                     this.cost += priceFun( this.podAt(x, y) )
@@ -45,6 +45,20 @@ class Blueprint {
             }
         }
         return this.cost
+    }
+
+    estimateHits(hitsFun) {
+        if (hitsFun) {
+            // calculate and buffer the hits
+            this.hits = 0
+            for (let y = 0; y < this.h; y++) {
+                for (let x = 0; x < this.w; x++) {
+                    this.hits += hitsFun( this.podAt(x, y) )
+                }
+            }
+        }
+        return this.cost
+
     }
 
     getSpace() {
@@ -94,6 +108,7 @@ class Blueprint {
             h: this.h,
             layout: this.layout,
             space: this.space,
+            hits: this.hits,
             grid: this.grid,
         }
     }
