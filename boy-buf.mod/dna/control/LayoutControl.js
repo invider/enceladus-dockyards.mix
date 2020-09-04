@@ -12,16 +12,22 @@ class LayoutControl {
         // create a blueprint for each layout available
         dna.spec.layout._ls.forEach(layout => {
             if (layout.cost < budget) {
-                blueprints.push(new dna.Blueprint({
+                const blueprint = new dna.Blueprint({
                     layout: layout,
-                }))
+                })
+                blueprints.push(blueprint)
             }
         })
 
         // create blueprints form blueprint dumps
         dna.spec.blueprints. _ls.forEach(blueprintDump => {
             if (blueprintDump.cost < budget) {
-                blueprints.push(new dna.Blueprint(blueprintDump))
+                const blueprint = new dna.Blueprint(blueprintDump)
+                blueprint.estimateCost((podName) => {
+                    return lib.pods.podCost(podName)
+                })
+                log('estimated cost for ' + blueprint.name + ': ' + blueprint.cost)
+                blueprints.push(blueprint)
             }
         })
 

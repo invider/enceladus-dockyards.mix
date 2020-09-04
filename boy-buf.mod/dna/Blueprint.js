@@ -10,6 +10,7 @@ class Blueprint {
         if (!this.grid) this.fillGrid()
         if (!this.name) this.name = this.layout.name
         if (!this.cost) this.cost = this.layout.cost
+        if (!this.layoutCost) this.layoutCost = this.layout.cost
         if (!this.hits) this.hits = 0
         if (!this.space) this.space = this.layout.space
     }
@@ -37,7 +38,7 @@ class Blueprint {
     estimateCost(priceFun) {
         if (priceFun) {
             // calculate and buffer the cost
-            this.cost = this.layout.cost
+            this.cost = this.layoutCost
             for (let y = 0; y < this.h; y++) {
                 for (let x = 0; x < this.w; x++) {
                     this.cost += priceFun( this.podAt(x, y) )
@@ -103,10 +104,11 @@ class Blueprint {
     dump() {
         return {
             name: this.name,
-            cost: this.cost,
             w: this.w,
             h: this.h,
+            cost: this.cost,
             layout: this.layout,
+            layoutCost: this.layoutCost,
             space: this.space,
             hits: this.hits,
             grid: this.grid,

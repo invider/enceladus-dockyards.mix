@@ -12,7 +12,7 @@ function populate() {
     this.pods = pods
 }
 
-function podPrice(name) {
+function podCost(name) {
     const pod = this.map[name]
     if (pod && pod.cost) return pod.cost
     return 0
