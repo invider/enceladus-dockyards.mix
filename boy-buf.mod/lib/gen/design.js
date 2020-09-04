@@ -17,8 +17,11 @@ function design() {
         apply: function() {
             if (this.pod) {
                 if (this.pod.name === 'remove') {
+                    const designer = this.__.designer
                     const podName = this.blueprint.removePod(
-                        this.target.x, this.target.y)
+                        this.target.x, this.target.y, (name) => {
+                            return designer.podPrice(name)
+                        })
                     if (podName) {
                         const price = this.__.designer.podPrice(podName)
                         this.__.control.player.sell(price)
@@ -31,7 +34,8 @@ function design() {
                         this.blueprint.placePod(
                             this.target.x,
                             this.target.y,
-                            this.pod.name
+                            this.pod.name,
+                            this.pod.cost
                         )
                         // TODO play placement sfx
                     } else {

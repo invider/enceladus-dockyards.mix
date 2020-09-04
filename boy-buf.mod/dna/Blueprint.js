@@ -9,6 +9,7 @@ class Blueprint {
         if (!this.layout) this.layout = dna.spec.layout.basic
         if (!this.grid) this.fillGrid()
         if (!this.name) this.name = this.layout.name
+        if (!this.cost) this.cost = this.layout.cost
     }
 
     fillGrid() {
@@ -54,13 +55,14 @@ class Blueprint {
         return (this.grid[y * this.w + x] || 'x')
     }
 
-    placePod(x, y, pod) {
+    placePod(x, y, pod, price) {
         if (x < 0 || x >= this.w) return
         if (y < 0 || y >= this.h) return
         this.grid[y * this.w + x] = pod
+        this.cost += price
     }
 
-    removePod(x, y) {
+    removePod(x, y, priceFun) {
         if (x < 0 || x >= this.w) return
         if (y < 0 || y >= this.h) return
         const pod = (this.grid[y * this.w + x] || X)
@@ -72,7 +74,9 @@ class Blueprint {
         let cell = FREE
         if (type === 1) cell = SHELL
 
+        const podName = this.grid[y * this.w + x]
         this.grid[y * this.w + x] = cell
+        this.cost -= priceFun(podName)
 
         return pod
     }
