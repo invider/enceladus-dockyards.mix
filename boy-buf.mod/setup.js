@@ -1,6 +1,8 @@
 module.exports = function() {
     _$.boy = _ // mix shortcut
 
+    lib.pods.populate()
+
     lib.gen.screen()
     lib.util.hideCursor()
 
