@@ -26,7 +26,7 @@ class Ship {
     }
 
     podAt(x, y) {
-        const pod = this.grid[y + this.w + x]
+        const pod = this.grid[y*this.w + x]
         if (pod) return pod.name
         return this.blueprint.podAt(x, y)
     }

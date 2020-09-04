@@ -6,6 +6,7 @@ class DesignControl {
     }
 
     setupDesign(player, blueprint) {
+        this.state = 0
         this.player = player
         this.blueprint = blueprint
         this.player.buy(blueprint.estimateCost())
@@ -39,17 +40,23 @@ class DesignControl {
     }
 
     build() {
-        log('Build the ship!')
+        if (this.state > 0) return
+        this.state = 1
+
         const ship = new dna.Ship(this.blueprint)
         console.dir(ship)
+        const shipB = new dna.Ship(this.blueprint)
 
-        const screen = this.__
+        const activeScreen = this.__
         lab.vfx.transit({
             fadein: 1,
             keep: .5,
             onFadeOut: function() {
-                screen.hide()
-                trap('start')
+                activeScreen.hide()
+                trap('battle', {
+                    shipA: ship,
+                    shipB: shipB,
+                })
             },
             fadeout: 2,
         })
