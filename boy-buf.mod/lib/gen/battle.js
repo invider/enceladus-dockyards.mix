@@ -1,11 +1,15 @@
 function battle() {
     const battle = lab.screen.touch('battle', dna.trait.hidable)
 
+    battle.spawn(dna.hud.Separator, {
+        x: floor(ctx.width/2)
+    })
+
     // create ship grids
     const left = battle.spawn(dna.hud.ShipGrid, {
         Z: 11,
         name: 'left',
-        x: 6,
+        x: 3,
         y: 12,
     })
 

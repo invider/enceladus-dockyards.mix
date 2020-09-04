@@ -16,4 +16,10 @@ class BattleControl {
         log.dump(shipA.actionsAvailable())
         log.dump(shipB.actionsAvailable())
     }
+
+    turnA() {
+    }
+
+    turnB() {
+    }
 }
