@@ -10,6 +10,7 @@ class Blueprint {
         if (!this.grid) this.fillGrid()
         if (!this.name) this.name = this.layout.name
         if (!this.cost) this.cost = this.layout.cost
+        if (!this.space) this.space = this.layout.space
     }
 
     fillGrid() {
@@ -32,7 +33,6 @@ class Blueprint {
         this.grid = grid
     }
 
-
     estimateCost(priceFun) {
         if (priceFun) {
             // calculate and buffer the cost
@@ -47,8 +47,8 @@ class Blueprint {
         return this.cost
     }
 
-    space() {
-        return this.layout.space
+    getSpace() {
+        return this.space
     }
 
     cellType(x, y) {
@@ -90,7 +90,10 @@ class Blueprint {
         return {
             name: this.name,
             cost: this.cost,
+            w: this.w,
+            h: this.h,
             layout: this.layout,
+            space: this.space,
             grid: this.grid,
         }
     }
