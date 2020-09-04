@@ -22,9 +22,15 @@ class driver extends dna.Pod {
     }
 
     triggerOn() {
+        if (this.dead) return
         if (this.hits > this.df.hits * this.df.effective
                 && this.charge === this.df.charge) {
             return 'Mass Driver'
         }
+    }
+
+    activate(target, x, y) {
+        this.charge = 0
+        target.hit(this.attack, this.name, x, y)
     }
 }
