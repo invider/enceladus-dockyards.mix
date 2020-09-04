@@ -5,6 +5,8 @@ class BattleControl {
     }
 
     startBattle(shipA, shipB) {
+        this.turn = 1
+        this.subturn = 0
         this.shipA = shipA
         this.shipB = shipB
         this.left.setBlueprint(shipA)
@@ -15,11 +17,20 @@ class BattleControl {
 
         log.dump(shipA.actionsAvailable())
         log.dump(shipB.actionsAvailable())
+
+        this.turnA()
     }
 
     turnA() {
+        const actions = this.shipA.actionsAvailable()
+        actions.push('skip')
+        actions.push('yield')
+        this.leftMenu.selectFrom(actions)
     }
 
     turnB() {
+    }
+
+    nextTurn() {
     }
 }

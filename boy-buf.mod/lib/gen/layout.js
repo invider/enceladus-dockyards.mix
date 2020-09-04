@@ -1,5 +1,6 @@
 function layout() {
     const layout = lab.screen.touch('layout', dna.trait.hideAndBind)
+    _$.layout = layout
 
     augment(layout, {
         activate: function(action) {

@@ -1,6 +1,7 @@
 function design() {
     const design = lab.screen.touch('design')
     augment(design, dna.trait.hidable)
+    _$.design = design
 
     design.spawn(dna.hud.Frame, {
         title: 'blueprint',
