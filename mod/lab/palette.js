@@ -1,5 +1,6 @@
+
 function draw() {
-    if (!env.config.debug) return
+    if (!env.config.palette) return
 
     const color = $.boy.env.style.color
 
