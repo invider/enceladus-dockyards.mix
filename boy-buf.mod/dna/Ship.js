@@ -60,6 +60,27 @@ class Ship {
         return Object.keys(actions)
     }
 
+    takeAction(action, target) {
+        let actionPod
+        this.pods.forEach(pod => {
+            if (pod.triggerOn) {
+                const trigger = pod.triggerOn()
+                if (trigger === action) {
+                    actionPod = pod
+                }
+            }
+        })
+
+        if (actionPod) {
+            log('taking action by ' + actionPod.title)
+            if (actionPod.activate) {
+                actionPod.activate()
+            } else {
+                log("can't activate " + actionPod.name)
+            }
+        }
+    }
+
     // distribute energy from reactor cores
     distributeEnergy() {
     }

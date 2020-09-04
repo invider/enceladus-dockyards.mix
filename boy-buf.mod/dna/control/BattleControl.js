@@ -16,10 +16,12 @@ class BattleControl {
         shipB.chargeForBattle()
 
         this.turnA()
-        // or this.turnB()?
+        // or this.turnB() half of the time?
     }
 
     turnA() {
+        const source = this.shipA
+        const target = this.shipB
         const control = this
         const actions = this.shipA.actionsAvailable()
         actions.push('skip')
@@ -32,13 +34,15 @@ class BattleControl {
             } else if (selected === 'skip') {
                 // do nothing
             } else {
-                log('fire ' + selected)
+                source.takeAction(selected, target)
             }
             control.turnB()
         })
     }
 
     turnB() {
+        const source = this.shipB
+        const target = this.shipA
         const control = this
         const actions = this.shipB.actionsAvailable()
         actions.push('skip')
@@ -51,7 +55,7 @@ class BattleControl {
             } else if (selected === 'skip') {
                 // do nothing
             } else {
-                log('fire ' + selected)
+                source.takeAction(selected, target)
             }
             control.nextTurn()
         })
