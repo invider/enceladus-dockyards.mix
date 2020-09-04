@@ -9,9 +9,9 @@ const df = {
 class PopupMenu {
 
     constructor(st) {
+        this.background = env.style.color.c1
         this.color = env.style.color.c3
         this.bcolor = env.style.color.c0
-
         this.acolor = env.style.color.c0
         this.bacolor = env.style.color.c3
         augment(this, df)
@@ -81,7 +81,11 @@ class PopupMenu {
         const x = cx
         const rx = this.x
         const rw = this.w
-        let y = cy - floor((n * this.step)/2)
+        const h = n * this.step
+        let y = cy - floor(h/2)
+
+        fill(this.background)
+        rect(rx-4, y-6, rw+8, h+8)
 
         for (let i = 0; i < n; i++) {
             const item = this.items[i]
