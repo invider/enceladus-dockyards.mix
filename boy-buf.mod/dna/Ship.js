@@ -29,7 +29,7 @@ class Ship {
     podAt(x, y) {
         const pod = this.grid[y*this.w + x]
         if (pod) return pod.name
-        return this.blueprint.podAt(x, y)
+        return this.blueprint.cellAt(x, y)
     }
 
     mountPod(pod, x, y) {
@@ -38,6 +38,17 @@ class Ship {
         pod.ship = this
         this.pods.push(pod)
         this.grid[y * this.w + x] = pod
+    }
+
+    removePodAt(x, y) {
+        const pod = this.grid[y*this.w + x]
+        if (!pod) return
+
+        this.grid[y*this.w + x] = null
+        const i = this.pods.indexOf(pod)
+        this.pods.splice(i, 1)
+
+        return pod
     }
 
     // raise shields and recharge weapons
@@ -74,7 +85,7 @@ class Ship {
         if (actionPod) {
             log('taking action by ' + actionPod.title)
             if (actionPod.activate) {
-                actionPod.activate()
+                actionPod.activate(target)
             } else {
                 log("can't activate " + actionPod.name)
             }
@@ -92,6 +103,12 @@ class Ship {
 
     // activate repair modules
     repairCycle() {
+    }
+
+    hit(attack, type, x, y) {
+        log(`hitting ${this.name}->${x}:${y}`)
+        const pod = this.removePodAt(x, y)
+        if (pod) log('killed ' + pod.name)
     }
 
 }
