@@ -15,10 +15,8 @@ class BattleControl {
         shipA.chargeForBattle()
         shipB.chargeForBattle()
 
-        log.dump(shipA.actionsAvailable())
-        log.dump(shipB.actionsAvailable())
-
         this.turnA()
+        // or this.turnB()?
     }
 
     turnA() {
@@ -27,8 +25,15 @@ class BattleControl {
         actions.push('skip')
         actions.push('yield')
         this.leftMenu.selectFrom(actions, function(selected) {
-            log('fire ' + selected)
             this.hide()
+            
+            if (selected === 'yield') {
+                control.finishBattle()
+            } else if (selected === 'skip') {
+                // do nothing
+            } else {
+                log('fire ' + selected)
+            }
             control.turnB()
         })
     }
@@ -39,8 +44,15 @@ class BattleControl {
         actions.push('skip')
         actions.push('yield')
         this.rightMenu.selectFrom(actions, function(selected) {
-            log('fire ' + selected)
             this.hide()
+
+            if (selected === 'yield') {
+                control.finishBattle()
+            } else if (selected === 'skip') {
+                // do nothing
+            } else {
+                log('fire ' + selected)
+            }
             control.nextTurn()
         })
     }
@@ -48,5 +60,19 @@ class BattleControl {
     nextTurn() {
         this.turn ++
         this.turnA()
+    }
+
+    finishBattle() {
+        const activeScreen = this.__
+        lab.control.player.unbindAll()
+        lab.vfx.transit({
+            fadein: 1,
+            keep: .5,
+            onFadeOut: function() {
+                activeScreen.hide()
+                trap('newGame')
+            },
+            fadeout: 2,
+        })
     }
 }
