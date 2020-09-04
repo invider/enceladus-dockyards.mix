@@ -26,4 +26,12 @@ class laser extends dna.Pod {
             return 'Lasers'
         }
     }
+
+    activate(target) {
+        const x = RND(4)
+        const y = RND(6)
+
+        this.charge = 0
+        target.hit(this.attack, this.name, x, y)
+    }
 }
