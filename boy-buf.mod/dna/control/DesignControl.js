@@ -42,6 +42,7 @@ class DesignControl {
     installPod(pod, x, y) {
         if (!pod) return
         if (this.player.buy(pod.cost)) {
+            const removedPod = this.removePod(x, y)
             this.blueprint.placePod(x, y, pod.name, pod.cost)
             // TODO play placement sfx or with delay if removed
         } else {
