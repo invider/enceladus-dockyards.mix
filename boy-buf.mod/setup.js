@@ -2,6 +2,7 @@ module.exports = function() {
     _$.boy = _ // mix shortcut
 
     lib.gen.screen()
+    lib.util.hideCursor()
 
     lab.screen.hideAll()
 
