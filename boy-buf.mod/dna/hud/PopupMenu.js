@@ -22,29 +22,29 @@ class PopupMenu {
 
     show() {
         this.hidden = false
+        lab.control.player.bindAll(this)
     }
 
     hide() {
         this.hidden = true
+        lab.control.player.unbindAll(this)
     }
 
-    selectFrom(items) {
+    selectFrom(items, onSelect) {
         this.current = 0
         this.items = items
+        this.onSelect = onSelect
         this.show()
-        lab.control.player.bindAll(this)
     }
 
     next() {
         this.current ++
         if (this.current >= this.items.length) this.current = 0
-        log('menu #' + this.current)
     }
 
     prev() {
         this.current --
         if (this.current < 0) this.current = this.items.length - 1
-        log('menu #' + this.current)
     }
 
     left() {
@@ -54,10 +54,9 @@ class PopupMenu {
     }
 
     select() {
-        log('selected #' + this.current)
+        log('selected #' + this.current + ' [' + this.currentItem() + ']')
         if (this.onSelect) {
-            const item = this.currentItem()
-            this.onSelect(item)
+            this.onSelect( this.currentItem() )
         }
     }
 
