@@ -64,6 +64,8 @@ class BattleControl {
 
     nextTurn() {
         this.turn ++
+        this.shipA.turn()
+        this.shipB.turn()
         this.turnA()
     }
 

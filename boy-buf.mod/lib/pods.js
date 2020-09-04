@@ -14,6 +14,7 @@ function populate() {
         if (pod.attack) st.push(`attack: ${pod.attack}`)
         if (pod.shots) st.push(`shots: ${pod.shots}`)
         if (pod.charge) st.push(`charge: ${pod.charge}`)
+        if (pod.output) st.push(`output: ${pod.output}`)
         stat[pod.name] = st
     })
 

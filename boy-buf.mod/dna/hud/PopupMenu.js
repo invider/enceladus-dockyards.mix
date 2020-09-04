@@ -54,7 +54,6 @@ class PopupMenu {
     }
 
     select() {
-        log('selected #' + this.current + ' [' + this.currentItem() + ']')
         if (this.onSelect) {
             this.onSelect( this.currentItem() )
         }

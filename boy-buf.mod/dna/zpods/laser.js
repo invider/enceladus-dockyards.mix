@@ -20,10 +20,13 @@ class laser extends dna.Pod {
         this.charge = this.df.charge
     }
 
+    isReady() {
+        return (!this.dead && this.charge === this.df.charge)
+    }
+
     triggerOn() {
-        if (this.dead) return
         // lasers MUST be fully charged to fire
-        if (this.charge === this.df.charge) {
+        if (this.isReady()) {
             return 'Lasers'
         }
     }
