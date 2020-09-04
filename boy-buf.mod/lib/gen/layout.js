@@ -27,7 +27,7 @@ function layout() {
 
             text(blueprint.name, x, 12)
             text('$' + blueprint.estimateCost(), x, 20)
-            text('space: ' + blueprint.space(), x, 134)
+            text('space: ' + blueprint.getSpace(), x, 134)
         }
     })
 

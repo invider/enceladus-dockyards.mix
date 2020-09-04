@@ -18,6 +18,13 @@ class LayoutControl {
             }
         })
 
+        // create blueprints form blueprint dumps
+        dna.spec.blueprints. _ls.forEach(blueprintDump => {
+            if (blueprintDump.cost < budget) {
+                blueprints.push(new dna.Blueprint(blueprintDump))
+            }
+        })
+
         // TODO include existing/stored designs
 
         this.current = 0
