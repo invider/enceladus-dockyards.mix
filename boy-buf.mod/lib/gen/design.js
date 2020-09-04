@@ -16,7 +16,10 @@ function design() {
         y: 24,
         apply: function() {
             if (this.pod) {
+                const {x, y} = this.target
                 if (this.pod.name === 'remove') {
+                    this.__.control.removePod(x, y)
+                    /*
                     const designer = this.__.designer
                     const podName = this.blueprint.removePod(
                         this.target.x, this.target.y, (name) => {
@@ -29,7 +32,10 @@ function design() {
                     } else {
                         // TODO play denied sfx
                     }
+                    */
                 } else {
+                    this.__.control.installPod(this.pod, x, y)
+                    /*
                     if (this.__.control.player.buy(this.pod.cost)) {
                         this.blueprint.placePod(
                             this.target.x,
@@ -41,6 +47,7 @@ function design() {
                     } else {
                         // TODO play denied sfx
                     }
+                    */
                 }
             }
         },
