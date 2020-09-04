@@ -12,5 +12,8 @@ class BattleControl {
 
         shipA.chargeForBattle()
         shipB.chargeForBattle()
+
+        log.dump(shipA.actionsAvailable())
+        log.dump(shipB.actionsAvailable())
     }
 }

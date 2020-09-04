@@ -48,11 +48,16 @@ class Ship {
     }
 
     actionsAvailable() {
-        // TODO analyze pods
-        //      figure out what weapons are charged and ready to fire
-        actions = {}
+        const actions = {}
         this.pods.forEach(pod => {
+            if (pod.triggerOn) {
+                const trigger = pod.triggerOn()
+                if (trigger) {
+                    actions[trigger] = true
+                }
+            }
         })
+        return Object.keys(actions)
     }
 
     // distribute energy from reactor cores
