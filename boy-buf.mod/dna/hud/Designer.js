@@ -23,9 +23,11 @@ class Designer {
         // special actions
         pods.push({
             name: 'remove',
+            special: true,
         })
         pods.push({
             name: 'build',
+            special: true,
         })
         this.pods = pods
         this.price = price
@@ -73,8 +75,23 @@ class Designer {
         alignCenter()
         baseTop()
         font(env.style.font)
-        fill(env.style.color.c3)
-        text(pod.title || pod.name, floor(this.w/2), 10)
+
+        if (pod.special) fill(env.style.color.c2)
+        else fill(env.style.color.c3)
+
+        let x = floor(this.w/2)
+        let y = 10
+        text(pod.title || pod.name, x, y)
+        y += 14
+
+        const stat = lib.pods.podStat(pod.name)
+        if (stat) {
+            fill(env.style.color.c1)
+            stat.forEach(line => {
+                text(line, x, y)
+                y += 10
+            })
+        }
 
         restore()
     }

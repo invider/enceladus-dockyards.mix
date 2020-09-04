@@ -19,6 +19,7 @@ function populate() {
 
     this.map = map
     this.pods = pods
+    this.stat = stat
 }
 
 function podCost(name) {
@@ -34,7 +35,6 @@ function podHits(name) {
 }
 
 function podStat(name) {
-    const stat = this.stat[name]
-    return stat || []
+    return this.stat[name]
 }
 
