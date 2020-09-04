@@ -14,7 +14,12 @@ class missile extends dna.Pod {
     }
 
     triggerOn() {
+        if (this.dead) return
         // missiles are always ready to fire
         return 'Missile'
+    }
+
+    activate(target, x, y) {
+        target.hit(this.attack, this.name, x, y)
     }
 }
