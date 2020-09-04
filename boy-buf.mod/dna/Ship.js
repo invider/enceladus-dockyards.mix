@@ -32,6 +32,12 @@ class Ship {
         return this.blueprint.cellAt(x, y)
     }
 
+    forEachPod(fn) {
+        this.pods.forEach(pod => {
+            if (pod && !pod.dead) fn(pod)
+        })
+    }
+
     mountPod(pod, x, y) {
         pod.x = x
         pod.y = y
@@ -115,6 +121,12 @@ class Ship {
 
     // activate repair modules
     repairCycle() {
+    }
+
+    turn() {
+        this.forEachPod((pod) => {
+            if (pod.turn) pod.turn()
+        })
     }
 
     hit(attack, type, x, y) {
