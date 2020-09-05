@@ -48,7 +48,18 @@ class PopupMenu {
         })
         this.onSelect = onSelect
         this.onSwitch = onSwitch
+
+        this.slideToActiveItem()
         this.show()
+    }
+
+    slideToActiveItem() {
+        const item = this.items[this.current]
+        if (isObj(item) && item.section) {
+            this.current ++
+            if (this.current >= this.items.length) this.current = 0
+            this.slideToActiveItem()
+        }
     }
 
     next() {
