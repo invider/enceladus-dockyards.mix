@@ -45,7 +45,7 @@ function battle() {
     const rightPanel = battle.spawn(dna.hud.ShipPanel, {
         Z: 12,
         name: 'rightPanel',
-        x: 83,
+        x: 82,
         y: PY,
     })
 

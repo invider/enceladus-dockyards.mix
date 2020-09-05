@@ -18,9 +18,24 @@ class ShipPanel {
         font(env.style.font)
         fill(env.style.color.c3)
 
+        const x = 0
+        let y = 0
         const hits = this.ship.totalHits()
         const maxHits = this.ship.maxHits
-        text('hits: ' + hits  + '/' + maxHits, 0, 0)
+        const pHits = floor((hits/maxHits)*100)
+        text(`hits: ${pHits}%`, x, y)
+
+        y += 10
+        const charge = this.ship.currentCharge()
+        const maxCharge = this.ship.maxCharge()
+        const pCharge = floor((charge/maxCharge)*100)
+        text(`charge: ${pCharge}%`, x, y)
+
+        y += 10
+        const shields = this.ship.shields()
+        const maxShields = this.ship.maxShields
+        const pShields = floor((shields/maxShields)*100)
+        text(`shields: ${pShields}%`, x, y)
 
         restore()
     }

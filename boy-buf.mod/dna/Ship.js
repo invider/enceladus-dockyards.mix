@@ -74,6 +74,7 @@ class Ship {
             if (pod.init) pod.init()
         })
         this.maxHits = this.totalHits()
+        this.maxShields = this.shields()
     }
 
     actionsAvailable() {
@@ -146,5 +147,55 @@ class Ship {
         let hits = 0
         this.pods.forEach(pod => hits += pod.hits)
         return hits
+    }
+
+    currentCharge() {
+        let charge = 0
+        this.pods.forEach(pod => {
+            if (pod.df.charge) {
+                charge += pod.charge
+            }
+        })
+        return charge
+    }
+
+    maxCharge() {
+        let charge = 0
+        this.pods.forEach(pod => {
+            if (pod.df.charge) {
+                charge += pod.df.charge
+            }
+        })
+        return charge
+    }
+
+    shields() {
+        let charge = 0
+        this.pods.forEach(pod => {
+            if (pod.tag === 'shield') {
+                charge += pod.charge
+            }
+        })
+        return charge
+    }
+
+    weaponsCharge() {
+        let charge = 0
+        this.pods.forEach(pod => {
+            if (pod.tag === 'laser' || pod.tag === 'driver') {
+                charge += pod.charge
+            }
+        })
+        return charge
+    }
+
+    weaponsMaxCharge() {
+        let charge = 0
+        this.pods.forEach(pod => {
+            if (pod.tag === 'laser' || pod.tag === 'driver') {
+                charge += pod.df.charge
+            }
+        })
+        return charge
     }
 }
