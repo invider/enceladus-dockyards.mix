@@ -36,6 +36,7 @@ class BattleControl {
         const control = this
         const actions = this.shipA.actionsAvailable()
         actions.push(rechargeModes)
+        rechargeModes.current = rechargeModes.indexOf(source.rechargePriority)
         actions.push('skip')
         actions.push('yield')
         this.leftMenu.selectFrom(actions,
@@ -68,6 +69,7 @@ class BattleControl {
         const control = this
         const actions = this.shipB.actionsAvailable()
         actions.push(rechargeModes)
+        rechargeModes.current = rechargeModes.indexOf(source.rechargePriority)
         actions.push('skip')
         actions.push('yield')
         this.rightMenu.selectFrom(actions,
