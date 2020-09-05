@@ -22,6 +22,8 @@ class BattleControl {
         this.shipB = shipB
         this.left.setBlueprint(shipA)
         this.right.setBlueprint(shipB)
+        this.leftPanel.monitor(shipA)
+        this.rightPanel.monitor(shipB)
 
         shipA.chargeForBattle()
         shipB.chargeForBattle()

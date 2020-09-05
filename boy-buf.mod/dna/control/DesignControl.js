@@ -69,6 +69,10 @@ class DesignControl {
         if (this.state > 0) return
         this.state = 1
 
+        this.blueprint.hits = this.blueprint.estimateHits((podName) => {
+            return lib.pods.podHits(podName)
+        })
+
         const ship = new dna.Ship(this.blueprint)
         const shipB = new dna.Ship(this.blueprint)
 

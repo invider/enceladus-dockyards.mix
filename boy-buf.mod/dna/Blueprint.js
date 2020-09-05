@@ -58,8 +58,7 @@ class Blueprint {
                 }
             }
         }
-        return this.cost
-
+        return this.hits
     }
 
     getSpace() {

@@ -14,6 +14,14 @@ function battle() {
         y: 12,
     })
 
+    const PY = 114
+    const leftPanel = battle.spawn(dna.hud.ShipPanel, {
+        Z: 12,
+        name: 'leftPanel',
+        x: 1,
+        y: PY,
+    })
+
     const leftMenu = battle.spawn(dna.hud.PopupMenu, {
         Z: 21,
         name: 'leftMenu',
@@ -34,6 +42,13 @@ function battle() {
         layout: dna.spec.layout.whale,
     })
 
+    const rightPanel = battle.spawn(dna.hud.ShipPanel, {
+        Z: 12,
+        name: 'rightPanel',
+        x: 83,
+        y: PY,
+    })
+
     const rightMenu = battle.spawn(dna.hud.PopupMenu, {
         Z: 21,
         name: 'rightMenu',
@@ -50,6 +65,8 @@ function battle() {
         name: 'control',
         left: left,
         right: right,
+        leftPanel: leftPanel,
+        rightPanel: rightPanel,
         leftMenu: leftMenu,
         rightMenu: rightMenu,
     })

@@ -73,6 +73,7 @@ class Ship {
         this.pods.forEach(pod => {
             if (pod.init) pod.init()
         })
+        this.maxHits = this.totalHits()
     }
 
     actionsAvailable() {
@@ -139,5 +140,11 @@ class Ship {
     setRechargePriority(mode) {
         if (!mode) return
         this.rechargePriority = mode
+    }
+
+    totalHits() {
+        let hits = 0
+        this.pods.forEach(pod => hits += pod.hits)
+        return hits
     }
 }
