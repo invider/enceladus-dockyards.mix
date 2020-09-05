@@ -20,7 +20,7 @@ function onSwitch(item) {
 }
 
 function setup() {
-    const W = 100
+    const W = 70
     const B = floor((ctx.width-W)/2)
     const menu = this.__.spawn(dna.hud.PopupMenu, {
         Z: 1,
