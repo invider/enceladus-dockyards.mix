@@ -1,9 +1,9 @@
 const items = [
     'new game',
-    'player A',
+    { section: true, title: 'player A'},
     ['human', 'AI'],
     ['$1000', '$1200', '$1600', '$2000', '$400', '$600', '$800'],
-    'player B',
+    { section: true, title: 'player B'},
     ['AI', 'human'],
     ['$1000', '$1200', '$1600', '$2000', '$400', '$600', '$800'],
 ]
