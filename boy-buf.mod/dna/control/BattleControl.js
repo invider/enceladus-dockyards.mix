@@ -108,7 +108,7 @@ class BattleControl {
             keep: .5,
             onFadeOut: function() {
                 activeScreen.hide()
-                trap('newGame')
+                trap('score')
             },
             fadeout: 2,
         })

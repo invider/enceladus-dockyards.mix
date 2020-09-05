@@ -13,8 +13,5 @@ function screen() {
     lib.gen.design()
     lib.gen.battle()
 
-    lab.screen.touch('score')
-    augment(lab.screen.score, dna.trait.hidable)
-
     augment(lab.screen.title, dna.trait.hideAndBind)
 }

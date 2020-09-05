@@ -3,6 +3,7 @@ const style = {
     titleFont: '8px gameboy',
 
     titleTimeout: 4,
+    scoreTimeout: 10,
 
     cellSize: 14,
 
