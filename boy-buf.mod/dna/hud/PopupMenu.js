@@ -12,6 +12,8 @@ class PopupMenu {
         this.background = env.style.color.c1
         this.color = env.style.color.c3
         this.bcolor = env.style.color.c0
+        this.scolor = env.style.color.c2
+
         this.acolor = env.style.color.c0
         this.bacolor = env.style.color.c3
         augment(this, df)
@@ -44,11 +46,17 @@ class PopupMenu {
     next() {
         this.current ++
         if (this.current >= this.items.length) this.current = 0
+
+        const item = this.items[this.current]
+        if (isObj(item) && item.section) this.next()
     }
 
     prev() {
         this.current --
         if (this.current < 0) this.current = this.items.length - 1
+
+        const item = this.items[this.current]
+        if (isObj(item) && item.section) this.prev()
     }
 
     left() {
@@ -110,9 +118,13 @@ class PopupMenu {
         }
 
         for (let i = 0; i < n; i++) {
+            let active = true
             let item = this.items[i]
             if (isArray(item)) {
                 item = '< ' + item[item.current] + ' >'
+            } else if (isObj(item) && item.section) {
+                active = false
+                item = item.title
             }
 
             // backline
@@ -120,7 +132,8 @@ class PopupMenu {
             else fill(this.bcolor)
             rect(rx, y-1, rw, this.step-2)
 
-            if (i === this.current) fill(this.acolor)
+            if (!active) fill(this.scolor)
+            else if (i === this.current) fill(this.acolor)
             else fill(this.color)
             text(item, x, y)
             y += this.step
