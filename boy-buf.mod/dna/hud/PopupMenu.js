@@ -153,4 +153,12 @@ class PopupMenu {
         return this.items[this.current]
     }
 
+    selectedValue(i) {
+        const item = this.items[i]
+        if (isString(item)) return item
+        else if (isArray(item)) {
+            return item[item.current]
+        }
+    }
+
 }
