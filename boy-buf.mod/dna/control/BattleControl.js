@@ -37,6 +37,7 @@ class BattleControl {
         const target = this.shipB
         const control = this
         const actions = this.shipA.actionsAvailable()
+        actions.push({ section: true, title: 'charge mode' })
         actions.push(rechargeModes)
         rechargeModes.current = rechargeModes.indexOf(source.rechargePriority)
         actions.push('skip')
