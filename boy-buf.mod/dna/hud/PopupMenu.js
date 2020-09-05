@@ -5,19 +5,27 @@ const df = {
     h: 40,
     step: 10,
     current: 0,
+    border: 2,
 }
 class PopupMenu {
 
     constructor(st) {
-        this.background = env.style.color.c1
-        this.color = env.style.color.c3
-        this.bcolor = env.style.color.c0
-        this.scolor = env.style.color.c2
-
-        this.acolor = env.style.color.c0
-        this.bacolor = env.style.color.c3
+        this.setupColors()
         augment(this, df)
         augment(this, st)
+    }
+
+    setupColors() {
+        // need to setup manually,
+        // since colors are not available on df{} creation
+        this.background = env.style.color.c1
+        this.color = {
+            main: env.style.color.c3, 
+            bcolor: env.style.color.c0, 
+            scolor: env.style.color.c2,
+            acolor: env.style.color.c0, 
+            bacolor: env.style.color.c3, 
+        }
     }
 
     show() {
@@ -106,15 +114,16 @@ class PopupMenu {
         baseTop()
         font(env.style.font)
 
+        const b = this.border
         const x = cx
         const rx = this.x
         const rw = this.w
-        const h = n * this.step
+        const h = n * this.step + 2*b
         let y = cy - floor(h/2)
 
         if (this.background) {
             fill(this.background)
-            rect(rx-4, y-6, rw+8, h+8)
+            rect(rx, y-2*b, rw, h)
         }
 
         for (let i = 0; i < n; i++) {
@@ -128,13 +137,13 @@ class PopupMenu {
             }
 
             // backline
-            if (i === this.current) fill(this.bacolor)
-            else fill(this.bcolor)
-            rect(rx, y-1, rw, this.step-2)
+            if (i === this.current) fill(this.color.bacolor)
+            else fill(this.color.bcolor)
+            rect(rx+b, y-1, rw-2*b, this.step-2)
 
-            if (!active) fill(this.scolor)
-            else if (i === this.current) fill(this.acolor)
-            else fill(this.color)
+            if (!active) fill(this.color.scolor)
+            else if (i === this.current) fill(this.color.acolor)
+            else fill(this.color.main)
             text(item, x, y)
             y += this.step
         }

@@ -25,9 +25,9 @@ function battle() {
     const leftMenu = battle.spawn(dna.hud.PopupMenu, {
         Z: 21,
         name: 'leftMenu',
-        x: 10,
+        x: 0,
         y: 10,
-        w: 60,
+        w: 79,
         h: 100,
         alt: function() {
             this.hidden = !this.hidden
@@ -52,9 +52,9 @@ function battle() {
     const rightMenu = battle.spawn(dna.hud.PopupMenu, {
         Z: 21,
         name: 'rightMenu',
-        x: 90,
+        x: 81,
         y: 10,
-        w: 60,
+        w: 79,
         h: 100,
         alt: function() {
             this.hidden = !this.hidden
