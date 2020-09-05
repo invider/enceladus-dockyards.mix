@@ -74,6 +74,7 @@ class Ship {
             if (pod.init) pod.init()
         })
         this.maxHits = this.totalHits()
+        this.maxSystemHits = this.systemHits()
         this.maxShields = this.shields()
     }
 
@@ -146,6 +147,16 @@ class Ship {
     totalHits() {
         let hits = 0
         this.pods.forEach(pod => hits += pod.hits)
+        return hits
+    }
+
+    systemHits() {
+        let hits = 0
+        this.pods.forEach(pod => {
+            if (pod.system) {
+                hits += pod.hits
+            }
+        })
         return hits
     }
 

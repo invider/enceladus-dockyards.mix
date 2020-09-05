@@ -23,7 +23,16 @@ class ShipPanel {
         const hits = this.ship.totalHits()
         const maxHits = this.ship.maxHits
         const pHits = floor((hits/maxHits)*100)
-        if (maxHits > 0) text(`hits: ${pHits}%`, x, y)
+
+        const system = this.ship.systemHits()
+        const SYSTEM = this.ship.maxSystemHits
+        const pSystem = floor((system/SYSTEM)*100)
+
+        if (maxHits > 0 && SYSTEM > 0) {
+            text(`hits: ${pHits}%/${pSystem}%`, x, y)
+        } else if (maxHits > 0) {
+            text(`hits: ${pHits}%`, x, y)
+        }
 
         y += 10
         const charge = this.ship.currentCharge()
