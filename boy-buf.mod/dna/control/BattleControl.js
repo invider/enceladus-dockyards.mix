@@ -54,6 +54,7 @@ class BattleControl {
                 
                 if (selected === 'yield') {
                     control.finishBattle()
+                    return
                 } else if (selected === 'skip') {
                     // do nothing
                 } else {
@@ -83,6 +84,7 @@ class BattleControl {
 
                 if (selected === 'yield') {
                     control.finishBattle()
+                    return
                 } else if (selected === 'skip') {
                     // do nothing
                 } else {
@@ -106,6 +108,7 @@ class BattleControl {
     finishBattle() {
         const activeScreen = this.__
         lab.control.player.unbindAll()
+
         lab.vfx.transit({
             fadeIn: env.style.fadeIn,
             keep: .5,
