@@ -9,6 +9,7 @@ function evo(dt) {
 }
 
 function keep(time) {
+    this.state = 0
     timeout = time
 }
 
@@ -24,7 +25,7 @@ function fadeOut() {
         hold: .5,
         onFadeOut: function() {
             activeScreen.hide()
-            trap('newGame') // TODO retarget to main menu
+            trap('menu') // TODO retarget to main menu
         },
         fadeout: 2,
     })
