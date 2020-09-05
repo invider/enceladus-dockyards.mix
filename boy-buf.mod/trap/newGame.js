@@ -1,5 +1,4 @@
 function newGame() {
-
     const playerA = lab.spawn(dna.Player, {
         name: 'playerA',
         title: 'Player A',

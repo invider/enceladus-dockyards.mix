@@ -2,6 +2,8 @@ const Z = 22
 let timeout = 0
 
 function evo(dt) {
+    if (this.hidden || this.state > 0) return
+
     if (timeout > 0) {
         timeout -= dt
         if (timeout < 0) this.fadeOut()
@@ -35,7 +37,7 @@ function fadeOut() {
         hold: .5,
         onFadeOut: function() {
             activeScreen.hide()
-            trap('title') // TODO retarget to main menu
+            trap('title')
         },
         fadeout: 2,
     })

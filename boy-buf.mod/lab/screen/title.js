@@ -25,7 +25,7 @@ function fadeOut() {
         hold: .5,
         onFadeOut: function() {
             activeScreen.hide()
-            trap('menu') // TODO retarget to main menu
+            trap('menu')
         },
         fadeout: 2,
     })
@@ -36,7 +36,7 @@ function draw() {
     baseMiddle()
     fill(env.style.color.c3)
     font(env.style.titleFont)
-    text('Enceladus Dockyards', rx(.5), ry(.5))
+    text(env.msg.gameTitle, rx(.5), ry(.5))
 
     alignRight()
     baseBottom()

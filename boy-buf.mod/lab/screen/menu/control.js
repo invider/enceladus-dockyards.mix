@@ -2,11 +2,12 @@ const items = [
     'new game',
     'player A',
     ['human', 'AI'],
+    ['$1000', '$1200', '$1600', '$2000', '$400', '$600', '$800'],
     'player B',
     ['AI', 'human'],
-    'budget',
-    [1000, 1200, 1600, 2000, 400, 600, 800],
+    ['$1000', '$1200', '$1600', '$2000', '$400', '$600', '$800'],
 ]
+
 
 function onSelect(item) {
     if (item === items[0]) {
@@ -19,13 +20,15 @@ function onSwitch(item) {
 }
 
 function setup() {
+    const W = 100
+    const B = floor((ctx.width-W)/2)
     const menu = this.__.spawn(dna.hud.PopupMenu, {
         Z: 1,
         name: 'menu',
-        x: 0,
-        y: 0,
-        w: ctx.width,
-        h: ctx.height,
+        x: B,
+        y: 30,
+        w: W,
+        h: ctx.height-30,
         background: false,
     })
     this.menu = menu
