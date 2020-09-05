@@ -1,8 +1,8 @@
 const rechargeModes = [
     'all',
     'weapons',
-    'non-weapons',
-    'mass driver',
+    'systems',
+    'm-drivers',
     'lasers',
     'shields',
     'jammers',

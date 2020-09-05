@@ -43,7 +43,7 @@ class reactor extends dna.Pod {
                     || pod.tag === 'driver'
                 ))
                 break
-            case 'non-weapons':
+            case 'systems':
                 output = floor(output/2)
                 output += this.doRecharge(output, (pod) => (
                     pod.tag !== 'laser'
@@ -51,7 +51,7 @@ class reactor extends dna.Pod {
                     && pod.tag !== 'driver'
                 ))
                 break
-            case 'mass drivers':
+            case 'm-drivers':
                 output = floor(output/2)
                 output += this.doRecharge(output, (pod) => pod.tag === 'driver')
                 break
@@ -71,6 +71,11 @@ class reactor extends dna.Pod {
                 output = floor(output/2)
                 output += this.doRecharge(output, (pod) => pod.tag === 'repair')
                 break
+            case 'all':
+                // do nothing
+                break
+            default:
+                throw 'unknown charge mode!'
         }
         // recharge other systems
         const leftover = this.doRecharge(output)
