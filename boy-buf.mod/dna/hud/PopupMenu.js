@@ -16,8 +16,6 @@ class PopupMenu {
         this.bacolor = env.style.color.c3
         augment(this, df)
         augment(this, st)
-
-        this.items = ['one', 'two', 'three']
     }
 
     show() {
@@ -30,10 +28,16 @@ class PopupMenu {
         lab.control.player.unbindAll(this)
     }
 
-    selectFrom(items, onSelect) {
+    selectFrom(items, onSelect, onSwitch) {
         this.current = 0
         this.items = items
+        items.forEach(item => {
+            if (isArray(item)) {
+                item.current = 0
+            }
+        })
         this.onSelect = onSelect
+        this.onSwitch = onSwitch
         this.show()
     }
 
@@ -48,9 +52,21 @@ class PopupMenu {
     }
 
     left() {
+        const item = this.currentItem()
+        if (isArray(item)) {
+            item.current --
+            if (item.current < 0) item.current = item.length - 1
+            if (this.onSwitch) this.onSwitch(item)
+        }
     }
 
     right() {
+        const item = this.currentItem()
+        if (isArray(item)) {
+            item.current ++
+            if (item.current >= item.length) item.current = 0
+            if (this.onSwitch) this.onSwitch(item)
+        }
     }
 
     select() {
@@ -62,7 +78,9 @@ class PopupMenu {
     activate(action) {
         switch(action) {
             case 1: this.prev(); break;
+            case 2: this.left(); break;
             case 3: this.next(); break;
+            case 4: this.right(); break;
             case 5: this.select(); break;
         }
     }
@@ -87,7 +105,10 @@ class PopupMenu {
         rect(rx-4, y-6, rw+8, h+8)
 
         for (let i = 0; i < n; i++) {
-            const item = this.items[i]
+            let item = this.items[i]
+            if (isArray(item)) {
+                item = '< ' + item[item.current] + ' >'
+            }
 
             // backline
             if (i === this.current) fill(this.bacolor)

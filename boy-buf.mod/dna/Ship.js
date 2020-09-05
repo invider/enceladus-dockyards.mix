@@ -136,4 +136,8 @@ class Ship {
         if (pod) log('killed ' + pod.name)
     }
 
+    setRechargePriority(mode) {
+        if (!mode) return
+        this.rechargePriority = mode
+    }
 }

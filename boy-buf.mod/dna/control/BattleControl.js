@@ -1,3 +1,14 @@
+const rechargeModes = [
+    'all',
+    'weapons',
+    'non-weapons',
+    'mass driver',
+    'lasers',
+    'shields',
+    'jammers',
+    'repairs',
+]
+
 class BattleControl {
 
     constructor(st) {
@@ -24,21 +35,31 @@ class BattleControl {
         const target = this.shipB
         const control = this
         const actions = this.shipA.actionsAvailable()
+        actions.push(rechargeModes)
         actions.push('skip')
         actions.push('yield')
-        this.leftMenu.selectFrom(actions, function(selected) {
-            this.hide()
-            
-            if (selected === 'yield') {
-                control.finishBattle()
-            } else if (selected === 'skip') {
-                // do nothing
-            } else {
-                source.takeAction(selected, target)
-            }
+        this.leftMenu.selectFrom(actions,
+            function(selected) {
+                if (isArray(selected)) {
+                    this.right()
+                    return
+                }
+                this.hide()
+                
+                if (selected === 'yield') {
+                    control.finishBattle()
+                } else if (selected === 'skip') {
+                    // do nothing
+                } else {
+                    source.takeAction(selected, target)
+                }
 
-            setTimeout(() => { control.turnB() }, 1000)
-        })
+                setTimeout(() => { control.turnB() }, 1000)
+            },
+            function(switched) {
+                source.setRechargePriority(switched[switched.current])
+            }
+        )
     }
 
     turnB() {
@@ -46,20 +67,26 @@ class BattleControl {
         const target = this.shipA
         const control = this
         const actions = this.shipB.actionsAvailable()
+        actions.push(rechargeModes)
         actions.push('skip')
         actions.push('yield')
-        this.rightMenu.selectFrom(actions, function(selected) {
-            this.hide()
+        this.rightMenu.selectFrom(actions,
+            function(selected) {
+                this.hide()
 
-            if (selected === 'yield') {
-                control.finishBattle()
-            } else if (selected === 'skip') {
-                // do nothing
-            } else {
-                source.takeAction(selected, target)
+                if (selected === 'yield') {
+                    control.finishBattle()
+                } else if (selected === 'skip') {
+                    // do nothing
+                } else {
+                    source.takeAction(selected, target)
+                }
+                setTimeout(() => { control.nextTurn() }, 1000)
+            },
+            function(switched) {
+                source.setRechargePriority(switched[switched.current])
             }
-            setTimeout(() => { control.nextTurn() }, 1000)
-        })
+        )
     }
 
     nextTurn() {
