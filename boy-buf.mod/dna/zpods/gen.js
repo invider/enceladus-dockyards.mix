@@ -1,6 +1,7 @@
 const df = {
     name: 'gen',
     title: 'Shield Gen',
+    tag: 'shield',
     system: true,
     cost: 75,
     hits: 20,

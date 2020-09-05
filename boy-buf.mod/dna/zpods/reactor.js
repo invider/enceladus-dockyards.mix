@@ -15,20 +15,66 @@ class reactor extends dna.Pod {
         this.df = df
     }
 
-    turn() {
-        let out = floor(this.output * (this.hits/this.df.hits))
-        log('recharging for E' + out)
-
+    doRecharge(input, filter) {
+        const ship = this.ship
         this.ship.forEachPod((pod) => {
-            if (out > 0) {
-                const consumed = pod.recharge(out)
+            if (filter && !filter(pod)) return
+            if (input > 0) {
+                const consumed = pod.recharge(input)
                 if (consumed > 0) {
-                    out -= consumed
-                    log('consumed ' + consumed)
+                    input -= consumed
+                    log(ship.name + '/' + pod.name + ' consumed ' + consumed)
                 }
             }
         })
+        return input
+    }
 
-        if (out > 0) log('energy surplus: ' + out)
+    turn() {
+        let output = floor(this.output * (this.hits/this.df.hits))
+        log('recharging for E' + output)
+
+        switch(this.ship.rechargePriority) {
+            case 'weapons':
+                output = floor(output/2)
+                output += this.doRecharge(output, (pod) => (
+                    pod.tag === 'laser'
+                    || pod.tag === 'missile'
+                    || pod.tag === 'driver'
+                ))
+                break
+            case 'non-weapons':
+                output = floor(output/2)
+                output += this.doRecharge(output, (pod) => (
+                    pod.tag !== 'laser'
+                    && pod.tag !== 'missile'
+                    && pod.tag !== 'driver'
+                ))
+                break
+            case 'mass drivers':
+                output = floor(output/2)
+                output += this.doRecharge(output, (pod) => pod.tag === 'driver')
+                break
+            case 'lasers':
+                output = floor(output/2)
+                output += this.doRecharge(output, (pod) => pod.tag === 'laser')
+                break
+            case 'shields':
+                output = floor(output/2)
+                output += this.doRecharge(output, (pod) => pod.tag === 'shield')
+                break
+            case 'jammers':
+                output = floor(output/2)
+                output += this.doRecharge(output, (pod) => pod.tag === 'jammer')
+                break
+            case 'repairs':
+                output = floor(output/2)
+                output += this.doRecharge(output, (pod) => pod.tag === 'repair')
+                break
+        }
+        // recharge other systems
+        const leftover = this.doRecharge(output)
+
+        if (leftover > 0) log('energy surplus: ' + leftover)
     }
 }

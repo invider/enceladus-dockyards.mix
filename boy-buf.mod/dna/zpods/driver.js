@@ -1,6 +1,7 @@
 const df = {
     name: 'driver',
     title: 'Mass Driver',
+    tag: 'driver',
     system: true,
     cost: 100,
     hits: 50,

@@ -1,6 +1,7 @@
 const df = {
     name: 'jammer',
     title: 'ECM Jammer',
+    tag: 'jammer',
     system: true,
     cost: 100,
     charge: 35,

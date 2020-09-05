@@ -19,7 +19,7 @@ module.exports = function() {
     })
 
     // debug config
-    if (_$.env.config.newGame) {
+    if (_$.env.config.newgame) {
         _.trap.attach(function start() {
             log('hyperjump to newgame')
             trap('newGame')

@@ -1,6 +1,7 @@
 const df = {
     name: 'missile',
     title: 'Missile Mk1',
+    tag: 'missile',
     system: true,
     cost: 30,
     hits: 10,
