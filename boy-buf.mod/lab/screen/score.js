@@ -33,13 +33,13 @@ function fadeOut() {
     lab.control.player.unbindAll(this)
     const activeScreen = this
     lab.vfx.transit({
-        fadein: 1,
+        fadein: env.style.fadeIn,
         hold: .5,
         onFadeOut: function() {
             activeScreen.hide()
             trap('title')
         },
-        fadeout: 2,
+        fadeout: env.style.fadeOut,
     })
 }
 

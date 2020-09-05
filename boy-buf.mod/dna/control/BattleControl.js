@@ -24,6 +24,8 @@ class BattleControl {
         this.right.setBlueprint(shipB)
         this.leftPanel.monitor(shipA)
         this.rightPanel.monitor(shipB)
+        this.leftMenu.hide()
+        this.rightMenu.hide()
 
         shipA.chargeForBattle()
         shipB.chargeForBattle()
@@ -105,13 +107,13 @@ class BattleControl {
         const activeScreen = this.__
         lab.control.player.unbindAll()
         lab.vfx.transit({
-            fadein: 1,
+            fadein: env.style.fadeIn,
             keep: .5,
             onFadeOut: function() {
                 activeScreen.hide()
                 trap('score')
             },
-            fadeout: 2,
+            fadeout: env.style.fadeOut,
         })
     }
 }

@@ -5,6 +5,9 @@ const style = {
     titleTimeout: 4,
     scoreTimeout: 10,
 
+    fadeIn: .5,
+    fadeOut: 1,
+
     cellSize: 14,
 
     color: {
