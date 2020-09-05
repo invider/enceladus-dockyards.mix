@@ -15,10 +15,6 @@ function onSelect(item) {
     }
 }
 
-function onSwitch(item) {
-    log('#' + this.current + ' switch to ' + item[item.current])
-}
-
 function setup() {
     const W = 70
     const B = floor((ctx.width-W)/2)
@@ -37,7 +33,7 @@ function setup() {
         show: function() {
             this.hidden = false
             this.control.state = 0
-            this.menu.selectFrom(items, onSelect, onSwitch)
+            this.menu.selectFrom(items, onSelect)
             //lab.control.player.bindAll(menu)
         },
         hide: function() {
@@ -51,8 +47,18 @@ function setup() {
 function newGame() {
     if (this.state) return
     this.state = 1
-
     lab.control.player.unbindAll(this.menu)
+
+    const gameConfig = {
+        playerA: {
+            human: this.menu.selectedValue(2) === 'human',
+            budget: parseInt(this.menu.selectedValue(3).substring(1)),
+        },
+        playerB: {
+            human: this.menu.selectedValue(5) === 'human',
+            budget: parseInt(this.menu.selectedValue(6).substring(1)),
+        },
+    }
 
     const activeScreen = this.__
     lab.vfx.transit({
@@ -60,7 +66,7 @@ function newGame() {
         hold: .5,
         onFadeOut: function() {
             activeScreen.hide()
-            trap('newGame')
+            trap('newGame', gameConfig)
         },
         fadeOut: env.style.fadeOut,
     })

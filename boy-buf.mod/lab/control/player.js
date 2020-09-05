@@ -8,9 +8,7 @@ const ctrl = []
 const targetMap = []
 
 function bindAll(target) {
-    const playerId = 0
-    target.playerId = playerId + 1
-
+    target.playerId = 1
     for (let i = 0; i < MAX_PLAYERS; i++) {
         targetMap[i] = target
         if (!ctrl[i]) ctrl[i] = []
@@ -18,11 +16,13 @@ function bindAll(target) {
 }
 
 function unbindAll(target) {
-    targetMap[0] = false
     if (target) target.playerId = 0
-
     for (let i = 0; i < MAX_PLAYERS; i++) {
-        targetMap[i] = false
+        const target = targetMap[i]
+        if (target) {
+            target.playerId = 0
+            targetMap[i] = false
+        }
     }
 }
 
