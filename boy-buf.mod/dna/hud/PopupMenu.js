@@ -104,8 +104,10 @@ class PopupMenu {
         const h = n * this.step
         let y = cy - floor(h/2)
 
-        fill(this.background)
-        rect(rx-4, y-6, rw+8, h+8)
+        if (this.background) {
+            fill(this.background)
+            rect(rx-4, y-6, rw+8, h+8)
+        }
 
         for (let i = 0; i < n; i++) {
             let item = this.items[i]
