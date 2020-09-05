@@ -4,11 +4,11 @@ function init() {
 
 function transit(st) {
     this.onFadeIn = st.onFadeIn || null
-    this.fadein = st.fadein || 0
+    this.fadeIn = st.fadeIn || 0
     this.onKeep = st.onKeep || null
     this.keep = st.keep || 0
     this.onFadeOut = st.onFadeOut || null
-    this.fadeout = st.fadeout || 0
+    this.fadeOut = st.fadeOut || 0
     this.onComplete = st.onComplete || null
     this.background = st.background || env.style.color.c0
 
@@ -20,9 +20,9 @@ function transit(st) {
 function evo(dt) {
     switch(this.state) {
         case 1:
-            this.fadein -= dt
+            this.fadeIn -= dt
             this.alpha = min(this.alpha + this.tspeed*dt, 1)
-            if (this.fadein < 0) {
+            if (this.fadeIn < 0) {
                 this.state = 2
                 this.alpha = 1
                 if (this.onKeep) this.onKeep()
@@ -33,15 +33,15 @@ function evo(dt) {
             this.keep -= dt
             if (this.keep < 0) {
                 this.state = 3
-                this.tspeed = 1/this.fadeout
+                this.tspeed = 1/this.fadeOut
                 if (this.onFadeOut) this.onFadeOut()
             }
             break
 
         case 3:
-            this.fadeout -= dt
+            this.fadeOut -= dt
             this.alpha = max(this.alpha - this.tspeed*dt, 0)
-            if (this.fadeout < 0) {
+            if (this.fadeOut < 0) {
                 this.state = 4
                 if (this.onComplete) this.onComplete()
             }

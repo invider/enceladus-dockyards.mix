@@ -107,13 +107,13 @@ class BattleControl {
         const activeScreen = this.__
         lab.control.player.unbindAll()
         lab.vfx.transit({
-            fadein: env.style.fadeIn,
+            fadeIn: env.style.fadeIn,
             keep: .5,
             onFadeOut: function() {
                 activeScreen.hide()
                 trap('score')
             },
-            fadeout: env.style.fadeOut,
+            fadeOut: env.style.fadeOut,
         })
     }
 }

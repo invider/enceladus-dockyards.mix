@@ -56,12 +56,12 @@ function newGame() {
 
     const activeScreen = this.__
     lab.vfx.transit({
-        fadein: env.style.fadeIn,
+        fadeIn: env.style.fadeIn,
         hold: .5,
         onFadeOut: function() {
             activeScreen.hide()
             trap('newGame')
         },
-        fadeout: env.style.fadeOut,
+        fadeOut: env.style.fadeOut,
     })
 }

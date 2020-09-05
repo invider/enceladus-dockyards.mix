@@ -69,7 +69,7 @@ class LayoutControl {
         const player = this.player
         const blueprint = this.currentBlueprint()
         lab.vfx.transit({
-            fadein: env.style.fadeIn,
+            fadeIn: env.style.fadeIn,
             hold: .5,
             onFadeOut: function() {
                 lab.screen.layout.hide()
@@ -78,7 +78,7 @@ class LayoutControl {
                     blueprint: blueprint,
                 })
             },
-            fadeout: env.style.fadeOut,
+            fadeOut: env.style.fadeOut,
         })
     }
 

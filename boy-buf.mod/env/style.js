@@ -2,6 +2,7 @@ const style = {
     font: '8px retro',
     titleFont: '8px gameboy',
 
+    holdBeforeStart: 2.5,
     titleTimeout: 4,
     scoreTimeout: 10,
 

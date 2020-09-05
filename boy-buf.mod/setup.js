@@ -1,4 +1,5 @@
 module.exports = function() {
+    lib.debug.configure()
     _$.boy = _ // mix shortcut
 
     lib.pods.populate()
@@ -8,21 +9,14 @@ module.exports = function() {
 
     lab.screen.hideAll()
 
+    log('holding for ' + env.style.holdBeforeStart)
     lab.vfx.transit({
-        fadein: 0,
-        keep: 2.5,
+        fadeIn: 0,
+        keep: env.style.holdBeforeStart,
         onFadeOut: function() {
             lab.screen.show()
             trap('start')
         },
-        fadeout: 2,
+        fadeOut: env.style.fadeOut,
     })
-
-    // debug config
-    if (_$.env.config.newgame) {
-        _.trap.attach(function start() {
-            log('hyperjump to newgame')
-            trap('newGame')
-        })
-    }
 }

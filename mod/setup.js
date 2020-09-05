@@ -3,7 +3,7 @@ function setup() {
 
     lab.spawn(_$.dna.hud.Transition, {
         fadein: 0,
-        keep: .5,
-        fadeout: 1.5,
+        keep: env.tune.fadeKeep,
+        fadeout: env.tune.fadeOut,
     })
 }

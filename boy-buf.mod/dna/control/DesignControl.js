@@ -79,7 +79,7 @@ class DesignControl {
         const control = this
         const activeScreen = this.__
         lab.vfx.transit({
-            fadein: env.style.fadeIn,
+            fadeIn: env.style.fadeIn,
             keep: .5,
             onFadeOut: function() {
                 control.unbindAll()
@@ -89,7 +89,7 @@ class DesignControl {
                     shipB: shipB,
                 })
             },
-            fadeout: env.style.fadeOut,
+            fadeOut: env.style.fadeOut,
         })
     }
 
