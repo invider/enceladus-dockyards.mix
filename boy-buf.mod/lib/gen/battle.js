@@ -10,7 +10,7 @@ function battle() {
     const left = battle.spawn(dna.hud.ShipGrid, {
         Z: 11,
         name: 'left',
-        x: 3,
+        x: 6,
         y: 12,
     })
 
@@ -37,7 +37,7 @@ function battle() {
     const right = battle.spawn(dna.hud.ShipGrid, {
         Z: 11,
         name: 'right',
-        x: 86,
+        x: 83,
         y: 12,
         layout: dna.spec.layout.whale,
     })

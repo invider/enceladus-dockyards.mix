@@ -10,9 +10,7 @@ class ShipGrid {
         augment(this, st)
         if (!this.blueprint) {
             // create a default blueprint
-            this.blueprint = new dna.Blueprint({
-                layout: dna.spec.layout.basic,
-            })
+            this.blueprint = new dna.Blueprint()
         }
         this.target = {
             x: 2,

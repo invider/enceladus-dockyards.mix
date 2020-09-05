@@ -6,7 +6,7 @@ class Blueprint {
 
     constructor(st) {
         augment(this, st)
-        if (!this.layout) this.layout = dna.spec.layout.basic
+        if (!this.layout) this.layout = dna.spec.layout.nova
         if (!this.grid) this.fillGrid()
         if (!this.name) this.name = this.layout.name
         if (!this.cost) this.cost = this.layout.cost
