@@ -21,6 +21,9 @@ function battle() {
         y: 10,
         w: 60,
         h: 100,
+        alt: function() {
+            this.hidden = !this.hidden
+        }
     })
 
     const right = battle.spawn(dna.hud.ShipGrid, {
@@ -38,6 +41,9 @@ function battle() {
         y: 10,
         w: 60,
         h: 100,
+        alt: function() {
+            this.hidden = !this.hidden
+        }
     })
 
     battle.spawn(dna.control.BattleControl, {

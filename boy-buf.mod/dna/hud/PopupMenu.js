@@ -33,7 +33,7 @@ class PopupMenu {
         this.items = items
         items.forEach(item => {
             if (isArray(item)) {
-                item.current = 0
+                if (!item.current) item.current = 0
             }
         })
         this.onSelect = onSelect
@@ -75,6 +75,8 @@ class PopupMenu {
         }
     }
 
+    alt() {}
+
     activate(action) {
         switch(action) {
             case 1: this.prev(); break;
@@ -82,6 +84,7 @@ class PopupMenu {
             case 3: this.next(); break;
             case 4: this.right(); break;
             case 5: this.select(); break;
+            case 6: this.alt(); break;
         }
     }
 
