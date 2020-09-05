@@ -1,3 +1,5 @@
+const MAX_PLAYERS = 8
+
 const ON = 1
 const OFF = 0
 
@@ -9,13 +11,19 @@ function bindAll(target) {
     const playerId = 0
     target.playerId = playerId + 1
 
-    targetMap[playerId] = target
-    if (!ctrl[playerId]) ctrl[playerId] = []
+    for (let i = 0; i < MAX_PLAYERS; i++) {
+        targetMap[i] = target
+        if (!ctrl[i]) ctrl[i] = []
+    }
 }
 
 function unbindAll(target) {
     targetMap[0] = false
     if (target) target.playerId = 0
+
+    for (let i = 0; i < MAX_PLAYERS; i++) {
+        targetMap[i] = false
+    }
 }
 
 function release(playerId) {
@@ -33,14 +41,12 @@ function releaseAll() {
 }
 
 function target(playerId) {
-    //if (!playerId) playerId = 0
-    playerId = 0
+    if (!playerId) playerId = 0
     return targetMap[playerId]
 }
 
 function act(action, playerId) {
-    //if (!playerId) playerId = 0
-    playerId = 0
+    if (!playerId) playerId = 0
     if (action === 6) action = 4 // map X to A
     if (action === 7) action = 5 // map Y to B
 
@@ -60,8 +66,7 @@ function act(action, playerId) {
 }
 
 function stop(action, playerId) {
-    //if (!playerId) playerId = 0
-    playerId = 0
+    if (!playerId) playerId = 0
     if (action === 6) action = 4 // map X to A
     if (action === 7) action = 5 // map Y to B
 
@@ -71,6 +76,9 @@ function stop(action, playerId) {
             if (target && target.deactivate) {
                 target.deactivate(action + 1)
             }
+        }
+        if (action === 4) {
+            //console.log('deactivating #' + playerId + ':' + action)
         }
         ctrl[playerId][action] = OFF
     }
