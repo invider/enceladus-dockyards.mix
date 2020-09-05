@@ -15,9 +15,4 @@ class gen extends dna.Pod {
         augment(this, df)
         this.df = df
     }
-
-    init() {
-        this.charge = this.df.charge
-        log('charging shields in ' + this.ship.name)
-    }
 }

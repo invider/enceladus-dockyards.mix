@@ -12,6 +12,12 @@ class Pod {
         augment(this, st)
     }
 
+    init() {
+        this.hits = this.df.hits
+        if (this.df.charge) this.charge = this.df.charge
+        if (this.df.shots) this.shots = this.df.shots
+    }
+
     activate() {}
 
     turn() {}

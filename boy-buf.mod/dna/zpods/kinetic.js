@@ -11,5 +11,6 @@ class kinetic extends dna.Pod {
     constructor(st) {
         super(st)
         augment(this, df)
+        this.df = df
     }
 }

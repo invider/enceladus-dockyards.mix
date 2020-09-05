@@ -18,10 +18,6 @@ class driver extends dna.Pod {
         this.df = df
     }
 
-    init() {
-        this.charge = this.df.charge
-    }
-
     triggerOn() {
         if (this.dead) return
         if (this.hits > this.df.hits * this.df.effective

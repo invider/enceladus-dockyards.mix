@@ -17,10 +17,6 @@ class laser extends dna.Pod {
         this.df = df
     }
 
-    init() {
-        this.charge = this.df.charge
-    }
-
     isReady() {
         return (!this.dead && this.charge === this.df.charge)
     }

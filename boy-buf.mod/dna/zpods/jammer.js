@@ -4,6 +4,7 @@ const df = {
     tag: 'jammer',
     system: true,
     cost: 100,
+    hits: 25,
     charge: 35,
 }
 
@@ -13,9 +14,5 @@ class jammer extends dna.Pod {
         super(st)
         augment(this, df)
         this.df = df
-    }
-
-    init() {
-        this.charge = this.df.charge
     }
 }

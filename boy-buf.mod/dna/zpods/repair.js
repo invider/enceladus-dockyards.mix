@@ -15,10 +15,6 @@ class repair extends dna.Pod {
         this.df = df
     }
 
-    init() {
-        this.charge = this.df.charge
-    }
-
     turn() {
         // TODO find a random damaged element
         //      and fix to the max charge
