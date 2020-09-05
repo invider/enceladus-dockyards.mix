@@ -209,4 +209,15 @@ class Ship {
         })
         return charge
     }
+
+    activeSystems() {
+        let systems = 0
+        this.pods.forEach(pod => {
+            if (pod.system) {
+                const disableHits = floor(pod.df.hits * env.tune.disableHits)
+                if (pod.hits > disableHits) systems ++
+            }
+        })
+        return systems
+    }
 }
