@@ -53,6 +53,8 @@ class BattleControl {
                 this.hide()
                 
                 if (selected === 'yield') {
+                    source.status = 'yield'
+                    target.status = 'win'
                     control.finishBattle()
                     return
                 } else if (selected === 'skip') {
@@ -61,7 +63,9 @@ class BattleControl {
                     source.takeAction(selected, target)
                 }
 
-                setTimeout(() => { control.turnB() }, 1000)
+                if (!control.endCondition()) {
+                    setTimeout(() => { control.turnB() }, 1000)
+                }
             },
             function(switched) {
                 source.setRechargePriority(switched[switched.current])
@@ -84,6 +88,8 @@ class BattleControl {
                 this.hide()
 
                 if (selected === 'yield') {
+                    source.status = 'yield'
+                    target.status = 'win'
                     control.finishBattle()
                     return
                 } else if (selected === 'skip') {
@@ -91,12 +97,22 @@ class BattleControl {
                 } else {
                     source.takeAction(selected, target)
                 }
-                setTimeout(() => { control.nextTurn() }, 1000)
+                if (!control.endCondition()) {
+                    setTimeout(() => { control.nextTurn() }, 1000)
+                }
             },
             function(switched) {
                 source.setRechargePriority(switched[switched.current])
             }
         )
+    }
+
+    endCondition() {
+        const a = this.shipA.activeSystems()
+        const b = this.shipB.activeSystems()
+        if (a === 0 || b === 0) {
+            control.finishBattle()
+        }
     }
 
     nextTurn() {
@@ -106,16 +122,39 @@ class BattleControl {
         this.turnA()
     }
 
+    determineWinner() {
+        const A = this.shipA
+        const B = this.shipB
+        const a = A.activeSystems()
+        const b = B.activeSystems()
+        const ah = A.systemHits()
+        const bh = B.systemHits()
+
+        if (a < 0) this.shipA.status = 'destroyed'
+        if (b < 0) this.shipB.status = 'destroyed'
+
+        if (A.status === 'destroyed' && !B.status) B.status = 'win'
+        if (B.status === 'destroyed' && !A.status) A.status = 'win'
+
+        const res = {
+            shipA: this.shipA,
+            shipB: this.shipB,
+        }
+        return res
+    }
+
     finishBattle() {
         const activeScreen = this.__
         lab.control.player.unbindAll()
+
+        const scoreData = this.determineWinner()
 
         lab.vfx.transit({
             fadeIn: env.style.fadeIn,
             keep: .5,
             onFadeOut: function() {
                 activeScreen.hide()
-                trap('score')
+                trap('score', scoreData)
             },
             fadeOut: env.style.fadeOut,
         })

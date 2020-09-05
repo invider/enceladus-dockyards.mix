@@ -171,5 +171,4 @@ class PopupMenu {
             return item[item.current]
         }
     }
-
 }
