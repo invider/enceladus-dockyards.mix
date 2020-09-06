@@ -5,10 +5,10 @@ class LayoutControl {
         augment(this, st)
     }
 
-    compileBlueprints() {
+    compileBlueprints(player) {
         const readyBlueprints = []
         const blueprints = []
-        const budget = this.player.balance
+        const budget = player.balance
 
         // create a blueprint for each layout available
         dna.spec.layout._ls.forEach(layout => {
@@ -42,7 +42,7 @@ class LayoutControl {
     selectFor(player) {
         this.player = player
         this.state = 0
-        this.compileBlueprints()
+        this.compileBlueprints(player)
 
         if (player.human) {
             this.__.playerData.setPlayer(player)
@@ -53,10 +53,18 @@ class LayoutControl {
         }
     }
 
+    autoConstruct(player) {
+        this.compileBlueprints(player)
+        const blueprint = _.bot.selectBlueprint(player, this.readyBlueprints)
+        player.blueprint = blueprint
+        log('bot selected a blueprint ' + blueprint.name + ' for ' + player.name)
+        lab.screen.design.control.constructShip(player, blueprint)
+    }
+
     selectForBot(player) {
         const blueprint = _.bot.selectBlueprint(player, this.readyBlueprints)
         player.blueprint = blueprint
-        log('bot selected a blueprint ' + blueprint.name)
+        log('bot selected a blueprint ' + blueprint.name + ' for ' + player.name)
         lab.screen.design.control.constructShip(player, blueprint)
         
         const control = this
