@@ -1,8 +1,8 @@
 
 # collider.jam
 .meta.cache
-out
 dist
+*.out
 *.tar
 *.tgz
 *.zip
