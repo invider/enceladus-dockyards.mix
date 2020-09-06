@@ -39,6 +39,14 @@ class Ship {
         })
     }
 
+    podsOf(kind) {
+        let i = 0
+        this.pods.forEach(pod => {
+            if (pod.kind === kind) i++
+        })
+        return i
+    }
+
     mountPod(pod, x, y) {
         pod.x = x
         pod.y = y
@@ -49,7 +57,7 @@ class Ship {
         // set serial, provide kind and rename
         pod.id = this.pods.length
         pod.kind = pod.name
-        pod.name += ' #' + pod.id
+        pod.name += ' #' + (this.podsOf(pod.kind) + 1)
     }
 
     killPod(pod) {
