@@ -3,6 +3,7 @@ const df = {
     title: 'Repair Bot',
     tag: 'repair',
     system: true,
+    hits: 40,
     cost: 60,
     charge: 30,
 }
