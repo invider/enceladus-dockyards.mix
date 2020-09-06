@@ -15,7 +15,9 @@ class BattleControl {
         augment(this, st)
     }
 
-    startBattle(shipA, shipB) {
+    startBattle(playerA, playerB) {
+        const shipA = playerA.ship
+        const shipB = playerB.ship
         this.turn = 1
         this.subturn = 0
         this.shipA = shipA

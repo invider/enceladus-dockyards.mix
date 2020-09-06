@@ -65,20 +65,30 @@ class DesignControl {
         }
     }
 
+    finalizeBlueprint(blueprint) {
+        blueprint.hits = blueprint.estimateHits((podName) => {
+            return lib.pods.podHits(podName)
+        })
+    }
+
+    constructShip(player, blueprint) {
+        const ship = new dna.Ship(blueprint)
+        ship.player = player
+        player.ship = ship
+        return ship
+    }
+
     build() {
         if (this.state > 0) return
         this.state = 1
 
-        this.blueprint.hits = this.blueprint.estimateHits((podName) => {
-            return lib.pods.podHits(podName)
-        })
+        this.finalizeBlueprint(this.blueprint)
+        const ship = this.constructShip(this.player, this.blueprint)
 
-        const ship = new dna.Ship(this.blueprint)
-        ship.player = this.player
         // TODO create shipB in the second flow
-        const shipB = new dna.Ship(this.blueprint)
-        shipB.player = lab.playerB
+        const shipB = this.constructShip(lab.playerB, this.blueprint)
 
+        const player = ship.player
         const control = this
         const activeScreen = this.__
         lab.vfx.transit({
@@ -87,10 +97,14 @@ class DesignControl {
             onFadeOut: function() {
                 control.unbindAll()
                 activeScreen.hide()
-                trap('battle', {
-                    shipA: ship,
-                    shipB: shipB,
-                })
+
+                if (player.next) {
+                    // construction for next player
+                    trap('layout', player.next)
+                } else {
+                    // ships are ready, prep for the battle!
+                    trap('battle', player)
+                }
             },
             fadeOut: env.style.fadeOut,
         })

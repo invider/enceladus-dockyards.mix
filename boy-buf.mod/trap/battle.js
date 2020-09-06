@@ -1,4 +1,7 @@
-function battle(st) {
+function battle(lastPlayer) {
     lab.screen.battle.show()
-    lab.screen.battle.control.startBattle(st.shipA, st.shipB)
+
+    const playerA = lastPlayer.prev
+    const playerB = lastPlayer
+    lab.screen.battle.control.startBattle(playerA, playerB)
 }
