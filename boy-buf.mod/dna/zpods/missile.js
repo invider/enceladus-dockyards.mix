@@ -27,6 +27,6 @@ class missile extends dna.Pod {
         this.fired = true
         this.state = 'fired at ' + x + ':' + y
             + ' @' + lab.screen.battle.control.turn
-        this.ship.removePod(this)
+        this.ship.killPod(this)
     }
 }

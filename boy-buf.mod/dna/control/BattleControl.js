@@ -114,8 +114,10 @@ class BattleControl {
         const a = this.shipA.activeSystems()
         const b = this.shipB.activeSystems()
         if (a === 0 || b === 0) {
-            control.finishBattle()
+            this.finishBattle()
+            return true
         }
+        return false
     }
 
     nextTurn() {
@@ -133,8 +135,8 @@ class BattleControl {
         const ah = A.systemHits()
         const bh = B.systemHits()
 
-        if (a < 0) this.shipA.status = 'destroyed'
-        if (b < 0) this.shipB.status = 'destroyed'
+        if (a === 0) this.shipA.status = 'destroyed'
+        if (b === 0) this.shipB.status = 'destroyed'
 
         if (A.status === 'destroyed' && !B.status) B.status = 'win'
         if (B.status === 'destroyed' && !A.status) A.status = 'win'
