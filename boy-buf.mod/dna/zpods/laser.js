@@ -1,15 +1,17 @@
 const df = {
     name: 'laser',
     title: 'Laser Mk1',
+    action: 'lasers',
     tag: 'laser',
     system: true,
-    hits: 25,
     cost: 50,
+    hits: 25,
+    effective: .2,
     charge: 10,
     attack: 10,
 }
 
-class laser extends dna.Pod {
+class laser extends dna.WeaponPod {
 
     constructor(st) {
         super(st)
@@ -17,15 +19,8 @@ class laser extends dna.Pod {
         this.df = df
     }
 
-    isReady() {
-        return (!this.dead && this.charge === this.df.charge)
-    }
-
-    triggerOn() {
-        // lasers MUST be fully charged to fire
-        if (this.isReady()) {
-            return 'Lasers'
-        }
+    triggersOn(action) {
+        return (this.isReady() && action === 'Lasers')
     }
 
     activate(target, x, y) {

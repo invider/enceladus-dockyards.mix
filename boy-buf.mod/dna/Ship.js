@@ -94,18 +94,37 @@ class Ship {
     actionsAvailable() {
         const actions = {}
         this.pods.forEach(pod => {
-            if (pod.triggerOn) {
-                const trigger = pod.triggerOn()
-                if (trigger) {
-                    actions[trigger] = true
+            if (pod.reactsOn) {
+                const action = pod.reactsOn()
+                if (action) {
+                    actions[action] = true
                 }
             }
         })
         return Object.keys(actions)
     }
 
+    takePodAction(pod, target) {
+        if (pod.activate) {
+            log(`activating ${pod.name} against ${target.name}`)
+            const cell = this.autoTarget(target)
+            pod.activate(target, cell.x, cell.y)
+        } else {
+            log("can't activate " + pod.name)
+        }
+    }
+
     takeAction(action, target) {
-        let actionPod
+        const pods = this.pods.filter(pod => pod.triggersOn && pod.triggersOn(action))
+
+        if (pods.length === 0) {
+            log('no pods to take action [' + action + ']')
+        } else {
+            const pod = _$.lib.math.rnde(pods)
+            log('selected ' + pod.name)
+            this.takePodAction(pod, target)
+        }
+        /*
         this.pods.forEach(pod => {
             if (pod.triggerOn) {
                 const trigger = pod.triggerOn()
@@ -114,16 +133,8 @@ class Ship {
                 }
             }
         })
+        */
 
-        if (actionPod) {
-            //log('taking action by ' + actionPod.title)
-            if (actionPod.activate) {
-                const cell = this.autoTarget(target)
-                actionPod.activate(target, cell.x, cell.y)
-            } else {
-                log("can't activate " + actionPod.name)
-            }
-        }
     }
 
     autoTarget(target, goal) {
@@ -145,6 +156,9 @@ class Ship {
         } else {
             log.out('missed')
         }
+    }
+
+    incoming(weapon, target) {
     }
 
     setRechargePriority(mode) {

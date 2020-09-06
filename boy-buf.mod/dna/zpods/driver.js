@@ -2,6 +2,7 @@ const df = {
     name: 'driver',
     title: 'Mass Driver',
     tag: 'driver',
+    action: 'mass driver',
     system: true,
     cost: 100,
     hits: 50,
@@ -10,7 +11,7 @@ const df = {
     attack: 70,
 }
 
-class driver extends dna.Pod {
+class driver extends dna.WeaponPod {
 
     constructor(st) {
         super(st)
@@ -18,13 +19,6 @@ class driver extends dna.Pod {
         this.df = df
     }
 
-    triggerOn() {
-        if (this.dead) return
-        if (this.hits > this.df.hits * this.df.effective
-                && this.charge === this.df.charge) {
-            return 'Mass Driver'
-        }
-    }
 
     activate(target, x, y) {
         this.charge = 0
