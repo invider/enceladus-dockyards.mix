@@ -74,7 +74,10 @@ class DesignControl {
         })
 
         const ship = new dna.Ship(this.blueprint)
+        ship.player = this.player
+        // TODO create shipB in the second flow
         const shipB = new dna.Ship(this.blueprint)
+        shipB.player = lab.playerB
 
         const control = this
         const activeScreen = this.__
