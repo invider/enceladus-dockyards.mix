@@ -27,8 +27,11 @@ class BattleControl {
         this.leftMenu.hide()
         this.rightMenu.hide()
 
+        shipA.name += ' A'
         shipA.chargeForBattle()
+        shipB.name += ' B'
         shipB.chargeForBattle()
+
 
         this.turnA()
         // or this.turnB() half of the time?

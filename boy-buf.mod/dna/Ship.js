@@ -29,7 +29,7 @@ class Ship {
 
     podAt(x, y) {
         const pod = this.grid[y*this.w + x]
-        if (pod) return pod.name
+        if (pod) return (pod.kind || pod.name)
         return this.blueprint.cellAt(x, y)
     }
 
@@ -45,23 +45,28 @@ class Ship {
         pod.ship = this
         this.pods.push(pod)
         this.grid[y * this.w + x] = pod
+    
+        // set serial, provide kind and rename
+        pod.id = this.pods.length
+        pod.kind = pod.name
+        pod.name += ' #' + pod.id
     }
 
     removePod(pod) {
         for (let i = 0; i < this.grid.length; i++) {
             if (this.grid[i] === pod) {
-                this.grid[i] = 0
+                this.grid[i] = null
             }
         }
         const i = this.pods.indexOf(pod)
-        if (i > 0) this.pods.splice(i, 1)
+        if (i >= 0) this.pods.splice(i, 1)
     }
 
     removePodAt(x, y) {
         const pod = this.grid[y*this.w + x]
         if (!pod) return
 
-        this.grid[y*this.w + x] = false
+        this.grid[y*this.w + x] = null
         const i = this.pods.indexOf(pod)
         this.pods.splice(i, 1)
 
@@ -103,7 +108,7 @@ class Ship {
         })
 
         if (actionPod) {
-            log('taking action by ' + actionPod.title)
+            //log('taking action by ' + actionPod.title)
             if (actionPod.activate) {
                 const x = RND(4)
                 const y = RND(6)
@@ -121,12 +126,15 @@ class Ship {
     }
 
     hit(attack, type, x, y) {
+        /*
         const pod = this.removePodAt(x, y)
         if (pod) {
+            pod.state2 = 'destroyed in @' + lab.screen.battle.control.turn
             log.out(`hitting ${this.name}->${x}:${y} [${pod.name}]`)
         } else {
             log.out('missed')
         }
+        */
     }
 
     setRechargePriority(mode) {
