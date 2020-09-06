@@ -7,6 +7,7 @@ class LayoutControl {
 
     compileBlueprints(player) {
         const readyBlueprints = []
+        const readyBlueprintsMap = {}
         const blueprints = []
         const budget = player.balance
 
@@ -29,6 +30,7 @@ class LayoutControl {
                 })
                 blueprints.push(blueprint)
                 readyBlueprints.push(blueprint)
+                readyBlueprintsMap[blueprint.name] = blueprint
             }
         })
 
@@ -37,6 +39,7 @@ class LayoutControl {
         this.current = 0
         this.blueprints = blueprints
         this.readyBlueprints = readyBlueprints
+        this.readyBlueprintsMap = readyBlueprintsMap
     }
 
     selectFor(player) {
@@ -53,11 +56,18 @@ class LayoutControl {
         }
     }
 
-    autoConstruct(player) {
+    autoConstruct(player, blueprintName) {
+        let blueprint
         this.compileBlueprints(player)
-        const blueprint = _.bot.selectBlueprint(player, this.readyBlueprints)
+        if (!blueprintName) {
+            blueprint = _.bot.selectBlueprint(player, this.readyBlueprints)
+            log('bot selected a blueprint ' + blueprint.name
+                + ' for ' + player.name)
+        } else {
+            blueprint = this.readyBlueprintsMap[blueprintName]
+            if (!blueprint) throw `can't find blueprint [${blueprintName}]`
+        }
         player.blueprint = blueprint
-        log('bot selected a blueprint ' + blueprint.name + ' for ' + player.name)
         lab.screen.design.control.constructShip(player, blueprint)
     }
 

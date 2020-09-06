@@ -15,4 +15,5 @@ Available flags:
 * --menu - skip the title and jump straight to the menu
 * --newgame - jump to the new game on start
 * --battle - jump straight to battle between human and AI with random ships
+* --blueprintA/B - manually select a ship for battle (works only with --battle flag!)
 

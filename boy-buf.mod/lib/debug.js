@@ -8,57 +8,59 @@ function configure() {
     }
 }
 
+function jumpToMenu() {
+    _.trap.attach(function start() {
+        log('hyperjump to the menu')
+        trap('menu')
+    })
+    return true
+}
+
+function startNewGame() {
+    _.trap.attach(function start() {
+        log('hyperjump to newgame')
+        trap('newGame', {
+             playerA: {
+                 human: true,
+                 budget: 1000,
+             },
+             playerB: {
+                 human: false,
+                 budget: 1000,
+             },
+        })
+    })
+    return true
+}
+
+function autostartBattle() {
+    const playerA = lab.spawn(dna.Player, {
+        name: 'playerA',
+        title: 'Player A',
+        human: true,
+        balance: 1000,
+    })
+    const playerB = lab.spawn(dna.Player, {
+        name: 'playerB',
+        title: 'Player B',
+        human: false,
+        balance: 1000,
+    })
+    playerB.prev = playerA
+    playerA.next = playerB
+
+    const control = lab.screen.layout.control
+    control.autoConstruct(playerA, _$.env.config.blueprintA)
+    control.autoConstruct(playerB, _$.env.config.blueprintB)
+
+    lab.screen.show()
+    trap('battle', playerB)
+    return true
+}
+
 function hyperjump() {
-    if (_$.env.config.menu) {
-        _.trap.attach(function start() {
-            log('hyperjump to the menu')
-            trap('menu')
-        })
-        return true
-    }
-
-    if (_$.env.config.newgame) {
-        _.trap.attach(function start() {
-            log('hyperjump to newgame')
-            trap('newGame', {
-                 playerA: {
-                     human: true,
-                     budget: 1000,
-                 },
-                 playerB: {
-                     human: false,
-                     budget: 1000,
-                 },
-            })
-        })
-        return true
-    }
-
-    if (_$.env.config.battle) {
-        const playerA = lab.spawn(dna.Player, {
-            name: 'playerA',
-            title: 'Player A',
-            human: true,
-            balance: 1000,
-        })
-        const playerB = lab.spawn(dna.Player, {
-            name: 'playerB',
-            title: 'Player B',
-            human: false,
-            balance: 1000,
-        })
-        playerB.prev = playerA
-        playerA.next = playerB
-
-        const control = lab.screen.layout.control
-        control.autoConstruct(playerA)
-        control.autoConstruct(playerB)
-
-        lab.screen.show()
-        trap('battle', playerB)
-
-        return true
-    }
-
+    if (_$.env.config.menu) return jumpToMenu()
+    if (_$.env.config.newgame) return startNewGame()
+    if (_$.env.config.battle) return autostartBattle()
     return false
 }
