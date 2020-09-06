@@ -57,7 +57,6 @@ class LayoutControl {
         const blueprint = _.bot.selectBlueprint(player, this.readyBlueprints)
         player.blueprint = blueprint
         log('bot selected a blueprint ' + blueprint.name)
-        console.dir(blueprint)
         lab.screen.design.control.constructShip(player, blueprint)
         
         const control = this

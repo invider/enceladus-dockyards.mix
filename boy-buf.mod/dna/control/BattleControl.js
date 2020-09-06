@@ -39,17 +39,16 @@ class BattleControl {
         // or this.turnB() half of the time?
     }
 
-    turnA() {
-        const source = this.shipA
-        const target = this.shipB
+    humanTurn(source, target, menu, nextAction) {
         const control = this
-        const actions = this.shipA.actionsAvailable()
+        const actions = source.actionsAvailable()
         actions.push({ section: true, title: 'charge mode' })
         actions.push(rechargeModes)
         rechargeModes.current = rechargeModes.indexOf(source.rechargePriority)
         actions.push('skip')
         actions.push('yield')
-        this.leftMenu.selectFrom(actions,
+
+        menu.selectFrom(actions,
             function(selected) {
                 if (isArray(selected)) {
                     this.right()
@@ -69,7 +68,7 @@ class BattleControl {
                 }
 
                 if (!control.endCondition()) {
-                    setTimeout(() => { control.turnB() }, 1000)
+                    setTimeout(nextAction, 1000)
                 }
             },
             function(switched) {
@@ -78,38 +77,23 @@ class BattleControl {
         )
     }
 
+    botTurn() {
+    }
+
+    turnA() {
+        const source = this.shipA
+        const target = this.shipB
+        const control = this
+
+        this.humanTurn(source, target, this.leftMenu, () => control.turnB())
+    }
+
     turnB() {
         const source = this.shipB
         const target = this.shipA
         const control = this
-        const actions = this.shipB.actionsAvailable()
-        actions.push({ section: true, title: 'charge mode' })
-        actions.push(rechargeModes)
-        rechargeModes.current = rechargeModes.indexOf(source.rechargePriority)
-        actions.push('skip')
-        actions.push('yield')
-        this.rightMenu.selectFrom(actions,
-            function(selected) {
-                this.hide()
 
-                if (selected === 'yield') {
-                    source.status = 'yield'
-                    target.status = 'win'
-                    control.finishBattle()
-                    return
-                } else if (selected === 'skip') {
-                    // do nothing
-                } else {
-                    source.takeAction(selected, target)
-                }
-                if (!control.endCondition()) {
-                    setTimeout(() => { control.nextTurn() }, 1000)
-                }
-            },
-            function(switched) {
-                source.setRechargePriority(switched[switched.current])
-            }
-        )
+        this.humanTurn(source, target, this.rightMenu, () => control.nextTurn())
     }
 
     endCondition() {
