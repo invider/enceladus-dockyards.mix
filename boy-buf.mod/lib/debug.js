@@ -3,7 +3,16 @@ function configure() {
     if (_$.env.config.newgame) {
         _.trap.attach(function start() {
             log('hyperjump to newgame')
-            trap('newGame')
+            trap('newGame', {
+                 playerA: {
+                     human: true,
+                     budget: 1000,
+                 },
+                 playerB: {
+                     human: false,
+                     budget: 1000,
+                 },
+            })
         })
     }
     if (_$.env.config.menu) {

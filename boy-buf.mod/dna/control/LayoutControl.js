@@ -51,6 +51,7 @@ class LayoutControl {
             this.current = 0
         }
         this.sync()
+        sfx.play('select', env.mixer.level.select)
     }
 
     prev() {
@@ -59,6 +60,7 @@ class LayoutControl {
             this.current = this.blueprints.length - 1
         }
         this.sync()
+        sfx.play('select', env.mixer.level.select)
     }
 
     done() {
@@ -80,6 +82,7 @@ class LayoutControl {
             },
             fadeOut: env.style.fadeOut,
         })
+        sfx.play('apply', env.mixer.level.apply)
     }
 
     sync() {

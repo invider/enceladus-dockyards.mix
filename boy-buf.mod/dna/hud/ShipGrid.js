@@ -34,6 +34,7 @@ class ShipGrid {
         if (type > 0) {
             this.target.x = nx
             this.target.y = ny
+            sfx.play('select', env.mixer.level.select)
         }
     }
 

@@ -19,21 +19,7 @@ function design() {
             if (this.pod) {
                 const {x, y} = this.target
                 if (this.pod.name === 'remove') {
-                    this.__.control.removePod(x, y)
-                    /*
-                    const designer = this.__.designer
-                    const podName = this.blueprint.removePod(
-                        this.target.x, this.target.y, (name) => {
-                            return designer.podPrice(name)
-                        })
-                    if (podName) {
-                        const price = this.__.designer.podPrice(podName)
-                        this.__.control.player.sell(price)
-                        // TODO play remove sfx
-                    } else {
-                        // TODO play denied sfx
-                    }
-                    */
+                    this.__.control.removePod(x, y, false)
                 } else {
                     this.__.control.installPod(this.pod, x, y)
                     /*
@@ -55,6 +41,7 @@ function design() {
         back: function() {
             this.pod = null
             this.__.control.selectPod()
+            sfx.play('apply', env.mixer.level.switch)
         }
     })
 

@@ -67,7 +67,13 @@ class PopupMenu {
         if (this.current >= this.items.length) this.current = 0
 
         const item = this.items[this.current]
-        if (isObj(item) && item.section) this.next()
+        if (isObj(item) && item.section) {
+            this.next()
+        } else {
+            // landed
+            sfx.play('select', env.mixer.level.select)
+        }
+        
     }
 
     prev() {
@@ -75,7 +81,12 @@ class PopupMenu {
         if (this.current < 0) this.current = this.items.length - 1
 
         const item = this.items[this.current]
-        if (isObj(item) && item.section) this.prev()
+        if (isObj(item) && item.section) {
+            this.prev()
+        } else {
+            // landed
+            sfx.play('select', env.mixer.level.select)
+        }
     }
 
     left() {
@@ -84,6 +95,7 @@ class PopupMenu {
             item.current --
             if (item.current < 0) item.current = item.length - 1
             if (this.onSwitch) this.onSwitch(item)
+            sfx.play('apply', env.mixer.level.switch)
         }
     }
 
@@ -93,6 +105,7 @@ class PopupMenu {
             item.current ++
             if (item.current >= item.length) item.current = 0
             if (this.onSwitch) this.onSwitch(item)
+            sfx.play('apply', env.mixer.level.switch)
         }
     }
 
@@ -100,6 +113,7 @@ class PopupMenu {
         if (this.onSelect) {
             this.onSelect( this.currentItem() )
         }
+        sfx.play('use', env.mixer.level.apply)
     }
 
     alt() {}

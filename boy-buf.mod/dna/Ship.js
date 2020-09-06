@@ -50,7 +50,7 @@ class Ship {
     removePod(pod) {
         for (let i = 0; i < this.grid.length; i++) {
             if (this.grid[i] === pod) {
-                this.grid[i] = null
+                this.grid[i] = 0
             }
         }
         const i = this.pods.indexOf(pod)
@@ -61,7 +61,7 @@ class Ship {
         const pod = this.grid[y*this.w + x]
         if (!pod) return
 
-        this.grid[y*this.w + x] = null
+        this.grid[y*this.w + x] = false
         const i = this.pods.indexOf(pod)
         this.pods.splice(i, 1)
 
@@ -114,19 +114,6 @@ class Ship {
         }
     }
 
-    // distribute energy from reactor cores
-    distributeEnergy() {
-    }
-
-    // combine energy from all shield gens
-    // into a single shield value
-    chargeShields() {
-    }
-
-    // activate repair modules
-    repairCycle() {
-    }
-
     turn() {
         this.forEachPod((pod) => {
             if (pod.turn) pod.turn()
@@ -134,9 +121,12 @@ class Ship {
     }
 
     hit(attack, type, x, y) {
-        log(`hitting ${this.name}->${x}:${y}`)
         const pod = this.removePodAt(x, y)
-        if (pod) log('killed ' + pod.name)
+        if (pod) {
+            log.out(`hitting ${this.name}->${x}:${y} [${pod.name}]`)
+        } else {
+            log.out('missed')
+        }
     }
 
     setRechargePriority(mode) {

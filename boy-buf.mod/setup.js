@@ -2,6 +2,8 @@ module.exports = function() {
     lib.debug.configure()
     _$.boy = _ // mix shortcut
 
+    lib.remap.sfx()
+
     lib.pods.populate()
 
     lib.gen.screen()

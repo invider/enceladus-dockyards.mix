@@ -36,19 +36,20 @@ class Designer {
     next() {
         this.current ++
         if (this.current >= this.pods.length) this.current = 0
-        // TODO play swith sfx
+        sfx.play('select', env.mixer.level.select)
     }
 
     prev() {
         this.current --
         if (this.current < 0) this.current = this.pods.length - 1
-        // TODO play swith sfx
+        sfx.play('select', env.mixer.level.select)
     }
 
     place() {
         const pod = this.currentPod()
         if (pod) {
             this.__.control.placePod(pod)
+            sfx.play('use', env.mixer.level.apply)
         }
     }
 

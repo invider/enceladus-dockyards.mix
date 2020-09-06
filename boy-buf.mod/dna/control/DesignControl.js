@@ -42,15 +42,15 @@ class DesignControl {
     installPod(pod, x, y) {
         if (!pod) return
         if (this.player.buy(pod.cost)) {
-            const removedPod = this.removePod(x, y)
+            const removedPod = this.removePod(x, y, true)
             this.blueprint.placePod(x, y, pod.name, pod.cost)
-            // TODO play placement sfx or with delay if removed
+            sfx.play('use', env.mixer.level.apply)
         } else {
-            // TODO play denied sfx
+            sfx.play('denied', env.mixer.level.denied)
         }
     }
 
-    removePod(x, y) {
+    removePod(x, y, silent) {
         const designer = this.designer
         const podName = this.blueprint.removePod(
             x, y, (name) => {
@@ -59,9 +59,9 @@ class DesignControl {
         if (podName) {
             const price = designer.podPrice(podName)
             this.player.sell(price)
-            // TODO play remove sfx
+            if (!silent) sfx.play('noisy', env.mixer.level.remove)
         } else {
-            // TODO play denied sfx
+            if (!silent) sfx.play('denied', env.mixer.level.denied)
         }
     }
 
