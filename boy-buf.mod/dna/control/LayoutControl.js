@@ -6,6 +6,7 @@ class LayoutControl {
     }
 
     compileBlueprints() {
+        const readyBlueprints = []
         const blueprints = []
         const budget = this.player.balance
 
@@ -26,8 +27,8 @@ class LayoutControl {
                 blueprint.estimateCost((podName) => {
                     return lib.pods.podCost(podName)
                 })
-                log('estimated cost for ' + blueprint.name + ': ' + blueprint.cost)
                 blueprints.push(blueprint)
+                readyBlueprints.push(blueprint)
             }
         })
 
@@ -35,15 +36,45 @@ class LayoutControl {
 
         this.current = 0
         this.blueprints = blueprints
+        this.readyBlueprints = readyBlueprints
     }
 
     selectFor(player) {
         this.player = player
         this.state = 0
         this.compileBlueprints()
-        this.__.playerData.setPlayer(player)
-        this.sync()
-        this.__.show()
+
+        if (player.human) {
+            this.__.playerData.setPlayer(player)
+            this.sync()
+            this.__.show()
+        } else {
+            this.selectForBot(player)
+        }
+    }
+
+    selectForBot(player) {
+        const blueprint = _.bot.selectBlueprint(player, this.readyBlueprints)
+        player.blueprint = blueprint
+        log('bot selected a blueprint ' + blueprint.name)
+        console.dir(blueprint)
+        lab.screen.design.control.constructShip(player, blueprint)
+        
+        const control = this
+        lab.vfx.transit({
+            fadeIn: env.style.fadeIn,
+            keep: .5,
+            onFadeOut: function() {
+                if (player.next) {
+                    // construction for next player
+                    trap('layout', player.next)
+                } else {
+                    // ships are ready, prep for the battle!
+                    trap('battle', player)
+                }
+            },
+            fadeOut: env.style.fadeOut,
+        })
     }
 
     next() {
