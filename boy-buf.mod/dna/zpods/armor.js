@@ -1,9 +1,10 @@
 const df = {
     name: 'armor',
     title: 'Armor Plating',
+    tag: 'armor',
     system: false,
     cost: 10,
-    hits: 100,
+    hits: 120,
 }
 class armor extends dna.Pod {
     constructor(st) {

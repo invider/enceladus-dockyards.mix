@@ -162,6 +162,7 @@ class Ship {
     hit(attack, x, y) {
         const pod = this.getPod(x, y)
         if (pod) {
+            log('hitting ' + pod.name)
             pod.hit(attack)
         } else {
             log('attack missed!')
@@ -195,6 +196,32 @@ class Ship {
         return attack
     }
 
+    armorFromDriver(attack, x, y) {
+        // armor in the area
+        const sx = x - 1
+        const sy = y - 1
+        const fx = x + 1
+        const fy = y + 1
+        this.pods.forEach(pod => {
+            if (pod.tag === 'armor' && pod.hits > 0
+                    && pod.x >= sx && pod.x <= fx
+                    && pod.y >= sy && pod.y <= fy) {
+                // found armor in the area, reduce attack
+                if (attack < pod.hits) {
+                    pod.hits -= attack
+                    attack = 0
+                    log('mass driver is deflected by ' + pod.name)
+                } else {
+                    attack -= pod.hits
+                    pod.hits = 0
+                    pod.ship.killPod(pod)
+                    log(pod.name + ' is destroyed by mass driver')
+                }
+            }
+        })
+        return attack
+    }
+
     incoming(weapon, attack, x, y) {
         log(`[${this.name}] => incoming [${weapon.name}](${attack})`)
         if (weapon.tag === 'laser') {
@@ -206,6 +233,18 @@ class Ship {
                 const dy = RND(2) - 1
                 log('laser delta: ' + dx + ':' + dy)
                 this.hit(attack, x + dx, y + dy)
+            }
+        } else if (weapon.tag === 'driver') {
+            attack = this.armorFromDriver(attack, x, y)
+            log('driver attack left: ' + attack)
+
+            if (attack > 0) {
+                log('hitting cells at ' + x + ':' + y)
+                this.hit(floor(attack * .4), x, y)
+                this.hit(floor(attack * .15), x-1, y)
+                this.hit(floor(attack * .15), x+1, y)
+                this.hit(floor(attack * .15), x, y-1)
+                this.hit(floor(attack * .15), x, y+1)
             }
         }
     }

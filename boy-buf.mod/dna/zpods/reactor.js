@@ -4,7 +4,7 @@ const df = {
     system: true,
     cost: 100,
     hits: 250,
-    output: 15,
+    output: 25,
 }
 
 class reactor extends dna.Pod {

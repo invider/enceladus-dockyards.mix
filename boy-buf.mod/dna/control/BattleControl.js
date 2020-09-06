@@ -122,6 +122,7 @@ class BattleControl {
     }
 
     nextTurn() {
+        log('--------------')
         log('finishing turn')
         this.shipA.turn()
         this.shipB.turn()

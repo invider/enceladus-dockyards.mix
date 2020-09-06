@@ -7,8 +7,8 @@ const df = {
     cost: 100,
     hits: 50,
     effective: .5,
-    charge: 100,
-    attack: 70,
+    charge: 75,
+    attack: 100,
 }
 
 class driver extends dna.WeaponPod {
@@ -18,7 +18,6 @@ class driver extends dna.WeaponPod {
         augment(this, df)
         this.df = df
     }
-
 
     activate(target, x, y) {
         target.incoming(this, this.attack, x, y)
