@@ -2,7 +2,7 @@ const df = {
     name: 'missile',
     title: 'Missile Mk1',
     tag: 'missile',
-    action: 'Missile',
+    action: 'missile',
     system: true,
     cost: 30,
     hits: 10,
@@ -18,8 +18,10 @@ class missile extends dna.WeaponPod {
     }
 
     activate(target, x, y) {
-        target.hit(this.attack, this.name, x, y)
-        // consider all missiles are gone here
+        //target.hit(this.attack, this.name, x, y)
+        target.incoming(this, this.attack, x, y)
+
+        // kill the missile pod
         this.fired = true
         this.state = 'fired at ' + x + ':' + y
             + ' @' + lab.screen.battle.control.turn

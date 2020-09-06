@@ -8,7 +8,7 @@ const df = {
     hits: 25,
     effective: .2,
     charge: 10,
-    attack: 10,
+    attack: 20,
 }
 
 class laser extends dna.WeaponPod {
@@ -19,12 +19,8 @@ class laser extends dna.WeaponPod {
         this.df = df
     }
 
-    triggersOn(action) {
-        return (this.isReady() && action === 'Lasers')
-    }
-
     activate(target, x, y) {
+        target.incoming(this, this.attack, x, y)
         this.charge = 0
-        target.hit(this.attack, this.name, x, y)
     }
 }

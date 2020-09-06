@@ -16,6 +16,6 @@ class WeaponPod extends dna.Pod {
     }
 
     triggersOn(action) {
-        return this.reactsOn() === this.df.action
+        return action === this.reactsOn()
     }
 }

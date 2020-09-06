@@ -47,6 +47,10 @@ class Ship {
         return i
     }
 
+    getPod(x, y) {
+        return this.grid[y*this.w + x]
+    }
+
     mountPod(pod, x, y) {
         pod.x = x
         pod.y = y
@@ -101,12 +105,12 @@ class Ship {
                 }
             }
         })
-        return Object.keys(actions)
+        return Object.keys(actions).sort()
     }
 
     takePodAction(pod, target) {
         if (pod.activate) {
-            log(`activating ${pod.name} against ${target.name}`)
+            //log(`activating ${pod.name} against ${target.name}`)
             const cell = this.autoTarget(target)
             pod.activate(target, cell.x, cell.y)
         } else {
@@ -115,13 +119,14 @@ class Ship {
     }
 
     takeAction(action, target) {
+        //log('action: ' + action)
         const pods = this.pods.filter(pod => pod.triggersOn && pod.triggersOn(action))
 
         if (pods.length === 0) {
-            log('no pods to take action [' + action + ']')
+            log('no pods to take action [' + action + ']!')
         } else {
             const pod = _$.lib.math.rnde(pods)
-            log('selected ' + pod.name)
+            //log('selected ' + pod.name)
             this.takePodAction(pod, target)
         }
         /*
@@ -148,7 +153,14 @@ class Ship {
         })
     }
 
-    hit(attack, type, x, y) {
+    hit(attack, x, y) {
+        const pod = this.getPod(x, y)
+        if (pod) {
+            pod.hit(attack)
+        } else {
+            log('attack missed!')
+        }
+        /*
         const pod = this.killPodAt(x, y)
         if (pod) {
             pod.state2 = 'destroyed in @' + lab.screen.battle.control.turn
@@ -156,15 +168,49 @@ class Ship {
         } else {
             log.out('missed')
         }
+        */
     }
 
-    incoming(weapon, target) {
+    shieldFromLaser(attack) {
+        this.pods.forEach(pod => {
+            if (pod.tag === 'shield' && pod.charge > 0) {
+                // reduce attack
+                if (attack < pod.charge) {
+                    pod.charge -= attack
+                    attack = 0
+                    log('laser is deflected by ' + pod.name)
+                } else {
+                    attack -= pod.charge
+                    pod.charge = 0
+                    log(pod.name + ' is disabled by the laser')
+                }
+            }
+        })
+        return attack
+    }
+
+    incoming(weapon, attack, x, y) {
+        log(`[${this.name}] => incoming [${weapon.name}](${attack})`)
+        if (weapon.tag === 'laser') {
+            attack = this.shieldFromLaser(attack)
+            log('laser attack left after shields: ' + attack)
+
+            if (attack > 0) {
+                const dx = RND(2) - 1
+                const dy = RND(2) - 1
+                log('laser delta: ' + dx + ':' + dy)
+                this.hit(attack, x + dx, y + dy)
+            }
+        }
     }
 
     setRechargePriority(mode) {
         if (!mode) return
         this.rechargePriority = mode
     }
+
+    // ******************************************
+    // stat
 
     totalHits() {
         let hits = 0

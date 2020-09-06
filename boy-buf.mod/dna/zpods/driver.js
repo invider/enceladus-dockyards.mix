@@ -21,7 +21,8 @@ class driver extends dna.WeaponPod {
 
 
     activate(target, x, y) {
+        target.incoming(this, this.attack, x, y)
+        //target.hit(this.attack, this.name, x, y)
         this.charge = 0
-        target.hit(this.attack, this.name, x, y)
     }
 }

@@ -41,13 +41,15 @@ class Pod {
 
     hit(attack) {
         this.hits -= attack
-        if (this.hits < 0) {
+        if (this.hits <= 0) {
             this.hits = 0
             this.kill()
+            log(`${this.name} is destroyed`)
         }
     }
 
     kill() {
         this.dead = true
+        this.ship.killPod(this)
     }
 }
