@@ -73,6 +73,12 @@ class DesignControl {
 
     constructShip(player, blueprint) {
         const ship = new dna.Ship(blueprint)
+        if (!player.human) {
+            // TODO figure out why 2 times?
+            log('installing autopilot for ' + ship.name + '/' + player.name)
+            ship.autoSelect = _.bot.computingCore.autoSelect
+            ship.autoPilot = _.bot.computingCore.autoPilot
+        }
         ship.player = player
         player.ship = ship
         return ship
@@ -84,9 +90,6 @@ class DesignControl {
 
         this.finalizeBlueprint(this.blueprint)
         const ship = this.constructShip(this.player, this.blueprint)
-
-        // TODO create shipB in the second flow
-        const shipB = this.constructShip(lab.playerB, this.blueprint)
 
         const player = ship.player
         const control = this

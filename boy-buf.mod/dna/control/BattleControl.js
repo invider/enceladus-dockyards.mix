@@ -77,23 +77,39 @@ class BattleControl {
         )
     }
 
-    botTurn() {
+    botTurn(source, target, nextAction) {
+        log('bot action')
+        source.autoPilot(target)
+
+        if (!this.endCondition()) {
+            setTimeout(nextAction, 1000)
+        }
     }
 
     turnA() {
         const source = this.shipA
         const target = this.shipB
         const control = this
+        const next = (() => control.turnB())
 
-        this.humanTurn(source, target, this.leftMenu, () => control.turnB())
+        if (source.player.human) {
+            this.humanTurn(source, target, this.leftMenu, next)
+        } else {
+            this.botTurn(source, target, next)
+        }
     }
 
     turnB() {
         const source = this.shipB
         const target = this.shipA
         const control = this
+        const next = (() => control.nextTurn())
 
-        this.humanTurn(source, target, this.rightMenu, () => control.nextTurn())
+        if (source.player.human) {
+            this.humanTurn(source, target, this.rightMenu, next)
+        } else {
+            this.botTurn(source, target, next)
+        }
     }
 
     endCondition() {
