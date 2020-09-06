@@ -125,9 +125,15 @@ class Ship {
         if (pods.length === 0) {
             log('no pods to take action [' + action + ']!')
         } else {
-            const pod = _$.lib.math.rnde(pods)
-            //log('selected ' + pod.name)
-            this.takePodAction(pod, target)
+            if (action === 'lasers') {
+                // volley fire!
+                const ship = this
+                pods.forEach(pod => ship.takePodAction(pod, target))
+            } else {
+                const pod = _$.lib.math.rnde(pods)
+                //log('selected ' + pod.name)
+                this.takePodAction(pod, target)
+            }
         }
         /*
         this.pods.forEach(pod => {
