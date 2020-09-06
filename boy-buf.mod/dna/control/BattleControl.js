@@ -61,7 +61,9 @@ class BattleControl {
                     control.finishBattle()
                     return
                 } else if (selected === 'skip') {
+                    source.skipped ++
                     // do nothing
+
                 } else {
                     source.takeAction(selected, target)
                 }
@@ -112,9 +114,18 @@ class BattleControl {
     }
 
     endCondition() {
-        const a = this.shipA.activeSystems()
-        const b = this.shipB.activeSystems()
-        if (a === 0 || b === 0) {
+        if (this.shipA.skipped >= 5 && this.shipB.skipped >= 5) {
+            this.shipA.status = 'draw'
+            this.shipB.status = 'draw'
+            this.finishBattle()
+            return true
+        }
+        
+        const as = this.shipA.activeSystems()
+        const aw = this.shipA.activeWeapons()
+        const bs = this.shipB.activeSystems()
+        const bw = this.shipB.activeWeapons()
+        if (as === 0 || as === 0 || bs === 0 || bw === 0) {
             this.finishBattle()
             return true
         }
@@ -137,16 +148,21 @@ class BattleControl {
     determineWinner() {
         const A = this.shipA
         const B = this.shipB
-        const a = A.activeSystems()
-        const b = B.activeSystems()
-        const ah = A.systemHits()
-        const bh = B.systemHits()
 
-        if (a === 0) this.shipA.status = 'destroyed'
-        if (b === 0) this.shipB.status = 'destroyed'
+        if (!A.status && !B.status) {
+            const as = A.activeSystems()
+            const aw = A.activeWeapons()
+            const bs = B.activeSystems()
+            const bw = B.activeWeapons()
+            const ah = A.systemHits()
+            const bh = B.systemHits()
 
-        if (A.status === 'destroyed' && !B.status) B.status = 'win'
-        if (B.status === 'destroyed' && !A.status) A.status = 'win'
+            if (as === 0 || aw === 0) this.shipA.status = 'destroyed'
+            if (bs === 0 || bw === 0) this.shipB.status = 'destroyed'
+
+            if (A.status === 'destroyed' && !B.status) B.status = 'win'
+            if (B.status === 'destroyed' && !A.status) A.status = 'win'
+        }
 
         const res = {
             shipA: this.shipA,

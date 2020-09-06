@@ -93,6 +93,7 @@ class Ship {
         this.maxHits = this.totalHits()
         this.maxSystemHits = this.systemHits()
         this.maxShields = this.shields()
+        this.skipped = 0
     }
 
     actionsAvailable() {
@@ -120,6 +121,7 @@ class Ship {
 
     takeAction(action, target) {
         //log('action: ' + action)
+        this.skipped = 0
         const pods = this.pods.filter(pod => pod.triggersOn && pod.triggersOn(action))
 
         if (pods.length === 0) {
@@ -364,5 +366,17 @@ class Ship {
             }
         })
         return systems
+    }
+
+    activeWeapons() {
+        let weapons = 0
+        this.pods.forEach(pod => {
+            if (!pod.dead
+                    && pod.attack > 0
+                    && pod.hits > pod.df.hits * pod.df.effective) {
+                 weapons ++
+            }
+        })
+        return weapons
     }
 }
