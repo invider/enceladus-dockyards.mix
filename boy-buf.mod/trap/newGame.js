@@ -11,6 +11,8 @@ function newGame(st) {
         human: st.playerB.human,
         balance: st.playerB.budget,
     })
+    playerB.prev = playerA
+    playerA.next = playerB
 
     trap('layout', playerA)
 }

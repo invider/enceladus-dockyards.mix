@@ -43,6 +43,7 @@ class LayoutControl {
         this.compileBlueprints()
         this.__.playerData.setPlayer(player)
         this.sync()
+        this.__.show()
     }
 
     next() {
@@ -70,15 +71,14 @@ class LayoutControl {
 
         const player = this.player
         const blueprint = this.currentBlueprint()
+        player.blueprint = blueprint
+
         lab.vfx.transit({
             fadeIn: env.style.fadeIn,
             hold: .5,
             onFadeOut: function() {
                 lab.screen.layout.hide()
-                trap('design', {
-                    player: player,
-                    blueprint: blueprint,
-                })
+                trap('design', player)
             },
             fadeOut: env.style.fadeOut,
         })

@@ -5,12 +5,12 @@ class DesignControl {
         augment(this, st)
     }
 
-    setupDesign(player, blueprint) {
+    designFor(player) {
         this.state = 0
         this.player = player
-        this.blueprint = blueprint
-        this.player.buy(blueprint.estimateCost())
-        this.grid.setBlueprint(blueprint)
+        this.blueprint = player.blueprint
+        this.player.buy(this.blueprint.estimateCost())
+        this.grid.setBlueprint(this.blueprint)
         this.playerData.setPlayer(player)
 
         this.designer.compilePods()
