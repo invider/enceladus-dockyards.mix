@@ -1,10 +1,10 @@
 const items = [
     'new game',
     { section: true, title: 'player A'},
-    ['human', 'AI'],
+    ['human', 'bot'],
     ['$1000', '$1200', '$1600', '$2000', '$400', '$600', '$800'],
     { section: true, title: 'player B'},
-    ['AI', 'human'],
+    ['bot', 'human'],
     ['$1000', '$1200', '$1600', '$2000', '$400', '$600', '$800'],
 ]
 
