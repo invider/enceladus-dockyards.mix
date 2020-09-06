@@ -67,6 +67,8 @@ function battle() {
         }
     })
 
+    battle.touch('vfx')
+
     battle.spawn(dna.control.BattleControl, {
         name: 'control',
         left: left,

@@ -103,5 +103,14 @@ class ShipGrid {
 
     setBlueprint(blueprint) {
         this.blueprint = blueprint
+        this.blueprint.visualGrid = this
+    }
+
+    cellScreenCoord(coord) {
+        const s = env.style.cellSize
+        return {
+            x: coord.x * s + this.x,
+            y: coord.y * s + this.y
+        }
     }
 }

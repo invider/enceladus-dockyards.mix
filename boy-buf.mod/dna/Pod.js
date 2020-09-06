@@ -40,12 +40,17 @@ class Pod {
     }
 
     hit(attack) {
+        if (attack > this.hits) attack = this.hits
+
         this.hits -= attack
         if (this.hits <= 0) {
             this.hits = 0
             this.kill()
             log(`${this.name} is destroyed`)
         }
+
+        const loc = this.ship.visualGrid.cellScreenCoord(this)
+        lib.vfx.hintAt('-' + attack + ' hits', loc.x, loc.y)
     }
 
     kill() {
