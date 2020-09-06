@@ -52,7 +52,7 @@ class Ship {
         pod.name += ' #' + pod.id
     }
 
-    removePod(pod) {
+    killPod(pod) {
         for (let i = 0; i < this.grid.length; i++) {
             if (this.grid[i] === pod) {
                 this.grid[i] = null
@@ -62,7 +62,7 @@ class Ship {
         if (i >= 0) this.pods.splice(i, 1)
     }
 
-    removePodAt(x, y) {
+    killPodAt(x, y) {
         const pod = this.grid[y*this.w + x]
         if (!pod) return
 
@@ -126,15 +126,13 @@ class Ship {
     }
 
     hit(attack, type, x, y) {
-        /*
-        const pod = this.removePodAt(x, y)
+        const pod = this.killPodAt(x, y)
         if (pod) {
             pod.state2 = 'destroyed in @' + lab.screen.battle.control.turn
             log.out(`hitting ${this.name}->${x}:${y} [${pod.name}]`)
         } else {
             log.out('missed')
         }
-        */
     }
 
     setRechargePriority(mode) {
