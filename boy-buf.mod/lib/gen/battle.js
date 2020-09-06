@@ -7,11 +7,12 @@ function battle() {
     })
 
     // create ship grids
+    const GY = 18
     const left = battle.spawn(dna.hud.ShipGrid, {
         Z: 11,
         name: 'left',
         x: 6,
-        y: 12,
+        y: GY,
     })
 
     const PY = 114
@@ -24,11 +25,12 @@ function battle() {
         h: ctx.height - PY,
     })
 
+    const MY = 15
     const leftMenu = battle.spawn(dna.hud.PopupMenu, {
         Z: 21,
         name: 'leftMenu',
         x: 0,
-        y: 10,
+        y: MY,
         w: 79,
         h: 100,
         alt: function() {
@@ -40,7 +42,7 @@ function battle() {
         Z: 11,
         name: 'right',
         x: 83,
-        y: 12,
+        y: GY,
         layout: dna.spec.layout.whale,
     })
 
@@ -57,7 +59,7 @@ function battle() {
         Z: 21,
         name: 'rightMenu',
         x: 81,
-        y: 10,
+        y: MY,
         w: 79,
         h: 100,
         alt: function() {
