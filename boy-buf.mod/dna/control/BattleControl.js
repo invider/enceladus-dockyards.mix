@@ -34,7 +34,6 @@ class BattleControl {
         shipB.name += ' B'
         shipB.chargeForBattle()
 
-
         this.turnA()
         // or this.turnB() half of the time?
     }

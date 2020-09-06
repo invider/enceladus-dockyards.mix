@@ -1,14 +1,46 @@
-class ShipPanel {
+class ShipPanel extends sys.LabFrame {
 
     constructor(st) {
-        augment(this, st)
+        super(st)
+    }
+
+    init() {
+        this.constructHud()
+    }
+
+    constructHud() {
+        this.attach({
+            name: 'status',
+            draw: this.drawContent,
+            hidden: true,
+            x: this.x,
+            y: this.y,
+        })
+
+        const panel = this
+        this.spawn(dna.hud.HLevel, {
+            name: 'hits',
+            x: this.x + 1,
+            y: this.y + 24,
+            w: this.w - 3,
+            h: 5,
+            bcolor: env.style.color.c1,
+            lcolor: env.style.color.c2,
+            value: () => {
+                const system = panel.ship.systemHits()
+                const SYSTEM = panel.ship.maxSystemHits
+                return system/SYSTEM
+            }
+        })
     }
 
     monitor(ship) {
         this.ship = ship
+        this.status.ship = ship
+        this.hidden = false
     }
 
-    draw() {
+    drawContent() {
         if (!this.ship) return
         save()
         translate(this.x, this.y)
