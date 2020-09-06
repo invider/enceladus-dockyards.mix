@@ -179,7 +179,7 @@ class Ship {
     shields() {
         let charge = 0
         this.pods.forEach(pod => {
-            if (pod.tag === 'shield') {
+            if (pod.tag === 'shield' || pod.tag === 'jammer') {
                 charge += pod.charge
             }
         })

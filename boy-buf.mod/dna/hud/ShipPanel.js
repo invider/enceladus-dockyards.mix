@@ -9,6 +9,7 @@ class ShipPanel extends sys.LabFrame {
     }
 
     constructHud() {
+        /*
         this.attach({
             name: 'status',
             draw: this.drawContent,
@@ -16,8 +17,10 @@ class ShipPanel extends sys.LabFrame {
             x: this.x,
             y: this.y,
         })
+        */
 
         const panel = this
+
         this.spawn(dna.hud.HLevel, {
             name: 'hits',
             x: this.x + 1,
@@ -32,11 +35,43 @@ class ShipPanel extends sys.LabFrame {
                 return system/SYSTEM
             }
         })
+
+        const W2 = floor(this.w/2)
+        this.spawn(dna.hud.HLevel, {
+            name: 'shields',
+            x: this.x + 1,
+            y: this.y + 19,
+            w: W2 - 3,
+            h: 3,
+            bcolor: env.style.color.c2,
+            lcolor: env.style.color.c0,
+            value: () => {
+                const shields = this.ship.shields()
+                const maxShields = this.ship.maxShields
+                return shields/maxShields
+            }
+        })
+
+        this.spawn(dna.hud.HLevel, {
+            name: 'weapons',
+            x: this.x + W2 + 1,
+            y: this.y + 19,
+            w: W2 - 3,
+            h: 3,
+            bcolor: env.style.color.c1,
+            lcolor: env.style.color.c3,
+            value: () => {
+                const weapons = this.ship.weaponsCharge()
+                const maxWeapons = this.ship.weaponsMaxCharge()
+                return weapons/maxWeapons
+            }
+        })
+
+
     }
 
     monitor(ship) {
         this.ship = ship
-        this.status.ship = ship
         this.hidden = false
     }
 
