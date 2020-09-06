@@ -7,7 +7,9 @@ const df = {
     cost: 30,
     hits: 10,
     effective: .5,
-    attack: 100,
+    attack: 80,
+    minAttack: 5,
+    subAttack: 15,
 }
 class missile extends dna.WeaponPod {
 

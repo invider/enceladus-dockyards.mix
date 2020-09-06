@@ -15,4 +15,14 @@ class jammer extends dna.Pod {
         augment(this, df)
         this.df = df
     }
+
+    activate() {
+        if (this.charge === this.df.charge) {
+            this.charge = 0
+            log('missile is jammed!')
+            return true
+        } else {
+            return false
+        }
+    }
 }

@@ -222,6 +222,14 @@ class Ship {
         return attack
     }
 
+    isMissileJammed() {
+        for (let i = 0; i < this.pods.length; i++) {
+            const pod = this.pods[i]
+            if (pod.tag === 'jammer' && pod.activate()) return true
+        }
+        return false
+    }
+
     incoming(weapon, attack, x, y) {
         log(`[${this.name}] => incoming [${weapon.name}](${attack})`)
         if (weapon.tag === 'laser') {
@@ -234,6 +242,7 @@ class Ship {
                 log('laser delta: ' + dx + ':' + dy)
                 this.hit(attack, x + dx, y + dy)
             }
+
         } else if (weapon.tag === 'driver') {
             attack = this.armorFromDriver(attack, x, y)
             log('driver attack left: ' + attack)
@@ -246,6 +255,29 @@ class Ship {
                 this.hit(floor(attack * .15), x, y-1)
                 this.hit(floor(attack * .15), x, y+1)
             }
+
+        } else if (weapon.tag === 'missile') {
+            // TODO deflect target coords by ECM Jammers
+
+
+            let P = 5
+            if (this.isMissileJammed()) P = 10
+
+            while(attack > 0) {
+                // determine projectile
+                let subAttack = weapon.minAttack + RND(weapon.subAttack)
+                if (subAttack > attack) subAttack = attack
+
+                const dx = RND(P) - floor(P/2)
+                const dy = RND(P) - floor(P/2)
+                log('projectile delta: ' + dx + ':' + dy)
+                this.hit(attack, x + dx, y + dy)
+
+                attack -= subAttack
+            }
+
+        } else {
+            throw 'unknown type of weapon!'
         }
     }
 
