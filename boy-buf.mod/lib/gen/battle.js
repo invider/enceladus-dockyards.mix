@@ -27,7 +27,7 @@ function battle() {
 
     const MY = 15
     const leftMenu = battle.spawn(dna.hud.PopupMenu, {
-        Z: 21,
+        Z: 31,
         name: 'leftMenu',
         x: 0,
         y: MY,
@@ -56,7 +56,7 @@ function battle() {
     })
 
     const rightMenu = battle.spawn(dna.hud.PopupMenu, {
-        Z: 21,
+        Z: 31,
         name: 'rightMenu',
         x: 81,
         y: MY,
@@ -67,7 +67,9 @@ function battle() {
         }
     })
 
-    battle.touch('vfx')
+    battle.touch('vfx', {
+        Z: 21,
+    })
 
     battle.spawn(dna.control.BattleControl, {
         name: 'control',

@@ -48,9 +48,9 @@ class Pod {
             this.kill()
             log(`${this.name} is destroyed`)
         }
-
         const loc = this.ship.visualGrid.cellScreenCoord(this)
         lib.vfx.hintAt('-' + attack + ' hits', loc.x, loc.y)
+        lib.vfx.debris(loc.x, loc.y)
     }
 
     kill() {

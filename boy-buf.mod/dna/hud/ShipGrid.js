@@ -109,8 +109,8 @@ class ShipGrid {
     cellScreenCoord(coord) {
         const s = env.style.cellSize
         return {
-            x: coord.x * s + this.x,
-            y: coord.y * s + this.y
+            x: floor(coord.x * s + this.x + s/2),
+            y: floor(coord.y * s + this.y + s/2),
         }
     }
 }

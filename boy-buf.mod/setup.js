@@ -1,6 +1,8 @@
 module.exports = function() {
     lib.debug.configure()
+
     _$.boy = _ // mix shortcut
+    lib.math = _$.lib.math
 
     lib.remap.sfx()
 

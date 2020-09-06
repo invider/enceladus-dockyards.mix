@@ -28,6 +28,7 @@ class BattleControl {
         this.rightPanel.monitor(shipB)
         this.leftMenu.hide()
         this.rightMenu.hide()
+        this.__.vfx.hidden = false
 
         shipA.name += ' A'
         shipA.chargeForBattle()
