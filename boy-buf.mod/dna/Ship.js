@@ -119,6 +119,25 @@ class Ship {
         }
     }
 
+    launch(action, target) {
+        switch(action) {
+        case 'lasers':
+            sfx.play('laser2', env.mixer.level.laser)
+            break
+        case 'missile':
+            sfx.play('launch', env.mixer.level.launch)
+            break
+        case 'mass driver':
+            sfx.play('beam', env.mixer.level.driver)
+            break
+        }
+
+        const source = this
+        setTimeout(() => {
+            source.takeAction(action, target)
+        }, env.tune.actionDelay)
+    }
+
     takeAction(action, target) {
         //log('action: ' + action)
         this.skipped = 0

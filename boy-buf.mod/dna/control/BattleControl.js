@@ -50,6 +50,8 @@ class BattleControl {
 
         menu.selectFrom(actions,
             function(selected) {
+                let skip = false
+
                 if (this.hidden) {
                     this.hidden = false
                     return
@@ -68,14 +70,19 @@ class BattleControl {
                     return
                 } else if (selected === 'skip') {
                     source.skipped ++
+                    skip = true
                     // do nothing
 
                 } else {
-                    source.takeAction(selected, target)
+                    setTimeout(() => {
+                        //source.takeAction(selected, target)
+                        source.launch(selected, target)
+                    }, env.tune.launchDelay)
                 }
 
                 if (!control.endCondition()) {
-                    setTimeout(nextAction, 1000)
+                    if (skip) setTimeout(nextAction, env.tune.turnSkipDelay)
+                    else setTimeout(nextAction, env.tune.subturnDelay)
                 }
             },
             function(switched) {
@@ -89,7 +96,7 @@ class BattleControl {
         source.autoPilot(target)
 
         if (!this.endCondition()) {
-            setTimeout(nextAction, 1000)
+            setTimeout(nextAction, env.tune.subturnDelay)
         }
     }
 

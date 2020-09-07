@@ -11,6 +11,6 @@ function autoPilot(target) {
     if (action === 'skip') {
         // do nothing
     } else {
-        this.takeAction(action, target)
+        this.launch(action, target)
     }
 }
