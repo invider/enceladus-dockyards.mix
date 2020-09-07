@@ -49,6 +49,11 @@ function autostartBattle() {
     playerB.prev = playerA
     playerA.next = playerB
 
+    if (_$.env.config.botA) playerA.human = false
+    if (_$.env.config.botB) playerB.human = false
+    if (_$.env.config.humanA) playerA.human = true
+    if (_$.env.config.humanB) playerB.human = true
+
     const control = lab.screen.layout.control
     control.autoConstruct(playerA, _$.env.config.blueprintA)
     control.autoConstruct(playerB, _$.env.config.blueprintB)
