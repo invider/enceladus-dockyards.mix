@@ -10,6 +10,7 @@ function autoPilot(target) {
 
     if (action === 'skip') {
         // do nothing
+        this.skipped ++
     } else {
         this.launch(action, target)
     }

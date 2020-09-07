@@ -68,18 +68,59 @@ class ShipGrid {
                 */
 
                 const pod = this.blueprint.podAt(x, y)
+
                 let POD
                 if (this.blueprint.getPod) {
                     POD = this.blueprint.getPod(x, y)
-                    if (POD && POD.df.charge && POD.charge === POD.df.charge) {
+                    if (POD
+                            && POD.df
+                            && POD.df.charge
+                            && POD.charge === POD.df.charge) {
                         chargedPods.push(POD)
                     }
                 }
 
                 if (pod !== 'x') {
+                    // within the ship
                     stroke(env.style.color.c1)
                     rect(x*s, y*s, s, s)
 
+                    let tilex = -1
+                    switch(pod) {
+                        case 'free':    tilex = 0; break;
+                        case 'shell':   tilex = 0; break;
+                        case 'armor':   tilex = 4; break;
+                        case 'debris':  tilex = 1; break;
+                        case 'laser':
+                            if (!POD || POD.isReady()) tilex = 13
+                            else tilex = 12
+                            break
+
+                        case 'missile':
+                            tilex = 8; break;
+
+                        case 'jammer':
+                            if (!POD || POD.isReady()) tilex = 27
+                            else tilex = 26
+                            break
+
+                        case 'driver':
+                            if (!POD || POD.isReady()) tilex = 21
+                            else tilex = 20
+                            break
+
+                        case 'reactor': tilex = 16; break;
+                        case 'gen':     tilex = 24; break;
+                        case 'kinetic': tilex = 6; break;
+                        case 'repair':  tilex = 10; break;
+                        default:
+                            tilex = 9;
+                    }
+
+                    if (tilex >= 0) {
+                        res.pods.draw(tilex, x*s+.5, y*s+.5, s-2, s-2)
+                    }
+                    /*
                     if (pod === 'shell') {
                         //stroke(env.style.color.c2)
                         //rect(x*s+6, y*s+6, s-12, s-12)
@@ -91,12 +132,14 @@ class ShipGrid {
                         line(x*s+5, y*s+1, x*s+5, y*s+13)
                         line(x*s+8, y*s+1, x*s+8, y*s+13)
                     } else if (pod === 'armor') {
-                        stroke(env.style.color.c2)
-                        rect(x*s+2, y*s+2, s-4, s-4)
+                        res.pods.draw(2, x*s+.5, y*s+.5, s-2, s-2)
+                        //stroke(env.style.color.c2)
+                        //rect(x*s+2, y*s+2, s-4, s-4)
                     } else if (pod !== 'free') {
                         stroke(env.style.color.c1)
                         rect(x*s+2, y*s+2, s-4, s-4)
                     }
+                    */
 
                 }
             }

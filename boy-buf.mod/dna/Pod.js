@@ -60,5 +60,7 @@ class Pod {
     kill() {
         this.dead = true
         this.ship.killPod(this)
+        this.ship.mountPod(
+            new dna.ypods.DebrisPod(), this.x, this.y)
     }
 }
