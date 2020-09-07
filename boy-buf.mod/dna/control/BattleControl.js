@@ -50,6 +50,11 @@ class BattleControl {
 
         menu.selectFrom(actions,
             function(selected) {
+                if (this.hidden) {
+                    this.hidden = false
+                    return
+                }
+
                 if (isArray(selected)) {
                     this.right()
                     return

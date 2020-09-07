@@ -48,6 +48,8 @@ class ShipGrid {
         
         lineWidth(1)
 
+
+        const chargedPods = []
         const s = env.style.cellSize
         for (let y = 0; y < 7; y++) {
             for (let x = 0; x < 5; x++) {
@@ -64,15 +66,23 @@ class ShipGrid {
                     }
                 }
                 */
+
                 const pod = this.blueprint.podAt(x, y)
+                let POD
+                if (this.blueprint.getPod) {
+                    POD = this.blueprint.getPod(x, y)
+                    if (POD && POD.df.charge && POD.charge === POD.df.charge) {
+                        chargedPods.push(POD)
+                    }
+                }
 
                 if (pod !== 'x') {
                     stroke(env.style.color.c1)
                     rect(x*s, y*s, s, s)
 
                     if (pod === 'shell') {
-                        stroke(env.style.color.c2)
-                        rect(x*s+6, y*s+6, s-12, s-12)
+                        //stroke(env.style.color.c2)
+                        //rect(x*s+6, y*s+6, s-12, s-12)
                     } else if (pod === 'laser') {
                         stroke(env.style.color.c2)
                         line(x*s+7, y*s+1, x*s+7, y*s+13)
@@ -87,15 +97,24 @@ class ShipGrid {
                         stroke(env.style.color.c1)
                         rect(x*s+2, y*s+2, s-4, s-4)
                     }
+
                 }
             }
         }
 
+
+        // mark target
         if (this.playerId) {
             const x = this.target.x
             const y = this.target.y
             stroke(env.style.color.c3)
             rect(x*s, y*s, s, s)
+        } else if (chargedPods.length > 0) {
+            for (let i = 0; i < chargedPods.length; i++) {
+                const pod = chargedPods[i]
+                stroke(env.style.color.c2)
+                rect(pod.x*s, pod.y*s, s, s)
+            }
         }
 
         restore()
