@@ -7,6 +7,7 @@ module.exports = function() {
     res.pods.drawImage = image
 
     lib.remap.sfx()
+    lib.remap.mapper.remapTiles()
 
     lib.pods.populate()
 

@@ -1,5 +1,5 @@
 function setup() {
-    lab.background = mod['boy-buf'].env.style.color.border
+    lab.background = mod['boy-buf'].env.style.border
 
     lab.spawn(_$.dna.hud.Transition, {
         fadein: 0,
