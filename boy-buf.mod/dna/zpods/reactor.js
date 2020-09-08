@@ -3,7 +3,7 @@ const df = {
     title: 'Reactor Core',
     system: true,
     cost: 100,
-    hits: 150,
+    hits: 120,
     output: 25,
 }
 
