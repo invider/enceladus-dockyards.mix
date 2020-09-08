@@ -1,3 +1,5 @@
+const DEFAULT = 'default'
+
 function rgbComponents(c) {
     if (c.startsWith('#')) c = c.substring(1)
     const r = parseInt(c.substring(0, 2), 16)
@@ -38,12 +40,10 @@ function mapColors(img, sourcePalette, targetPalette) {
         sourcePalette.forEach((sRGB, j) => {
             const tRGB = targetPalette[j]
             if (matchRGB(d, i, sRGB)) {
-                sRGB.matches = sRGB.matches? sRGB.matches + 1 : 1
                 setRGB(d, i, tRGB)
             }
         })
     }
-    sourcePalette.forEach(sRGB => log(sRGB.matches))
 
     c.putImageData(idata, 0, 0)
     const fixedImage = new Image()
@@ -51,7 +51,7 @@ function mapColors(img, sourcePalette, targetPalette) {
     return fixedImage
 }
 
-function remapTiles() {
+function remap() {
     const original = env.style.color
     const originalRGB = splitPaletteToComponents(original)
 
@@ -63,9 +63,11 @@ function remapTiles() {
         theme[palName] = ( mapColors(res.pods.img, originalRGB, palRGB) )
     })
     // include original color set to available styles
-    env.style.palette['default'] = original
+    env.style.palette[DEFAULT] = original
+    res.theme[DEFAULT] = res.pods.img
 
-    setTheme('cga1')
+    // TODO load from local store config?
+    setTheme(DEFAULT)
 }
 
 function setTheme(name) {
@@ -75,5 +77,10 @@ function setTheme(name) {
 
     res.pods.img = tiles
     env.style.color = color
+    env.style.theme = name
+
+    lab.applyAll((node) => {
+        if (node.syncTheme) node.syncTheme()
+    })
 }
 

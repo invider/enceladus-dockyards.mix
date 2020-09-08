@@ -6,6 +6,11 @@ class Frame {
         if (!this.activeColor) this.activeColor = env.style.color.c2
     }
 
+    syncTheme() {
+        this.color = env.style.color.c1
+        this.activeColor = env.style.color.c2
+    }
+
     drawStripes(x, y, w) {
         save()
         translate(0, .5)

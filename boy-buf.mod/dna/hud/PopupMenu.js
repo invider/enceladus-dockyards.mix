@@ -10,12 +10,12 @@ const df = {
 class PopupMenu {
 
     constructor(st) {
-        this.setupColors()
+        this.syncTheme()
         augment(this, df)
         augment(this, st)
     }
 
-    setupColors() {
+    syncTheme() {
         // need to setup manually,
         // since colors are not available on df{} creation
         this.background = env.style.color.c1
@@ -38,8 +38,8 @@ class PopupMenu {
         lab.control.player.unbindAll(this)
     }
 
-    selectFrom(items, onSelect, onSwitch) {
-        this.current = 0
+    selectFrom(items, onSelect, onSwitch, preservePos) {
+        if (!preservePos) this.current = 0
         this.items = items
         items.forEach(item => {
             if (isArray(item)) {
@@ -146,7 +146,7 @@ class PopupMenu {
         const h = n * this.step + 2*b
         let y = cy - floor(h/2)
 
-        if (this.background) {
+        if (this.showBackground) {
             fill(this.background)
             rect(rx, y-2*b, rw, h)
         }

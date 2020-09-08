@@ -33,6 +33,7 @@ function battle() {
         y: MY,
         w: 79,
         h: 100,
+        showBackground: true,
         alt: function() {
             this.hidden = !this.hidden
         }

@@ -1,3 +1,3 @@
-function menu() {
-    lab.screen.menu.show()
+function menu(st) {
+    lab.screen.menu.show(st)
 }

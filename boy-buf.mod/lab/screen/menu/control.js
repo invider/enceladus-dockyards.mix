@@ -1,5 +1,7 @@
+
 const items = [
     'new game',
+    'options',
     { section: true, title: 'player A'},
     ['human', 'bot'],
     ['$1000', '$1200', '$1600', '$2000', '$400', '$600', '$800'],
@@ -7,11 +9,14 @@ const items = [
     ['bot', 'human'],
     ['$1000', '$1200', '$1600', '$2000', '$400', '$600', '$800'],
 ]
+const SELECT = 3
 
 
 function onSelect(item) {
-    if (item === items[0]) {
+    if (item === 'new game') {
         this.__.control.newGame()
+    } else if ('options') {
+        this.__.control.options()
     }
 }
 
@@ -30,10 +35,10 @@ function setup() {
     this.menu = menu
 
     augment(this.__, {
-        show: function() {
+        show: function(preservePos) {
             this.hidden = false
             this.control.state = 0
-            this.menu.selectFrom(items, onSelect)
+            this.menu.selectFrom(items, onSelect, false, preservePos)
             //lab.control.player.bindAll(menu)
         },
         hide: function() {
@@ -51,12 +56,12 @@ function newGame() {
 
     const gameConfig = {
         playerA: {
-            human: this.menu.selectedValue(2) === 'human',
-            budget: parseInt(this.menu.selectedValue(3).substring(1)),
+            human: this.menu.selectedValue(SELECT) === 'human',
+            budget: parseInt(this.menu.selectedValue(SELECT+1).substring(1)),
         },
         playerB: {
-            human: this.menu.selectedValue(5) === 'human',
-            budget: parseInt(this.menu.selectedValue(6).substring(1)),
+            human: this.menu.selectedValue(SELECT+3) === 'human',
+            budget: parseInt(this.menu.selectedValue(SELECT+4).substring(1)),
         },
     }
 
@@ -70,4 +75,14 @@ function newGame() {
         },
         fadeOut: env.style.fadeOut,
     })
+}
+
+function options() {
+    if (this.state) return
+    this.state = 1
+
+    this.__.hide()
+    lab.control.player.unbindAll(this.menu)
+
+    trap('options')
 }
