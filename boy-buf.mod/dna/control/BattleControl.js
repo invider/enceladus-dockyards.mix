@@ -15,9 +15,22 @@ class BattleControl {
         augment(this, st)
     }
 
+    installAutopilot(ship) {
+        if (!ship.player.human) {
+            log('installing autopilot for ' + ship.name + '/' + ship.player.name)
+            ship.autoSelect = _.bot.computingCore.autoSelect
+            ship.autoPilot = _.bot.computingCore.autoPilot
+        }
+    }
+
+
     startBattle(playerA, playerB) {
         const shipA = playerA.ship
         const shipB = playerB.ship
+        if (playerA.hybrid) playerA.human = false
+        if (playerB.hybrid) playerB.human = false
+        this.installAutopilot(shipA)
+        this.installAutopilot(shipB)
         this.turn = 1
         this.subturn = 0
         this.shipA = shipA

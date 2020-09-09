@@ -81,12 +81,6 @@ class DesignControl {
 
     constructShip(player, blueprint) {
         const ship = new dna.Ship(blueprint)
-        if (!player.human) {
-            // TODO figure out why 2 times?
-            log('installing autopilot for ' + ship.name + '/' + player.name)
-            ship.autoSelect = _.bot.computingCore.autoSelect
-            ship.autoPilot = _.bot.computingCore.autoPilot
-        }
         ship.player = player
         player.ship = ship
         return ship

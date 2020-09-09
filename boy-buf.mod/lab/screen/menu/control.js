@@ -3,10 +3,10 @@ const items = [
     'new game',
     'options',
     { section: true, title: 'player A'},
-    ['human', 'bot'],
+    ['human', 'bot', 'hybrid'],
     ['$1000', '$1200', '$1600', '$2000', '$400', '$600', '$800'],
     { section: true, title: 'player B'},
-    ['bot', 'human'],
+    ['bot', 'human', 'hybrid'],
     ['$1000', '$1200', '$1600', '$2000', '$400', '$600', '$800'],
 ]
 const SELECT = 3
@@ -54,13 +54,18 @@ function newGame() {
     this.state = 1
     lab.control.player.unbindAll(this.menu)
 
+    const playerA = this.menu.selectedValue(SELECT)
+    const playerB = this.menu.selectedValue(SELECT+3)
+
     const gameConfig = {
         playerA: {
-            human: this.menu.selectedValue(SELECT) === 'human',
+            human: playerA === 'human' || playerA === 'hybrid',
+            hybrid: playerA === 'hybrid',
             budget: parseInt(this.menu.selectedValue(SELECT+1).substring(1)),
         },
         playerB: {
-            human: this.menu.selectedValue(SELECT+3) === 'human',
+            human: playerB === 'human' || playerB === 'hybrid',
+            hybrid: playerB === 'hybrid',
             budget: parseInt(this.menu.selectedValue(SELECT+4).substring(1)),
         },
     }
