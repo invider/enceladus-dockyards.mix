@@ -11,8 +11,8 @@ class Player {
         augment(this, st)
     }
 
-    buy(cost) {
-        if (this.balance < cost) return false
+    buy(cost, allowCredit) {
+        if (this.balance < cost && !allowCredit) return false
         this.balance -= cost
         return true
     }

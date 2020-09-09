@@ -26,10 +26,6 @@ class Designer {
             special: true,
         })
         pods.push({
-            name: 'upload',
-            special: true,
-        })
-        pods.push({
             name: 'remove',
             special: true,
         })

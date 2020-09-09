@@ -9,3 +9,22 @@ function downloadJSON(json) {
     link.setAttribute('download', json.name + '.json')
     link.click()
 }
+
+function loadFile(file) {
+	let input = file.target
+
+	let reader = new FileReader()
+	reader.onload = function(){
+        const json = JSON.parse(reader.result)
+        trap('upload', json)
+	};
+	reader.readAsText(input.files[0]);
+}
+
+function uploadJSON() {
+    let input = document.createElement('input')
+    input.setAttribute('type', 'file')
+    input.setAttribute('accept', 'text/bas')
+    input.setAttribute('onchange', "$.mod['boy-buf'].lib.util.loadFile(event)")
+    input.click()
+}

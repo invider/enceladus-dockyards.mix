@@ -16,7 +16,14 @@ class PlayerData {
         const x = this.x
         const y = this.y
         text(this.player.title, x, y)
-        text('$' + this.player.balance, x, y+10)
+
+        let prefix = '$'
+        let balance = this.player.balance
+        if (balance < 0) {
+            prefix = '-$'
+            balance *= -1
+        }
+        text(prefix + balance, x, y+10)
     }
 
     setPlayer(player) {

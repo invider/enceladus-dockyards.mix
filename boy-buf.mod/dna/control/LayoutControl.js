@@ -33,8 +33,7 @@ class LayoutControl {
                 readyBlueprintsMap[blueprint.name] = blueprint
             }
         })
-
-        // TODO include existing/stored designs
+        // TODO include existing/local-stored designs
 
         this.current = 0
         this.blueprints = blueprints
@@ -91,7 +90,7 @@ class LayoutControl {
 
     next() {
         this.current ++
-        if (this.current >= this.blueprints.length) {
+        if (this.current > this.blueprints.length) {
             this.current = 0
         }
         this.sync()
@@ -101,7 +100,7 @@ class LayoutControl {
     prev() {
         this.current --
         if (this.current < 0) {
-            this.current = this.blueprints.length - 1
+            this.current = this.blueprints.length
         }
         this.sync()
         sfx.play('select', env.mixer.level.select)
@@ -113,11 +112,8 @@ class LayoutControl {
         lab.control.player.unbindAll(this)
     }
 
-    done() {
-        this.lock()
-
+    designForBlueprint(blueprint) {
         const player = this.player
-        const blueprint = this.currentBlueprint()
         player.blueprint = blueprint
 
         lab.vfx.itransit(() => {
@@ -125,6 +121,17 @@ class LayoutControl {
             trap('design', player)
         })
         sfx.play('apply', env.mixer.level.apply)
+    }
+
+    done() {
+        this.lock()
+
+        const blueprint = this.currentBlueprint()
+        if (blueprint) {
+            this.designForBlueprint(blueprint)
+        } else {
+            lib.util.uploadJSON()
+        }
     }
 
     back() {

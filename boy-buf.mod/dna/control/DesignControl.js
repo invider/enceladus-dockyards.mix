@@ -9,7 +9,7 @@ class DesignControl {
         this.state = 0
         this.player = player
         this.blueprint = player.blueprint
-        this.player.buy(this.blueprint.estimateCost())
+        this.player.buy(this.blueprint.estimateCost(), true)
         this.grid.setBlueprint(this.blueprint)
         this.playerData.setPlayer(player)
 
@@ -29,7 +29,15 @@ class DesignControl {
         if (!pod) return
 
         if (pod.name === 'build') {
-            this.build()
+            if (this.player.balance >= 0) {
+                this.build()
+            } else {
+                sfx.play('denied', env.mixer.level.denied)
+            }
+
+        } else if (pod.name === 'download') {
+            this.blueprint.download()
+
         } else {
             this.__.parts.active = false
             this.__.blueprint.active = true

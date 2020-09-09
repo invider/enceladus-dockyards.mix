@@ -43,11 +43,12 @@ class ShipGrid {
     back() {}
 
     draw() {
+        if (!this.blueprint) return
         save()
         translate(this.x + .5, this.y + .5)
+
         
         lineWidth(1)
-
 
         const chargedPods = []
         const s = env.style.cellSize
@@ -145,7 +146,6 @@ class ShipGrid {
             }
         }
 
-
         // mark target
         if (this.playerId) {
             const x = this.target.x
@@ -165,7 +165,9 @@ class ShipGrid {
 
     setBlueprint(blueprint) {
         this.blueprint = blueprint
-        this.blueprint.visualGrid = this
+        if (blueprint) {
+            blueprint.visualGrid = this
+        }
     }
 
     cellScreenCoord(coord) {
