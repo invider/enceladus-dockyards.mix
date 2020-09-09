@@ -24,6 +24,7 @@ class PopupMenu {
             bcolor: env.style.color.c0, 
             scolor: env.style.color.c2,
             acolor: env.style.color.c0, 
+            dcolor: env.style.color.c1,
             bacolor: env.style.color.c3, 
         }
     }
@@ -67,7 +68,7 @@ class PopupMenu {
         if (this.current >= this.items.length) this.current = 0
 
         const item = this.items[this.current]
-        if (isObj(item) && item.section) {
+        if (isObj(item) && (item.section || item.disabled)) {
             this.next()
         } else {
             // landed
@@ -81,7 +82,7 @@ class PopupMenu {
         if (this.current < 0) this.current = this.items.length - 1
 
         const item = this.items[this.current]
-        if (isObj(item) && item.section) {
+        if (isObj(item) && (item.section || item.disabled)) {
             this.prev()
         } else {
             // landed
@@ -94,7 +95,7 @@ class PopupMenu {
         if (isArray(item)) {
             item.current --
             if (item.current < 0) item.current = item.length - 1
-            if (this.onSwitch) this.onSwitch(item)
+            if (this.onSwitch) this.onSwitch(item, this.current)
             sfx.play('apply', env.mixer.level.switch)
         }
     }
@@ -104,7 +105,7 @@ class PopupMenu {
         if (isArray(item)) {
             item.current ++
             if (item.current >= item.length) item.current = 0
-            if (this.onSwitch) this.onSwitch(item)
+            if (this.onSwitch) this.onSwitch(item, this.current)
             sfx.play('apply', env.mixer.level.switch)
         }
     }
@@ -152,25 +153,32 @@ class PopupMenu {
         }
 
         for (let i = 0; i < n; i++) {
+            let hidden = false
             let active = true
+            let disabled = false
             let item = this.items[i]
             if (isArray(item)) {
+                if (item.hidden) hidden = true
+                if (item.disabled) disabled = true
                 item = '< ' + item[item.current] + ' >'
             } else if (isObj(item) && item.section) {
                 active = false
                 item = item.title
             }
 
-            // backline
-            if (i === this.current) fill(this.color.bacolor)
-            else fill(this.color.bcolor)
-            rect(rx+b, y-1, rw-2*b, this.step-2)
+            if (!hidden) {
+                // backline
+                if (i === this.current) fill(this.color.bacolor)
+                else fill(this.color.bcolor)
+                rect(rx+b, y-1, rw-2*b, this.step-2)
 
-            if (!active) fill(this.color.scolor)
-            else if (i === this.current) fill(this.color.acolor)
-            else fill(this.color.main)
-            text(item, x, y)
-            y += this.step
+                if (!active) fill(this.color.scolor)
+                else if (disabled) fill(this.color.dcolor)
+                else if (i === this.current) fill(this.color.acolor)
+                else fill(this.color.main)
+                text(item, x, y)
+                y += this.step
+            }
         }
     }
 

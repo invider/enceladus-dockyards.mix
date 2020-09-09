@@ -8,6 +8,23 @@ const rechargeModes = [
     'jammers',
     'repairs',
 ]
+rechargeModes.id = 'recharge'
+
+const targeting = [
+    'auto',
+    'manual'
+]
+targeting.id = 'targeting'
+
+const targets = [
+    'any',
+    'weapons',
+    'shields',
+    'reactors',
+]
+targets.id = 'targets'
+
+
 
 class BattleControl {
 
@@ -58,6 +75,19 @@ class BattleControl {
         actions.push({ section: true, title: 'charge mode' })
         actions.push(rechargeModes)
         rechargeModes.current = rechargeModes.indexOf(source.rechargePriority)
+
+        actions.push({ section: true, title: 'target' })
+        actions.push(targeting)
+        if (source.autotarget) {
+            targeting.current = 0
+            targets.disabled = false
+        } else {
+            targeting.current = 1
+            targets.disabled = true
+        }
+        actions.push(targets)
+        targets.current = targets.indexOf(source.target)
+
         actions.push('skip')
         actions.push('yield')
 
@@ -98,8 +128,31 @@ class BattleControl {
                     else setTimeout(nextAction, env.tune.subturnDelay)
                 }
             },
-            function(switched) {
-                source.setRechargePriority(switched[switched.current])
+            function(switched, i) {
+                const val = switched[switched.current]
+
+                switch(switched.id) {
+                case 'recharge':
+                    source.setRechargePriority(val)
+                    break
+
+                case 'targeting':
+                    if (val === 'manual') {
+                        source.autotarget = false
+                        this.items[i+1].disabled = true
+                    } else {
+                        source.autotarget = true
+                        this.items[i+1].disabled = false
+                    }
+                    break
+
+                case 'targets':
+                    source.target = val
+                    log(source.name + ' targets ' + val)
+                    break
+                }
+
+
             }
         )
     }

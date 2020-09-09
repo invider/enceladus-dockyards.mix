@@ -20,7 +20,10 @@ class Ship {
                 }
             }
         }
+
         this.rechargePriority = 'weapons'
+        this.autotarget = true
+        this.target = 'any'
     }
 
     cellType(x, y) {

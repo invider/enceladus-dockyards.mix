@@ -1,4 +1,5 @@
 function init() {
+    this.state = 4
     this.alpha = 1
 }
 
@@ -65,6 +66,7 @@ function preVFX() {
 
 // rendering postprocessing
 function postVFX() {
+    if (!this.background || this.state > 3) return
     if (this.alpha > 0) {
         save()
         alpha(this.alpha)
