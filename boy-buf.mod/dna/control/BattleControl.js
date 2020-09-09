@@ -190,14 +190,9 @@ class BattleControl {
 
         const scoreData = this.determineWinner()
 
-        lab.vfx.transit({
-            fadeIn: env.style.fadeIn,
-            keep: .5,
-            onFadeOut: function() {
-                activeScreen.hide()
-                trap('score', scoreData)
-            },
-            fadeOut: env.style.fadeOut,
+        lab.vfx.itransit(() => {
+            activeScreen.hide()
+            trap('score', scoreData)
         })
     }
 }

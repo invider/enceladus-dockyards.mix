@@ -94,22 +94,17 @@ class DesignControl {
         const player = ship.player
         const control = this
         const activeScreen = this.__
-        lab.vfx.transit({
-            fadeIn: env.style.fadeIn,
-            keep: .5,
-            onFadeOut: function() {
-                control.unbindAll()
-                activeScreen.hide()
+        lab.vfx.itransit(() => {
+            control.unbindAll()
+            activeScreen.hide()
 
-                if (player.next) {
-                    // construction for next player
-                    trap('layout', player.next)
-                } else {
-                    // ships are ready, prep for the battle!
-                    trap('battle', player)
-                }
-            },
-            fadeOut: env.style.fadeOut,
+            if (player.next) {
+                // construction for next player
+                trap('layout', player.next)
+            } else {
+                // ships are ready, prep for the battle!
+                trap('battle', player)
+            }
         })
     }
 

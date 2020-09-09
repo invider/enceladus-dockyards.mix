@@ -188,15 +188,6 @@ class Ship {
         } else {
             log('attack missed!')
         }
-        /*
-        const pod = this.killPodAt(x, y)
-        if (pod) {
-            pod.state2 = 'destroyed in @' + lab.screen.battle.control.turn
-            log.out(`hitting ${this.name}->${x}:${y} [${pod.name}]`)
-        } else {
-            log.out('missed')
-        }
-        */
     }
 
     shieldFromLaser(attack) {

@@ -1,5 +1,14 @@
 function init() {
-    this.alpha = 0
+    this.alpha = 1
+}
+
+function itransit(fn) {
+    this.transit({
+        fadeIn: env.style.fadeIn,
+        keep: env.style.keep,
+        onFadeOut: fn,
+        fadeOut: env.style.fadeOut,
+    })
 }
 
 function transit(st) {
@@ -13,7 +22,7 @@ function transit(st) {
     this.background = st.background || env.style.color.c0
 
     this.state = 1
-    this.tspeed = (1 - this.alpha)/st.fadein
+    this.tspeed = (1 - this.alpha)/st.fadeIn
     if (this.onFadeIn) this.onFadeIn()
 }
 

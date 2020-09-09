@@ -7,6 +7,7 @@ const style = {
     scoreTimeout: 10,
 
     fadeIn: .5,
+    keep:   .3,
     fadeOut: 1,
 
     cellSize: 14,

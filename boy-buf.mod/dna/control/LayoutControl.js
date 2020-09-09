@@ -78,19 +78,14 @@ class LayoutControl {
         lab.screen.design.control.constructShip(player, blueprint)
         
         const control = this
-        lab.vfx.transit({
-            fadeIn: env.style.fadeIn,
-            keep: .5,
-            onFadeOut: function() {
-                if (player.next) {
-                    // construction for next player
-                    trap('layout', player.next)
-                } else {
-                    // ships are ready, prep for the battle!
-                    trap('battle', player)
-                }
-            },
-            fadeOut: env.style.fadeOut,
+        lab.vfx.itransit(() => {
+            if (player.next) {
+                // construction for next player
+                trap('layout', player.next)
+            } else {
+                // ships are ready, prep for the battle!
+                trap('battle', player)
+            }
         })
     }
 
@@ -112,23 +107,31 @@ class LayoutControl {
         sfx.play('select', env.mixer.level.select)
     }
 
-    done() {
+    lock() {
         if (this.state) return
         this.state = 1
         lab.control.player.unbindAll(this)
+    }
+
+    done() {
+        this.lock()
 
         const player = this.player
         const blueprint = this.currentBlueprint()
         player.blueprint = blueprint
 
-        lab.vfx.transit({
-            fadeIn: env.style.fadeIn,
-            hold: .5,
-            onFadeOut: function() {
-                lab.screen.layout.hide()
-                trap('design', player)
-            },
-            fadeOut: env.style.fadeOut,
+        lab.vfx.itransit(() => {
+            lab.screen.layout.hide()
+            trap('design', player)
+        })
+        sfx.play('apply', env.mixer.level.apply)
+    }
+
+    back() {
+        this.lock()
+        lab.vfx.itransit(() => {
+            lab.screen.layout.hide()
+            trap('menu')
         })
         sfx.play('apply', env.mixer.level.apply)
     }
@@ -150,6 +153,7 @@ class LayoutControl {
             case 2: this.prev(); break;
             case 4: this.next(); break;
             case 5: this.done(); break;
+            case 6: this.back(); break;
         }
     }
 }

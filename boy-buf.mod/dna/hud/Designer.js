@@ -22,6 +22,14 @@ class Designer {
 
         // special actions
         pods.push({
+            name: 'download',
+            special: true,
+        })
+        pods.push({
+            name: 'upload',
+            special: true,
+        })
+        pods.push({
             name: 'remove',
             special: true,
         })
