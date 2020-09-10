@@ -112,10 +112,15 @@ class ShipGrid {
                         stroke(env.style.color.c1)
                         rect(x*s, y*s, s, s)
 
+                        stroke(env.style.color.c0)
+                        line(x*s, y*s+s-1, x*s+s-1, y*s+s-1)
+                        line(x*s+s-1, y*s, x*s+s-1, y*s+s-1)
+
                         // draw the component
                         const tilex = this.getTilex(pod, POD)
                         if (tilex >= 0) {
-                            res.pods.draw(tilex, x*s+.5 + dx, y*s+.5 + dy, s-2, s-2)
+                            res.pods.draw(tilex,
+                                x*s+.5 + dx, y*s+.5 + dy, s-2, s-2)
                         }
                     }
                 }
