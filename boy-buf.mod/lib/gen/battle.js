@@ -2,6 +2,13 @@ function battle() {
     const battle = lab.screen.touch('battle', dna.trait.hidable)
     _$.battle = battle
 
+    battle.spawn(dna.Starfield, {
+        x: 0,
+        y: 0,
+        w: rx(1),
+        h: ry(1),
+    })
+
     battle.spawn(dna.hud.Separator, {
         x: floor(ctx.width/2)
     })
