@@ -1,10 +1,11 @@
 const EDGE = 20
-const STAR_FQ = 5
+const STAR_FQ = 8
 const METEOR_FQ = 0.5
 
 const df = {
     Z: 1,
-    speed: 4,
+    speed: 2,
+    wind: 1,
 }
 
 class Starfield {
@@ -31,8 +32,10 @@ class Starfield {
             //y: this._.lib.math.rndi(this._.env.height),
             //x: this._.lib.math.rndi(this._.env.width),
             //y: (this.speed < 0)? -EDGE : rx(1) + EDGE,
-            x: (this.speed < 0)? -EDGE : rx(1) + EDGE,
-            y: RND(ry(1)),
+            //x: (this.speed < 0)? -EDGE : rx(1) + EDGE,
+            //y: RND(ry(1)),
+            x: -rx(.5) + RND(rx(2)),
+            y: (this.speed > 0)? -EDGE : ry(1) + EDGE,
             s: 4 + this._.lib.math.rndi(8), // relative speed
             m: 5 + this._.lib.math.rndi(10),
         }
@@ -71,17 +74,21 @@ class Starfield {
                 star.y += star.dy * dt
                 if (star.y > env.height) star.a = false
             } else {
-                star.x -= speed * star.s * dt
-                //if (star.y < -env.height|| star.y > env.height*2) star.a = false
-                if (star.x < - 2*EDGE || star.x > rx(1) + 2*EDGE || star.y > env.height*2) star.a = false
+                star.x += this.wind * dt
+                star.y += speed * star.s * dt
+                if (star.y < -ctx.height || star.y > ctx.height*2) star.a = false
+                //star.x -= speed * star.s * dt
+                //if (star.x < - 2*EDGE || star.x > rx(1) + 2*EDGE || star.y > env.height*2) star.a = false
             }
         })
     }
 
     draw() {
+        save()
+        clip(this.x, this.y, this.w, this.h)
+
         // draw stars
         this.stars.forEach( star => {
-
             /*
             let img = res.stars.blue
             switch(star.c) {
@@ -92,8 +99,9 @@ class Starfield {
             */
             lineWidth(1)
             fill(env.style.color.c3)
-            plot(star.x, star.y)
+            plot(floor(star.x), floor(star.y))
         })
+        restore()
     }
 }
 

@@ -5,8 +5,19 @@ function battle() {
     battle.spawn(dna.Starfield, {
         x: 0,
         y: 0,
-        w: rx(1),
+        w: rx(.5),
         h: ry(1),
+        speed: 4,
+        wind: -3,
+    })
+
+    battle.spawn(dna.Starfield, {
+        x: rx(.5),
+        y: 0,
+        w: rx(.5),
+        h: ry(1),
+        speed: 3,
+        wind: 3,
     })
 
     battle.spawn(dna.hud.Separator, {
@@ -18,7 +29,7 @@ function battle() {
     const left = battle.spawn(dna.hud.ShipGrid, {
         Z: 11,
         name: 'left',
-        x: 6,
+        x: 4,
         y: GY,
     })
 
@@ -49,7 +60,7 @@ function battle() {
     const right = battle.spawn(dna.hud.ShipGrid, {
         Z: 11,
         name: 'right',
-        x: 83,
+        x: 85,
         y: GY,
         layout: dna.spec.layout.whale,
     })
