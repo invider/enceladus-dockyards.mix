@@ -23,5 +23,6 @@ class laser extends dna.WeaponPod {
         target.incoming(this, this.attack, x, y)
         this.charge = 0
         this.vibrate()
+        sfx.play('laser2', env.mixer.level.laser)
     }
 }

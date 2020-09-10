@@ -123,6 +123,7 @@ class Ship {
     }
 
     launch(action, target) {
+        /*
         switch(action) {
         case 'lasers':
             sfx.play('laser2', env.mixer.level.laser)
@@ -134,6 +135,7 @@ class Ship {
             sfx.play('beam', env.mixer.level.driver)
             break
         }
+        */
 
         const source = this
         setTimeout(() => {
@@ -223,13 +225,15 @@ class Ship {
                     && pod.y >= sy && pod.y <= fy) {
                 // found armor in the area, reduce attack
                 if (attack < pod.hits) {
-                    pod.hits -= attack
+                    pod.hit(attack)
+                    //pod.hits -= attack
                     attack = 0
                     log('mass driver is deflected by ' + pod.name)
                 } else {
                     attack -= pod.hits
-                    pod.hits = 0
-                    pod.ship.killPod(pod)
+                    pod.hit(pod.hits)
+                    //pod.hits = 0
+                    //pod.ship.killPod(pod)
                     log(pod.name + ' is destroyed by mass driver')
                 }
             }

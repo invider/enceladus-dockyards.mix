@@ -61,6 +61,7 @@ class Pod {
     }
 
     hit(attack) {
+        if (attack <= 0) return
         if (attack > this.hits) attack = this.hits
 
         this.hits -= attack

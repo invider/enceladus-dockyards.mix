@@ -24,5 +24,6 @@ class driver extends dna.WeaponPod {
         //target.hit(this.attack, this.name, x, y)
         this.charge = 0
         this.vibrate()
+        sfx.play('beam', env.mixer.level.driver)
     }
 }

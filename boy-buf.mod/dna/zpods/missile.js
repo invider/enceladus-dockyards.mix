@@ -28,5 +28,6 @@ class missile extends dna.WeaponPod {
         this.state = 'fired at ' + x + ':' + y
             + ' @' + lab.screen.battle.control.turn
         this.ship.killPod(this)
+        sfx.play('launch', env.mixer.level.launch)
     }
 }
