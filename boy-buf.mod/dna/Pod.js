@@ -1,8 +1,29 @@
+const SPEED = 100
+const TIME = .05
+const VTIME = .03
+
 const df = {
     name: 'pod',
     title: 'pod mk1',
     cost: 10,
     hits: 100,
+    dx: 0,
+    dy: 0,
+
+    effect: 0,
+    times: 0,
+    timer: 0,
+}
+
+function toZero(val, delta) {
+    if (val < 0) {
+        val += delta
+        if (val > 0) val = 0
+    } else if (val > 0) {
+        val -= delta
+        if (val < 0) val = 0
+    }
+    return val
 }
 
 class Pod {
@@ -54,7 +75,58 @@ class Pod {
             lib.vfx.hintAt('-' + attack + ' hits', loc.x, loc.y)
             lib.vfx.debris(loc.x, loc.y)
             sfx.play('burn', env.mixer.level.burn)
-        }, RND(600))
+            this.shake()
+        }, 300 + RND(700))
+    }
+
+    shake() {
+        this.effect = 3
+        this.times  = 5
+        this.timer  = TIME
+    }
+
+    vibrate() {
+        this.effect = 1
+        this.times  = 5
+        this.timer  = VTIME
+    }
+
+    evo(dt) {
+        if (this.effect) {
+            this.timer -= dt
+            if (this.timer < 0) {
+                this.times --
+
+                if (this.times === 0) {
+                    this.effect = 9
+
+                } else {
+                    this.timer = 2*TIME
+                    switch(this.effect) {
+                        case 1: this.effect = 2; break;
+                        case 2: this.effect = 1; break;
+                        case 3: this.effect = 4; break;
+                        case 4: this.effect = 3; break;
+                    }
+                }
+
+            } else {
+                switch(this.effect) {
+                    case 1: this.dy -= dt * SPEED; break;
+                    case 2: this.dy += dt * SPEED; break;
+                    case 3: this.dx -= dt * SPEED; break;
+                    case 4: this.dx += dt * SPEED; break;
+
+                    case 9:
+                        this.dx = toZero(this.dx, dt * SPEED)
+                        this.dy = toZero(this.dy, dt * SPEED)
+                        if (this.dx === 0 && this.dy === 0) {
+                            this.effect = 0
+                        }
+                        break
+                }
+            }
+        }
     }
 
     kill() {

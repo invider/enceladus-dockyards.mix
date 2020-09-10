@@ -23,5 +23,6 @@ class driver extends dna.WeaponPod {
         target.incoming(this, this.attack, x, y)
         //target.hit(this.attack, this.name, x, y)
         this.charge = 0
+        this.vibrate()
     }
 }

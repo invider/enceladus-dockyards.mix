@@ -211,6 +211,13 @@ class BattleControl {
         return false
     }
 
+    evo(dt) {
+        if (this.shipA && this.shipB) {
+            this.shipA.evo(dt)
+            this.shipB.evo(dt)
+        }
+    }
+
     nextTurn() {
         log('--------------')
         log('finishing turn')

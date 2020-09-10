@@ -22,5 +22,6 @@ class laser extends dna.WeaponPod {
     activate(target, x, y) {
         target.incoming(this, this.attack, x, y)
         this.charge = 0
+        this.vibrate()
     }
 }

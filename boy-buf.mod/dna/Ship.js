@@ -301,6 +301,12 @@ class Ship {
         this.rechargePriority = mode
     }
 
+    evo(dt) {
+        for (let i = 0, N = this.pods.length; i < N; i++) {
+            this.pods[i].evo(dt)
+        }
+    }
+
     // ******************************************
     // stat
 
