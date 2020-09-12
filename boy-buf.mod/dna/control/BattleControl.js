@@ -1,3 +1,6 @@
+const ACTIVE = 0
+const HALT = 1
+
 const rechargeModes = [
     'all',
     'weapons',
@@ -50,6 +53,7 @@ class BattleControl {
         this.installAutopilot(shipA)
         this.installAutopilot(shipB)
         this.turn = 1
+        this.status = ACTIVE
         this.subturn = 0
         this.shipA = shipA
         this.shipB = shipB
@@ -67,7 +71,7 @@ class BattleControl {
         shipB.chargeForBattle()
 
         this.turnA()
-        // or this.turnB() half of the time?
+        lab.control.player.bindAll(this)
     }
 
     humanTurn(source, target, menu, nextAction) {
@@ -106,6 +110,7 @@ class BattleControl {
                     return
                 }
                 this.hide()
+                lab.control.player.bindAll(this)
                 
                 if (selected === 'yield') {
                     source.status = 'yield'
@@ -168,6 +173,7 @@ class BattleControl {
     }
 
     turnA() {
+        if (this.status === HALT) return
         const source = this.shipA
         const target = this.shipB
         const control = this
@@ -185,6 +191,7 @@ class BattleControl {
     }
 
     turnB() {
+        if (this.status === HALT) return
         const source = this.shipB
         const target = this.shipA
         const control = this
@@ -227,6 +234,7 @@ class BattleControl {
     }
 
     nextTurn() {
+        if (this.status === HALT) return
         log('--------------')
         log('finishing turn')
         this.shipA.turn()
@@ -237,6 +245,12 @@ class BattleControl {
         log('====================')
 
         this.turnA()
+    }
+
+    activate(action) {
+        if (action === 6 && !this.shipA.human && !this.shipB.human) {
+            this.finishBattle()
+        }
     }
 
     determineWinner() {
@@ -258,6 +272,11 @@ class BattleControl {
             if (B.status === 'destroyed' && !A.status) A.status = 'win'
         }
 
+        if (!A.status && !B.status) {
+            A.status = 'draw'
+            B.status = 'draw'
+        }
+
         const res = {
             shipA: this.shipA,
             shipB: this.shipB,
@@ -266,6 +285,7 @@ class BattleControl {
     }
 
     finishBattle() {
+        this.status = HALT
         const activeScreen = this.__
         lab.control.player.unbindAll()
         const scoreData = this.determineWinner()
