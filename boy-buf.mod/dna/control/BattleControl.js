@@ -172,7 +172,9 @@ class BattleControl {
         const target = this.shipB
         const control = this
         const next = (() => control.turnB())
+        
 
+        source.subTurn()
         if (source.player.human) {
             setTimeout( () => {
                 this.humanTurn(source, target, this.leftMenu, next)
@@ -188,6 +190,7 @@ class BattleControl {
         const control = this
         const next = (() => control.nextTurn())
 
+        source.subTurn()
         if (source.player.human) {
             setTimeout( () => {
                 this.humanTurn(source, target, this.rightMenu, next)

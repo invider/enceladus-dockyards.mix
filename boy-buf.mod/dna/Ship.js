@@ -185,6 +185,13 @@ class Ship {
         })
     }
 
+    subTurn() {
+        this.forEachPod((pod) => {
+            if (pod.subTurn) pod.subTurn()
+        })
+    }
+
+
     hit(attack, x, y) {
         const pod = this.getPod(x, y)
         if (pod) {
