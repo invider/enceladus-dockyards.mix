@@ -27,6 +27,15 @@ class missile extends dna.WeaponPod {
         this.state = 'fired at ' + x + ':' + y
             + ' @' + lab.screen.battle.control.turn
         this.ship.killPod(this)
+
+        const loc = this.ship.visualGrid.cellScreenCoord(this)
+        lab.screen.battle.vfx.spawn(dna.Projectile, {
+            type: 'missile',
+            x: loc.x,
+            y: loc.y,
+            r: 5,
+            speed: -120,
+        })
         sfx.play('launch', env.mixer.level.launch)
     }
 }
