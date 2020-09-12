@@ -1,4 +1,3 @@
-
 function hintAt(text, x, y, color) {
     color = color || env.style.color.c3
     lab.screen.battle.vfx.spawn(dna.hud.fadeText, {
@@ -17,11 +16,12 @@ function hintAt(text, x, y, color) {
     })
 }
 
-function debris(x, y) {
+function debris(x, y, color) {
+    color = color || env.style.color.c1
     lab.screen.battle.vfx.spawn(dna.Emitter, {
         x: x,
         y: y,
-        color: env.style.color.c1,
+        color: color,
         lifespan: 0.1,
         force: 1500,
         radius: 0,

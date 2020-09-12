@@ -93,7 +93,7 @@ class Pod {
         const loc = this.ship.visualGrid.cellScreenCoord(this)
         setTimeout(() => {
             lib.vfx.hintAt('+' + fix + ' hits', loc.x, loc.y, env.style.color.c2)
-            lib.vfx.debris(loc.x, loc.y)
+            lib.vfx.debris(loc.x, loc.y, env.style.color.c3)
             sfx.play('noisy', env.mixer.level.repair)
             this.shake()
         }, 1200)
