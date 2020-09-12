@@ -8,7 +8,7 @@ const df = {
     border: 2,
     IDLE: 30,
 }
-class PopupMenu {
+class Menu {
 
     constructor(st) {
         this.syncTheme()

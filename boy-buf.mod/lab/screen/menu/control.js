@@ -38,7 +38,7 @@ function onIdle() {
 function setup() {
     const W = 70
     const B = floor((ctx.width-W)/2)
-    const menu = this.__.spawn(dna.hud.PopupMenu, {
+    const menu = this.__.spawn(dna.hud.Menu, {
         Z: 1,
         name: 'menu',
         x: B,

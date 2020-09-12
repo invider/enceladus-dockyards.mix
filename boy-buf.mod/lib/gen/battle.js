@@ -44,7 +44,7 @@ function battle() {
     })
 
     const MY = 20
-    const leftMenu = battle.spawn(dna.hud.PopupMenu, {
+    const leftMenu = battle.spawn(dna.hud.Menu, {
         Z: 31,
         name: 'leftMenu',
         x: 0,
@@ -74,7 +74,7 @@ function battle() {
         h: ctx.height - PY,
     })
 
-    const rightMenu = battle.spawn(dna.hud.PopupMenu, {
+    const rightMenu = battle.spawn(dna.hud.Menu, {
         Z: 31,
         name: 'rightMenu',
         x: 81,
