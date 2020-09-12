@@ -6,7 +6,7 @@ function autoSelect() {
 
 function autoPilot(target) {
     const action = this.autoSelect()
-    log('autopilot selected: ' + action)
+    log(`[${this.name}] autopilot selected: [${action}]`)
 
     if (action === 'skip') {
         // do nothing

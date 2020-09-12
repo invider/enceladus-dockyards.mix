@@ -94,7 +94,7 @@ class Pod {
         setTimeout(() => {
             lib.vfx.hintAt('+' + fix + ' hits', loc.x, loc.y, env.style.color.c2)
             lib.vfx.debris(loc.x, loc.y)
-            sfx.play('burn', env.mixer.level.burn)
+            sfx.play('noisy', env.mixer.level.repair)
             this.shake()
         }, 1200)
 

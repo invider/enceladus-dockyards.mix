@@ -16,7 +16,7 @@ class repair extends dna.Pod {
         this.df = df
     }
 
-    turn() {
+    subTurn() {
         if (this.charge === 0) return
 
         const pods = this.ship.damagedPods()

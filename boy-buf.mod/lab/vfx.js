@@ -3,13 +3,16 @@ function init() {
     this.alpha = 1
 }
 
-function itransit(fn) {
-    this.transit({
-        fadeIn: env.style.fadeIn,
-        keep: env.style.keep,
-        onFadeOut: fn,
-        fadeOut: env.style.fadeOut,
-    })
+function itransit(fn, delay) {
+    delay = delay || 0
+    setTimeout(() => {
+        lab.vfx.transit({
+            fadeIn: env.style.fadeIn,
+            keep: env.style.keep,
+            onFadeOut: fn,
+            fadeOut: env.style.fadeOut,
+        })
+    }, delay)
 }
 
 function transit(st) {

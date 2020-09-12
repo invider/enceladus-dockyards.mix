@@ -10,6 +10,8 @@ const mixer = {
         burn: 0.5,
         laser: 0.2,
         driver: 0.4,
+
+        repair: 0.5,
     }
 }
 

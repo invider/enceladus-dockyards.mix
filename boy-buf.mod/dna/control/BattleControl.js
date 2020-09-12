@@ -174,7 +174,9 @@ class BattleControl {
         const next = (() => control.turnB())
 
         if (source.player.human) {
-            this.humanTurn(source, target, this.leftMenu, next)
+            setTimeout( () => {
+                this.humanTurn(source, target, this.leftMenu, next)
+            }, env.tune.humanTurnDelay)
         } else {
             this.botTurn(source, target, next)
         }
@@ -187,7 +189,9 @@ class BattleControl {
         const next = (() => control.nextTurn())
 
         if (source.player.human) {
-            this.humanTurn(source, target, this.rightMenu, next)
+            setTimeout( () => {
+                this.humanTurn(source, target, this.rightMenu, next)
+            }, env.tune.humanTurnDelay)
         } else {
             this.botTurn(source, target, next)
         }
@@ -261,12 +265,11 @@ class BattleControl {
     finishBattle() {
         const activeScreen = this.__
         lab.control.player.unbindAll()
-
         const scoreData = this.determineWinner()
 
         lab.vfx.itransit(() => {
             activeScreen.hide()
             trap('score', scoreData)
-        })
+        }, env.tune.finishBattleDelay)
     }
 }
