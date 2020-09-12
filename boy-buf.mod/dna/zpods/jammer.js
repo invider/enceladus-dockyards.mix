@@ -5,7 +5,6 @@ const df = {
     system: true,
     cost: 100,
     hits: 25,
-    effective: .25,
     charge: 35,
 }
 
@@ -18,9 +17,7 @@ class jammer extends dna.Pod {
     }
 
     isReady() {
-        if (this.dead
-            || this.hits < this.df.hits * this.df.effective
-            || this.charge < this.df.charge) return false
+        if (this.dead || this.charge < this.df.charge) return false
         else return true
     }
 

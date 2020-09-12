@@ -152,7 +152,6 @@ class Pod {
     }
 
     isDamaged() {
-        console.log(this.name)
         return (this.hits < this.df.hits)
     }
 

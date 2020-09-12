@@ -6,7 +6,6 @@ const df = {
     system: true,
     cost: 50,
     hits: 25,
-    effective: .2,
     charge: 10,
     attack: 20,
 }

@@ -5,9 +5,7 @@ class WeaponPod extends dna.Pod {
     }
 
     isReady() {
-        if (this.dead
-            || this.hits < this.df.hits * this.df.effective
-            || this.charge < this.df.charge) return false
+        if (this.dead || this.charge < this.df.charge) return false
         else return true
     }
 

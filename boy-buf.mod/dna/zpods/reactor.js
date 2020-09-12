@@ -23,7 +23,7 @@ class reactor extends dna.Pod {
                 const consumed = pod.recharge(input)
                 if (consumed > 0) {
                     input -= consumed
-                    log(ship.name + '/' + pod.name + ' consumed ' + consumed)
+                    // log(ship.name + '/' + pod.name + ' consumed ' + consumed)
                 }
             }
         })
@@ -32,7 +32,8 @@ class reactor extends dna.Pod {
 
     turn() {
         let output = floor(this.output * (this.hits/this.df.hits))
-        log('recharging for E' + output)
+        if (output === 0) return
+        log(`[${this.ship.name}] reactor output: +${output}`)
 
         switch(this.ship.rechargePriority) {
             case 'weapons':

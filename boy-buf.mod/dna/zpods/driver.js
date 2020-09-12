@@ -6,9 +6,9 @@ const df = {
     system: true,
     cost: 100,
     hits: 50,
-    effective: .5,
     charge: 75,
     attack: 100,
+    shells: 10,
 }
 
 class driver extends dna.WeaponPod {
@@ -19,10 +19,33 @@ class driver extends dna.WeaponPod {
         this.df = df
     }
 
+    isReady() {
+        return (super.isReady() && this.shells > 0)
+    }
+
+    resupply() {
+        const ammoPods = this.ship.pods.filter((pod) => pod.tag === 'kinetic')
+        if (ammoPods.length > 0) {
+            const pod = lib.math.rnde(ammoPods)
+            this.shells += pod.shells
+            pod.shells = 0
+            pod.hit(pod.hits)
+            log(`[${this.ship.name}]/${this.name} resupplied x${this.shells}`)
+        }
+    }
+
     activate(target, x, y) {
-        target.incoming(this, this.attack, x, y)
-        //target.hit(this.attack, this.name, x, y)
+        if (!this.isReady()) return
+
+        // fire
+        this.shells--
         this.charge = 0
+        target.incoming(this, this.attack, x, y)
+
+        if (this.shells === 0) {
+            this.resupply()
+        }
+
         this.vibrate()
         sfx.play('beam', env.mixer.level.driver)
     }

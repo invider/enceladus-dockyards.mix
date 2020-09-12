@@ -198,7 +198,7 @@ class Ship {
             log('hitting ' + pod.name)
             pod.hit(attack)
         } else {
-            log('attack missed!')
+            log(`attack at ${x}:${y} missed!`)
         }
     }
 
@@ -209,11 +209,9 @@ class Ship {
                 if (attack < pod.charge) {
                     pod.charge -= attack
                     attack = 0
-                    log('laser is deflected by ' + pod.name)
                 } else {
                     attack -= pod.charge
                     pod.charge = 0
-                    log(pod.name + ' is disabled by the laser')
                 }
             }
         })
@@ -235,13 +233,12 @@ class Ship {
                     pod.hit(attack)
                     //pod.hits -= attack
                     attack = 0
-                    log('mass driver is deflected by ' + pod.name)
                 } else {
                     attack -= pod.hits
                     pod.hit(pod.hits)
                     //pod.hits = 0
                     //pod.ship.killPod(pod)
-                    log(pod.name + ' is destroyed by mass driver')
+                    log(`[${pod.ship.name}]/${pod.name} is destroyed by mass driver`)
                 }
             }
         })
@@ -259,8 +256,11 @@ class Ship {
     incoming(weapon, attack, x, y) {
         log(`[${this.name}] => incoming [${weapon.name}](${attack})`)
         if (weapon.tag === 'laser') {
+            const origAttack = attack
             attack = this.shieldFromLaser(attack)
-            log('laser attack left after shields: ' + attack)
+            if (attack < origAttack) {
+                log(`laser deflected: ${origAttack-attack}/${origAttack}`)
+            }
 
             if (attack > 0) {
                 const dx = RND(2) - 1
@@ -270,8 +270,11 @@ class Ship {
             }
 
         } else if (weapon.tag === 'driver') {
+            const origAttack = attack
             attack = this.armorFromDriver(attack, x, y)
-            log('driver attack left: ' + attack)
+            if (attack < origAttack) {
+                log(`driver deflected: ${origAttack-attack}/${origAttack}`)
+            }
 
             if (attack > 0) {
                 log('hitting cells at ' + x + ':' + y)
@@ -283,9 +286,6 @@ class Ship {
             }
 
         } else if (weapon.tag === 'missile') {
-            // TODO deflect target coords by ECM Jammers
-
-
             let P = 5
             if (this.isMissileJammed()) P = 10
 
@@ -296,7 +296,7 @@ class Ship {
 
                 const dx = RND(P) - floor(P/2)
                 const dy = RND(P) - floor(P/2)
-                log('projectile delta: ' + dx + ':' + dy)
+                //log('projectile delta: ' + dx + ':' + dy)
                 this.hit(attack, x + dx, y + dy)
 
                 attack -= subAttack
@@ -409,9 +409,7 @@ class Ship {
     activeWeapons() {
         let weapons = 0
         this.pods.forEach(pod => {
-            if (!pod.dead
-                    && pod.attack > 0
-                    && pod.hits > pod.df.hits * pod.df.effective) {
+            if (!pod.dead && pod.attack > 0) {
                  weapons ++
             }
         })

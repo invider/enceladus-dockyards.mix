@@ -159,7 +159,7 @@ class BattleControl {
     }
 
     botTurn(source, target, nextAction) {
-        log('bot action')
+        // log('bot action')
         source.autoPilot(target)
 
         if (!this.endCondition()) {
