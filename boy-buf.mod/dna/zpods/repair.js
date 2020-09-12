@@ -17,7 +17,13 @@ class repair extends dna.Pod {
     }
 
     turn() {
-        // TODO find a random damaged element
-        //      and fix to the max charge
+        if (this.charge === 0) return
+
+        const pods = this.ship.damagedPods()
+        if (pods.length > 0) {
+            const pod = lib.math.rnde(pods)
+            log('repairing ' + pod.name + ' with +' + this.charge)
+            this.charge = pod.repair(this.charge)
+        }
     }
 }

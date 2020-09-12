@@ -80,6 +80,27 @@ class Pod {
         }, 300 + RND(700))
     }
 
+    repair(hits) {
+        if (this.dead || this.hits === 0 || hits <= 0) return
+        if (this.hits === this.df.hits) return // already fixed
+
+        let fix = this.df.hits - this.hits
+        if (fix > hits) fix = hits
+
+        this.hits += fix
+        hits -= fix
+
+        const loc = this.ship.visualGrid.cellScreenCoord(this)
+        setTimeout(() => {
+            lib.vfx.hintAt('+' + fix + ' hits', loc.x, loc.y, env.style.color.c2)
+            lib.vfx.debris(loc.x, loc.y)
+            sfx.play('burn', env.mixer.level.burn)
+            this.shake()
+        }, 1200)
+
+        return hits
+    }
+
     shake() {
         this.effect = 3
         this.times  = 5
@@ -128,6 +149,11 @@ class Pod {
                 }
             }
         }
+    }
+
+    isDamaged() {
+        console.log(this.name)
+        return (this.hits < this.df.hits)
     }
 
     kill() {

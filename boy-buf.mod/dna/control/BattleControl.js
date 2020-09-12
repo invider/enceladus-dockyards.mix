@@ -17,10 +17,11 @@ const targeting = [
 targeting.id = 'targeting'
 
 const targets = [
-    'any',
+    'systems',
     'weapons',
     'shields',
     'reactors',
+    'armor',
 ]
 targets.id = 'targets'
 

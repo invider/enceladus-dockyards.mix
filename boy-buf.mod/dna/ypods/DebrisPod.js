@@ -4,7 +4,7 @@ const df = {
     tag: 'debris',
     system: false,
     cost: 0,
-    hits: 10,
+    hits: 1,
 }
 
 class DebrisPod extends dna.Pod {
@@ -12,13 +12,15 @@ class DebrisPod extends dna.Pod {
     constructor(st) {
         super(st)
         augment(this, df)
+        this.df = df
     }
 
-    hit(attack) {
-        // ignore
-    }
+    // ignore
+    hit(attack) {}
 
-    kill() {
-        // ignore
-    }
+    // ignore
+    repair() {}
+
+    // ignore
+    kill() {}
 }

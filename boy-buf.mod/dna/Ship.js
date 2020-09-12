@@ -311,6 +311,14 @@ class Ship {
         }
     }
 
+
+    // ******************************************
+    // status
+    
+    damagedPods() {
+        return this.pods.filter(pod => pod.isDamaged())
+    }
+
     // ******************************************
     // stat
 

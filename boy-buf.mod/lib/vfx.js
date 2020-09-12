@@ -1,9 +1,10 @@
 
-function hintAt(text, x, y) {
+function hintAt(text, x, y, color) {
+    color = color || env.style.color.c3
     lab.screen.battle.vfx.spawn(dna.hud.fadeText, {
         text: text,
         font: env.style.font,
-        fillStyle: env.style.color.c3,
+        fillStyle: color,
         align: 'left',
         ttl: 4,
         tti: 0.3,
