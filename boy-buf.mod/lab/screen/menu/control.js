@@ -20,6 +20,21 @@ function onSelect(item) {
     }
 }
 
+function onIdle() {
+    this.__.control.newGame({
+        playerA: {
+            human: false,
+            hybrid: false,
+            budget: 2000,
+        },
+        playerB: {
+            human: false,
+            hybrid: false,
+            budget: 2000,
+        },
+    })
+}
+
 function setup() {
     const W = 70
     const B = floor((ctx.width-W)/2)
@@ -38,7 +53,12 @@ function setup() {
         show: function(preservePos) {
             this.hidden = false
             this.control.state = 0
-            this.menu.selectFrom(items, onSelect, false, preservePos)
+            this.menu.selectFrom({
+                items,
+                onSelect,
+                onIdle,
+                preservePos: preservePos,
+            })
             //lab.control.player.bindAll(menu)
         },
         hide: function() {
@@ -49,15 +69,11 @@ function setup() {
     })
 }
 
-function newGame() {
-    if (this.state) return
-    this.state = 1
-    lab.control.player.unbindAll(this.menu)
-
+function gameConfig() {
     const playerA = this.menu.selectedValue(SELECT)
     const playerB = this.menu.selectedValue(SELECT+3)
 
-    const gameConfig = {
+    return {
         playerA: {
             human: playerA === 'human' || playerA === 'hybrid',
             hybrid: playerA === 'hybrid',
@@ -69,11 +85,19 @@ function newGame() {
             budget: parseInt(this.menu.selectedValue(SELECT+4).substring(1)),
         },
     }
+}
+
+function newGame(config) {
+    if (this.state) return
+    this.state = 1
+    lab.control.player.unbindAll(this.menu)
+
+    config = config || this.gameConfig()
 
     const activeScreen = this.__
     lab.vfx.itransit(() => {
         activeScreen.hide()
-        trap('newGame', gameConfig)
+        trap('newGame', config)
     })
 }
 

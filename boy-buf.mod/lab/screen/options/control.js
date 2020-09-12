@@ -42,7 +42,11 @@ function setup() {
         show: function() {
             this.hidden = false
             this.control.state = 0
-            this.menu.selectFrom(items, onSelect, onSwitch)
+            this.menu.selectFrom({
+                items,
+                onSelect,
+                onSwitch,
+            })
         },
         hide: function() {
             this.hidden = true

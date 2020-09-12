@@ -6,6 +6,7 @@ const df = {
     step: 10,
     current: 0,
     border: 2,
+    IDLE: 30,
 }
 class PopupMenu {
 
@@ -31,6 +32,7 @@ class PopupMenu {
 
     show() {
         this.hidden = false
+        this.lastTouch = Date.now()
         lab.control.player.bindAll(this)
     }
 
@@ -39,16 +41,16 @@ class PopupMenu {
         lab.control.player.unbindAll(this)
     }
 
-    selectFrom(items, onSelect, onSwitch, preservePos) {
-        if (!preservePos) this.current = 0
-        this.items = items
-        items.forEach(item => {
+    selectFrom(st) {
+        // (items, onSelect, onSwitch, preservePos) {
+        augment(this, st)
+        if (!this.preservePos) this.current = 0
+
+        this.items.forEach(item => {
             if (isArray(item)) {
                 if (!item.current) item.current = 0
             }
         })
-        this.onSelect = onSelect
-        this.onSwitch = onSwitch
 
         this.slideToActiveItem()
         this.show()
@@ -120,6 +122,7 @@ class PopupMenu {
     alt() {}
 
     activate(action) {
+        this.lastTouch = Date.now()
         switch(action) {
             case 1: this.prev(); break;
             case 2: this.left(); break;
@@ -192,5 +195,10 @@ class PopupMenu {
         else if (isArray(item)) {
             return item[item.current]
         }
+    }
+
+    evo(dt) {
+        const idle = (Date.now() - this.lastTouch)/1000
+        if (this.onIdle && idle >= this.IDLE) this.onIdle()
     }
 }

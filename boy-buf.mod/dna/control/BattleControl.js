@@ -96,8 +96,9 @@ class BattleControl {
         actions.push('skip')
         actions.push('yield')
 
-        menu.selectFrom(actions,
-            function(selected) {
+        menu.selectFrom({
+            items: actions,
+            onSelect: function(selected) {
                 let skip = false
 
                 if (this.hidden) {
@@ -134,7 +135,7 @@ class BattleControl {
                     else setTimeout(nextAction, env.tune.subturnDelay)
                 }
             },
-            function(switched, i) {
+            onSwitch: function(switched, i) {
                 const val = switched[switched.current]
 
                 switch(switched.id) {
@@ -157,10 +158,8 @@ class BattleControl {
                     log(source.name + ' targets ' + val)
                     break
                 }
-
-
-            }
-        )
+            },
+        })
     }
 
     botTurn(source, target, nextAction) {
