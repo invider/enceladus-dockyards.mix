@@ -23,7 +23,7 @@ class Ship {
 
         this.rechargePriority = 'weapons'
         this.autotarget = true
-        this.target = 'any'
+        this.target = 'systems'
     }
 
     cellType(x, y) {

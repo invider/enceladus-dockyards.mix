@@ -42,8 +42,9 @@ class Menu {
     }
 
     selectFrom(st) {
+        st.items.forEach(it => log('>>> ' + it))
         // (items, onSelect, onSwitch, preservePos) {
-        augment(this, st)
+        extend(this, st)
         if (!this.preservePos) this.current = 0
 
         this.items.forEach(item => {
