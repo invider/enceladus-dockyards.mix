@@ -6,5 +6,5 @@ const tune = {
     humanTurnDelay: 2000,
     finishBattleDelay: 2000,
 
-    disableHits: .25,
+    incomingProjectileSpread: 60,
 }

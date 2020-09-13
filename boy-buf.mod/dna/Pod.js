@@ -67,19 +67,19 @@ class Pod {
         const pod = this
         const loc = this.ship.visualGrid.cellScreenCoord(this)
 
-        setTimeout(() => {
-            pod.hits -= attack
-            if (pod.hits <= 0) {
-                pod.hits = 0
-                pod.kill()
-                log(`${pod.name} is destroyed`)
-            }
+        pod.hits -= attack
+        if (pod.hits <= 0) {
+            pod.hits = 0
+            pod.kill()
+            log(`${pod.name} is destroyed`)
+        }
 
-            lib.vfx.hintAt('-' + attack + ' hits', loc.x, loc.y)
-            lib.vfx.debris(loc.x, loc.y)
-            sfx.play('burn', env.mixer.level.burn)
-            pod.shake()
-        }, 300 + RND(700))
+        lib.vfx.hintAt('-' + attack + ' hits', loc.x, loc.y)
+        lib.vfx.debris(loc.x, loc.y)
+        sfx.play('burn', env.mixer.level.burn)
+        pod.shake()
+        //setTimeout(() => {
+        //}, 300 + RND(700))
     }
 
     repair(hits) {

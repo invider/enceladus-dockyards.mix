@@ -30,11 +30,9 @@ class missile extends dna.WeaponPod {
 
         const loc = this.ship.visualGrid.cellScreenCoord(this)
         lab.screen.battle.vfx.spawn(dna.Projectile, {
-            type: 'missile',
+            type: this.kind,
             x: loc.x,
             y: loc.y,
-            r: 5,
-            speed: -120,
             onOut: () => {
                 target.incoming(weapon, weapon.attack, x, y)
             }

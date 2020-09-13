@@ -181,7 +181,7 @@ class Ship {
     hit(attack, x, y) {
         const pod = this.getPod(x, y)
         if (pod) {
-            log('hitting ' + pod.name)
+            log(`hitting ${this.name}/${pod.name}`)
             pod.hit(attack)
         } else {
             log(`attack at ${x}:${y} missed!`)
@@ -239,7 +239,20 @@ class Ship {
         return false
     }
 
+    incomingProjectile(weapon, x, y, onHit) {
+        const loc = this.visualGrid.cellScreenCoord({x, y})
+        lab.screen.battle.vfx.spawn(dna.Projectile, {
+            type: weapon.kind,
+            target: {
+                x: loc.x,
+                y: loc.y,
+            },
+            onHit: onHit,
+        })
+    }
+
     incoming(weapon, attack, x, y) {
+        const target = this
         log(`[${this.name}] => incoming [${weapon.name}](${attack})`)
         if (weapon.tag === 'laser') {
             const origAttack = attack
@@ -252,24 +265,32 @@ class Ship {
                 const dx = RND(2) - 1
                 const dy = RND(2) - 1
                 log('laser delta: ' + dx + ':' + dy)
-                this.hit(attack, x + dx, y + dy)
+                x += dx
+                y += dy
+
+                this.incomingProjectile(weapon, x, y, () => {
+                    target.hit(attack, x, y)
+                })
             }
 
         } else if (weapon.tag === 'driver') {
-            const origAttack = attack
-            attack = this.armorFromDriver(attack, x, y)
-            if (attack < origAttack) {
-                log(`driver deflected: ${origAttack-attack}/${origAttack}`)
-            }
+            this.incomingProjectile(weapon, x, y, () => {
+                const origAttack = attack
+                attack = this.armorFromDriver(attack, x, y)
+                if (attack < origAttack) {
+                    log(`driver deflected: ${origAttack-attack}/${origAttack}`)
+                }
 
-            if (attack > 0) {
-                log('hitting cells at ' + x + ':' + y)
-                this.hit(floor(attack * .4), x, y)
-                this.hit(floor(attack * .15), x-1, y)
-                this.hit(floor(attack * .15), x+1, y)
-                this.hit(floor(attack * .15), x, y-1)
-                this.hit(floor(attack * .15), x, y+1)
-            }
+                if (attack > 0) {
+                    log('hitting cells at ' + x + ':' + y)
+                    target.hit(floor(attack * .4), x, y)
+                    target.hit(floor(attack * .15), x-1, y)
+                    target.hit(floor(attack * .15), x+1, y)
+                    target.hit(floor(attack * .15), x, y-1)
+                    target.hit(floor(attack * .15), x, y+1)
+                }
+                target.hit(attack, x, y)
+            })
 
         } else if (weapon.tag === 'missile') {
             let P = 5
@@ -283,8 +304,12 @@ class Ship {
                 const dx = RND(P) - floor(P/2)
                 const dy = RND(P) - floor(P/2)
                 //log('projectile delta: ' + dx + ':' + dy)
-                this.hit(attack, x + dx, y + dy)
 
+                const tx = x + dx
+                const ty = y + dy
+                this.incomingProjectile(weapon, tx, ty, () => {
+                    target.hit(subAttack, tx, ty)
+                })
                 attack -= subAttack
             }
 
@@ -385,8 +410,7 @@ class Ship {
         let systems = 0
         this.pods.forEach(pod => {
             if (pod.system) {
-                const disableHits = floor(pod.df.hits * env.tune.disableHits)
-                if (pod.hits > disableHits) systems ++
+                if (!pod.dead && pod.hits > 0) systems ++
             }
         })
         return systems

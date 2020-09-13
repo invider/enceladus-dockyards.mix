@@ -49,10 +49,9 @@ class driver extends dna.WeaponPod {
         this.vibrate()
         const loc = this.ship.visualGrid.cellScreenCoord(this)
         lab.screen.battle.vfx.spawn(dna.Projectile, {
-            type: 'driver',
+            type: this.kind,
             x: loc.x,
             y: loc.y - 10,
-            r: 2,
             onOut: () => {
                 target.incoming(weapon, weapon.attack, x, y)
             }

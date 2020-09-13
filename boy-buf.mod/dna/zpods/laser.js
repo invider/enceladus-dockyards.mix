@@ -25,10 +25,9 @@ class laser extends dna.WeaponPod {
         this.vibrate()
         const loc = this.ship.visualGrid.cellScreenCoord(this)
         lab.screen.battle.vfx.spawn(dna.Projectile, {
-            type: 'laser',
+            type: this.kind,
             x: loc.x,
             y: loc.y - 15,
-            r: 5,
             onOut: () => {
                 target.incoming(weapon, weapon.attack, x, y)
             }
