@@ -1,4 +1,4 @@
 function score(data) {
     lab.screen.score.show(data)
-    lab.screen.score.keep(env.style.scoreTimeout)
+    lab.screen.score.control.keep(env.style.scoreTimeout)
 }
