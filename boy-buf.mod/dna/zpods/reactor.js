@@ -35,6 +35,7 @@ class reactor extends dna.Pod {
         let output = floor(this.output * (this.hits/this.df.hits))
         if (output === 0) return
         log(`[${this.ship.name}] reactor output: +${output}`)
+        const originalOutput = output
 
         switch(this.ship.rechargePriority) {
             case 'weapons':
@@ -81,7 +82,14 @@ class reactor extends dna.Pod {
         }
         // recharge other systems
         const leftover = this.doRecharge(output)
+        const consumed = originalOutput - leftover
 
-        if (leftover > 0) log('energy surplus: ' + leftover)
+        log(`[${this.ship.name}/${this.name}] consumed ${consumed}/${originalOutput}`)
+
+        if (consumed > 0) {
+            const loc = this.ship.visualGrid.cellScreenCoord(this)
+            lib.vfx.hintAt('+' + consumed + ' energy', loc.x, loc.y,
+                env.style.color.c2)
+        }
     }
 }
