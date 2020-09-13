@@ -20,7 +20,7 @@ class missile extends dna.WeaponPod {
 
     activate(target, x, y) {
         //target.hit(this.attack, this.name, x, y)
-        target.incoming(this, this.attack, x, y)
+        const weapon = this
 
         // kill the missile pod
         this.fired = true
@@ -35,6 +35,9 @@ class missile extends dna.WeaponPod {
             y: loc.y,
             r: 5,
             speed: -120,
+            onOut: () => {
+                target.incoming(weapon, weapon.attack, x, y)
+            }
         })
         sfx.play('launch', env.mixer.level.launch)
     }

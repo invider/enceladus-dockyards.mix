@@ -63,20 +63,22 @@ class Pod {
     hit(attack) {
         if (attack <= 0) return
         if (attack > this.hits) attack = this.hits
-
-        this.hits -= attack
-        if (this.hits <= 0) {
-            this.hits = 0
-            this.kill()
-            log(`${this.name} is destroyed`)
-        }
+        
+        const pod = this
         const loc = this.ship.visualGrid.cellScreenCoord(this)
 
         setTimeout(() => {
+            pod.hits -= attack
+            if (pod.hits <= 0) {
+                pod.hits = 0
+                pod.kill()
+                log(`${pod.name} is destroyed`)
+            }
+
             lib.vfx.hintAt('-' + attack + ' hits', loc.x, loc.y)
             lib.vfx.debris(loc.x, loc.y)
             sfx.play('burn', env.mixer.level.burn)
-            this.shake()
+            pod.shake()
         }, 300 + RND(700))
     }
 

@@ -16,6 +16,7 @@ class Projectile {
         this.y += this.speed * dt
         if (this.y < -this.r) {
             this.kill()
+            this.onOut()
         }
     }
 
@@ -27,11 +28,19 @@ class Projectile {
             const y = floor(this.y - s/2)
             res.pods.draw(32, x, y, s, s)
 
+        } else if (this.type === 'driver') {
+            translate(-.5, -.5)
+            lineWidth(1)
+
+            stroke(env.style.color.c3)
+            const x = floor(this.x)
+            const y = floor(this.y-this.r)
+            rect(x-1, y-1, this.r, this.r)
+
         } else {
             translate(-.5, 0)
 
-            if (this.type === 'driver') lineWidth(2)
-            else lineWidth(1)
+            lineWidth(1)
 
             stroke(env.style.color.c3)
             const x = floor(this.x)

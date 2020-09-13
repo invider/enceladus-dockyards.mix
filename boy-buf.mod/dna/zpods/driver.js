@@ -36,11 +36,11 @@ class driver extends dna.WeaponPod {
 
     activate(target, x, y) {
         if (!this.isReady()) return
+        const weapon = this
 
         // fire
         this.shots--
         this.charge = 0
-        target.incoming(this, this.attack, x, y)
 
         if (this.shots === 0) {
             this.resupply()
@@ -51,8 +51,11 @@ class driver extends dna.WeaponPod {
         lab.screen.battle.vfx.spawn(dna.Projectile, {
             type: 'driver',
             x: loc.x,
-            y: loc.y + 10,
-            r: 4,
+            y: loc.y - 10,
+            r: 2,
+            onOut: () => {
+                target.incoming(weapon, weapon.attack, x, y)
+            }
         })
         sfx.play('beam', env.mixer.level.driver)
     }
