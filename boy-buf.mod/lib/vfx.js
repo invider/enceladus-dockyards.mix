@@ -26,9 +26,29 @@ function debris(x, y, color) {
         force: 1500,
         radius: 0,
         size: 1,
-        speed: 10, vspeed: 12,
+        speed: 8, vspeed: 8,
         angle: 0, spread: 2*Math.PI,
-        minLifespan: 0.2, vLifespan: 0.6,
+        minLifespan: 0.4, vLifespan: 0.6,
+        drawParticle: function() {
+            fill(this.color)
+            rect(floor(this.x), floor(this.y), this.r, this.r)
+        }
+    })
+}
+
+function explosion(x, y, color) {
+    color = color || env.style.color.c1
+    lab.screen.battle.vfx.spawn(dna.Emitter, {
+        x: x,
+        y: y,
+        color: color,
+        lifespan: 0.1,
+        force: 2500,
+        radius: 0,
+        size: 1,
+        speed: 15, vspeed: 0,
+        angle: 0, spread: 2*Math.PI,
+        minLifespan: 0.8, vLifespan: 0.4,
         drawParticle: function() {
             fill(this.color)
             rect(floor(this.x), floor(this.y), this.r, this.r)

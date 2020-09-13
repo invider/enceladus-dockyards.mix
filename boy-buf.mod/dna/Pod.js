@@ -75,7 +75,8 @@ class Pod {
         }
 
         lib.vfx.hintAt('-' + attack + ' hits', loc.x, loc.y)
-        lib.vfx.debris(loc.x, loc.y)
+        lib.vfx.debris(loc.x, loc.y, env.style.color.c0)
+        lib.vfx.debris(loc.x, loc.y, env.style.color.c1)
         sfx.play('burn', env.mixer.level.burn)
         pod.shake()
         //setTimeout(() => {
@@ -92,12 +93,13 @@ class Pod {
         this.hits += fix
         hits -= fix
 
+        const pod = this
         const loc = this.ship.visualGrid.cellScreenCoord(this)
         setTimeout(() => {
             lib.vfx.hintAt('+' + fix + ' hits', loc.x, loc.y, env.style.color.c2)
-            lib.vfx.debris(loc.x, loc.y, env.style.color.c3)
+            //lib.vfx.debris(loc.x, loc.y, env.style.color.c3)
             sfx.play('noisy', env.mixer.level.repair)
-            this.shake()
+            pod.blink()
         }, 1200)
 
         return hits
@@ -109,10 +111,18 @@ class Pod {
         this.timer  = TIME
     }
 
-    vibrate() {
+    vibrate(times) {
         this.effect = 1
         this.times  = 5
         this.timer  = VTIME
+    }
+
+    blink(times) {
+        this.blinker = {
+            times: 5,
+            period: env.style.repairBlinkPeriod,
+        }
+        this.blinker.timer = this.blinker.period
     }
 
     evo(dt) {
@@ -151,6 +161,20 @@ class Pod {
                 }
             }
         }
+        if (this.blinker) {
+            const b = this.blinker
+            b.timer -= dt
+            if (b.timer > 0) this.hidden = true
+            else this.hidden = false
+
+            if (b.timer <= -b.period) {
+                b.times--
+                b.timer = b.period
+                if (b.times <= 0) {
+                    this.blinker = null
+                }
+            }
+        }
     }
 
     isDamaged() {
@@ -162,5 +186,8 @@ class Pod {
         this.ship.killPod(this)
         this.ship.mountPod(
             new dna.ypods.DebrisPod(), this.x, this.y)
+
+        const loc = this.ship.visualGrid.cellScreenCoord(this)
+        lib.vfx.explosion(loc.x, loc.y, env.style.color.c3)
     }
 }

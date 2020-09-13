@@ -81,11 +81,13 @@ class ShipGrid {
                         line(x*s, y*s+s-1, x*s+s-1, y*s+s-1)
                         line(x*s+s-1, y*s, x*s+s-1, y*s+s-1)
 
-                        // draw the component
-                        const tilex = lib.pods.getTilex(pod, POD)
-                        if (tilex >= 0) {
-                            res.pods.draw(tilex,
-                                x*s+.5 + dx, y*s+.5 + dy, s-2, s-2)
+                        if (!POD || !POD.hidden) {
+                            // draw the component
+                            const tilex = lib.pods.getTilex(pod, POD)
+                            if (tilex >= 0) {
+                                res.pods.draw(tilex,
+                                    x*s+.5 + dx, y*s+.5 + dy, s-2, s-2)
+                            }
                         }
                     }
                 }

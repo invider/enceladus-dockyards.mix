@@ -11,6 +11,7 @@ const style = {
     fadeOut: 1,
 
     cellSize: 14,
+    repairBlinkPeriod: 0.3,
 
     border: '#252123',
 
