@@ -5,7 +5,7 @@ const df = {
     system: false,
     cost: 25,
     hits: 100,
-    shells: 10,
+    shots: 10,
 }
 
 class kinetic extends dna.Pod {

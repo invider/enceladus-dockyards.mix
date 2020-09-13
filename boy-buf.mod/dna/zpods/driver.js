@@ -8,7 +8,7 @@ const df = {
     hits: 50,
     charge: 75,
     attack: 100,
-    shells: 10,
+    shots: 10,
 }
 
 class driver extends dna.WeaponPod {
@@ -20,17 +20,17 @@ class driver extends dna.WeaponPod {
     }
 
     isReady() {
-        return (super.isReady() && this.shells > 0)
+        return (super.isReady() && this.shots > 0)
     }
 
     resupply() {
         const ammoPods = this.ship.pods.filter((pod) => pod.tag === 'kinetic')
         if (ammoPods.length > 0) {
             const pod = lib.math.rnde(ammoPods)
-            this.shells += pod.shells
-            pod.shells = 0
+            this.shots += pod.shots
+            pod.shots = 0
             pod.hit(pod.hits)
-            log(`[${this.ship.name}]/${this.name} resupplied x${this.shells}`)
+            log(`[${this.ship.name}]/${this.name} resupplied x${this.shots}`)
         }
     }
 
@@ -38,11 +38,11 @@ class driver extends dna.WeaponPod {
         if (!this.isReady()) return
 
         // fire
-        this.shells--
+        this.shots--
         this.charge = 0
         target.incoming(this, this.attack, x, y)
 
-        if (this.shells === 0) {
+        if (this.shots === 0) {
             this.resupply()
         }
 
