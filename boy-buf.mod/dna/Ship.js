@@ -112,24 +112,32 @@ class Ship {
         return Object.keys(actions).sort()
     }
 
-    takePodAction(pod, target) {
+    takePodAction(pod, target, cell) {
         if (pod.activate) {
             //log(`activating ${pod.name} against ${target.name}`)
-            const cell = this.autoTarget(target, this.targetPriority)
-            pod.activate(target, cell.x, cell.y)
+            if (!cell && this.targetAutoSelection) {
+                cell = this.autoTarget(target, this.targetPriority)
+            }
+
+            if (cell) {
+                pod.activate(target, cell.x, cell.y)
+            } else {
+                log(`[${this.name}] failed to select a target`)
+            }
+
         } else {
             log("can't activate " + pod.name)
         }
     }
 
-    launch(action, target) {
+    launch(action, target, cell) {
         const source = this
         setTimeout(() => {
-            source.takeAction(action, target)
+            source.takeAction(action, target, cell)
         }, env.tune.actionDelay)
     }
 
-    takeAction(action, target) {
+    takeAction(action, target, cell) {
         //log('action: ' + action)
         this.skipped = 0
         const pods = this.pods.filter(pod => pod.triggersOn && pod.triggersOn(action))
@@ -140,11 +148,13 @@ class Ship {
             if (action === 'lasers') {
                 // volley fire!
                 const ship = this
-                pods.forEach(pod => ship.takePodAction(pod, target))
+                pods.forEach(pod => ship.takePodAction(pod, target, cell))
+
             } else {
                 const pod = _$.lib.math.rnde(pods)
                 //log('selected ' + pod.name)
-                this.takePodAction(pod, target)
+                this.takePodAction(pod, target, cell)
+
             }
         }
         /*
@@ -187,6 +197,12 @@ class Ship {
             pods = target.pods.filter(t => !t.dead && t.system)
         }
         return _$.lib.math.rnde(pods)
+    }
+
+    manualTarget(target, next, back) {
+        target.visualGrid.apply = next
+        target.visualGrid.back = back
+        lab.control.player.bindAll(target.visualGrid)
     }
 
     turn() {

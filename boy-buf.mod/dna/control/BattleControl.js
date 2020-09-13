@@ -127,10 +127,24 @@ class BattleControl {
                     // do nothing
 
                 } else {
-                    setTimeout(() => {
-                        //source.takeAction(selected, target)
-                        source.launch(selected, target)
-                    }, env.tune.launchDelay)
+                    if (source.player.human && !source.targetAutoSelection) {
+                        // have to select target manually
+                        source.manualTarget(target, function() {
+                            source.launch(selected, target, this.target)
+                            lab.control.player.unbindAll(this)
+
+                            if (!control.endCondition()) {
+                                if (skip) setTimeout(nextAction, env.tune.turnSkipDelay)
+                                else setTimeout(nextAction, env.tune.subturnDelay)
+                            }
+                        })
+                        return // skip auto-progression until x:y are selected
+
+                    } else {
+                        setTimeout(() => {
+                            source.launch(selected, target)
+                        }, env.tune.launchDelay)
+                    }
                 }
 
                 if (!control.endCondition()) {
