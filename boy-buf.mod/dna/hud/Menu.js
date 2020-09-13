@@ -1,3 +1,6 @@
+const ACTIVE = 1
+const DISABLED = 0
+
 const df = {
     x: 0,
     y: 0,
@@ -32,12 +35,14 @@ class Menu {
 
     show() {
         this.hidden = false
+        this.state = ACTIVE
         this.lastTouch = Date.now()
         lab.control.player.bindAll(this)
     }
 
     hide() {
         this.hidden = true
+        this.state = DISABLED
         lab.control.player.unbindAll(this)
     }
 

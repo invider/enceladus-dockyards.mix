@@ -53,7 +53,7 @@ function battle() {
         h: 100,
         showBackground: true,
         alt: function() {
-            this.hidden = !this.hidden
+            if (this.state) this.hidden = !this.hidden
         }
     })
 
@@ -83,7 +83,7 @@ function battle() {
         h: 100,
         showBackground: true,
         alt: function() {
-            this.hidden = !this.hidden
+            if (this.state) this.hidden = !this.hidden
         }
     })
 
