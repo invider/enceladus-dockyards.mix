@@ -39,3 +39,39 @@ function podStat(name) {
     return this.stat[name]
 }
 
+
+function getTilex(name, pod) {
+    let tilex = -1
+    switch(name) {
+        case 'free':    tilex = 0; break;
+        case 'shell':   tilex = 0; break;
+        case 'armor':   tilex = 4; break;
+        case 'debris':  tilex = 1; break;
+        case 'laser':
+            if (!pod || pod.isReady()) tilex = 13
+            else tilex = 12
+            break
+
+        case 'missile':
+            tilex = 8; break;
+
+        case 'jammer':
+            if (!pod || pod.isReady()) tilex = 27
+            else tilex = 26
+            break
+
+        case 'driver':
+            if (!pod || pod.isReady()) tilex = 21
+            else tilex = 20
+            break
+
+        case 'reactor': tilex = 16; break;
+        case 'gen':     tilex = 24; break;
+        case 'kinetic': tilex = 6; break;
+        case 'repair':  tilex = 10; break;
+        default:
+            tilex = 9;
+    }
+    return tilex
+}
+

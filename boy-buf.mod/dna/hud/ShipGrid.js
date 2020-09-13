@@ -42,41 +42,6 @@ class ShipGrid {
 
     back() {}
 
-    getTilex(pod, POD) {
-        let tilex = -1
-        switch(pod) {
-            case 'free':    tilex = 0; break;
-            case 'shell':   tilex = 0; break;
-            case 'armor':   tilex = 4; break;
-            case 'debris':  tilex = 1; break;
-            case 'laser':
-                if (!POD || POD.isReady()) tilex = 13
-                else tilex = 12
-                break
-
-            case 'missile':
-                tilex = 8; break;
-
-            case 'jammer':
-                if (!POD || POD.isReady()) tilex = 27
-                else tilex = 26
-                break
-
-            case 'driver':
-                if (!POD || POD.isReady()) tilex = 21
-                else tilex = 20
-                break
-
-            case 'reactor': tilex = 16; break;
-            case 'gen':     tilex = 24; break;
-            case 'kinetic': tilex = 6; break;
-            case 'repair':  tilex = 10; break;
-            default:
-                tilex = 9;
-        }
-        return tilex
-    }
-
     drawGrid(layer) {
         const chargedPods = []
         const s = env.style.cellSize
@@ -117,7 +82,7 @@ class ShipGrid {
                         line(x*s+s-1, y*s, x*s+s-1, y*s+s-1)
 
                         // draw the component
-                        const tilex = this.getTilex(pod, POD)
+                        const tilex = lib.pods.getTilex(pod, POD)
                         if (tilex >= 0) {
                             res.pods.draw(tilex,
                                 x*s+.5 + dx, y*s+.5 + dy, s-2, s-2)

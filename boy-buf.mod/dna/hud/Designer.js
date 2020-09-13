@@ -89,13 +89,26 @@ class Designer {
         text(pod.title || pod.name, x, y)
         y += 14
 
-        const stat = lib.pods.podStat(pod.name)
-        if (stat) {
-            fill(env.style.color.c1)
-            stat.forEach(line => {
-                text(line, x, y)
-                y += 10
-            })
+        if (!pod.special) {
+            const s = env.style.cellSize - 2
+            const tilex = lib.pods.getTilex(pod.name)
+            if (tilex >= 0) {
+                const b = 1
+                const px = floor(x-s/2)
+                fill(env.style.color.c1)
+                rect(px-b, y-b, s+2*b, s+2*b)
+                res.pods.draw(tilex, px, y, s, s)
+            }
+
+            y += 20
+            const stat = lib.pods.podStat(pod.name)
+            if (stat) {
+                fill(env.style.color.c1)
+                stat.forEach(line => {
+                    text(line, x, y)
+                    y += 10
+                })
+            }
         }
 
         restore()
