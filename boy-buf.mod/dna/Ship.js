@@ -22,8 +22,8 @@ class Ship {
         }
 
         this.rechargePriority = 'weapons'
-        this.autotarget = true
-        this.target = 'systems'
+        this.targetAutoSelection = true
+        this.targetPriority = 'systems'
     }
 
     cellType(x, y) {
@@ -115,7 +115,7 @@ class Ship {
     takePodAction(pod, target) {
         if (pod.activate) {
             //log(`activating ${pod.name} against ${target.name}`)
-            const cell = this.autoTarget(target)
+            const cell = this.autoTarget(target, this.targetPriority)
             pod.activate(target, cell.x, cell.y)
         } else {
             log("can't activate " + pod.name)
@@ -161,7 +161,31 @@ class Ship {
     }
 
     autoTarget(target, goal) {
-        const pods = target.pods.filter(t => !t.dead && t.system)
+        let pods
+        switch(goal) {
+            case 'systems':
+                pods = target.pods.filter(p => !p.dead && p.system)
+                break
+            case 'weapons':
+                pods = target.podsByTags('laser', 'driver', 'missile')
+                break
+            case 'shields':
+                pods = target.podsByTags('shield')
+                break
+            case 'jammers':
+                pods = target.podsByTags('jammer')
+                break
+            case 'reactors':
+                pods = target.podsByTags('reactor')
+                break
+            case 'armor':
+                pods = target.podsByTags('armor')
+                break
+        }
+
+        if (!pods || pods.length === 0) {
+            pods = target.pods.filter(t => !t.dead && t.system)
+        }
         return _$.lib.math.rnde(pods)
     }
 
@@ -332,6 +356,16 @@ class Ship {
 
     // ******************************************
     // status
+
+    podsByTags() {
+        const tags = arguments
+        return this.pods.filter(pod => {
+            for (let i = 0; i < tags.length; i++) {
+                if (tags[i] === pod.tag) return true
+            }
+            return false
+        })
+    }
     
     damagedPods() {
         return this.pods.filter(pod => pod.isDamaged())

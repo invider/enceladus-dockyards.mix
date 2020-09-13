@@ -1,6 +1,7 @@
 const df = {
     name: 'reactor',
     title: 'Reactor Core',
+    tag: 'reactor',
     system: true,
     cost: 100,
     hits: 120,

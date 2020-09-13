@@ -23,6 +23,7 @@ const targets = [
     'systems',
     'weapons',
     'shields',
+    'jammers',
     'reactors',
     'armor',
 ]
@@ -77,21 +78,23 @@ class BattleControl {
     humanTurn(source, target, menu, nextAction) {
         const control = this
         const actions = source.actionsAvailable()
-        actions.push({ section: true, title: 'charge mode' })
-        actions.push(rechargeModes)
-        rechargeModes.current = rechargeModes.indexOf(source.rechargePriority)
 
         actions.push({ section: true, title: 'target' })
         actions.push(targeting)
-        if (source.autotarget) {
+        if (source.targetAutoSelection) {
             targeting.current = 0
             targets.disabled = false
         } else {
             targeting.current = 1
             targets.disabled = true
         }
+
         actions.push(targets)
-        targets.current = targets.indexOf(source.target)
+        targets.current = targets.indexOf(source.targetPriority)
+
+        actions.push({ section: true, title: 'charge mode' })
+        actions.push(rechargeModes)
+        rechargeModes.current = rechargeModes.indexOf(source.rechargePriority)
 
         actions.push('skip')
         actions.push('yield')
@@ -145,16 +148,16 @@ class BattleControl {
 
                 case 'targeting':
                     if (val === 'manual') {
-                        source.autotarget = false
+                        source.targetAutoSelection = false
                         this.items[i+1].disabled = true
                     } else {
-                        source.autotarget = true
+                        source.targetAutoSelection = true
                         this.items[i+1].disabled = false
                     }
                     break
 
                 case 'targets':
-                    source.target = val
+                    source.targetPriority = val
                     log(source.name + ' targets ' + val)
                     break
                 }
