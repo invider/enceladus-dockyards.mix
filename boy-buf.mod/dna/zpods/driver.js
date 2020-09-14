@@ -31,6 +31,7 @@ class driver extends dna.WeaponPod {
             pod.shots = 0
             pod.hit(pod.hits)
             log(`[${this.ship.name}]/${this.name} resupplied x${this.shots}`)
+            sfx.play('consume', env.mixer.level.consume)
         }
     }
 

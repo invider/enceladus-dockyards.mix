@@ -72,12 +72,14 @@ class Pod {
             pod.hits = 0
             pod.kill()
             log(`${pod.name} is destroyed`)
+            sfx.play('explosion1', env.mixer.level.burn)
+        } else {
+            sfx.play('burn', env.mixer.level.burn)
         }
 
         lib.vfx.hintAt('-' + attack + ' hits', loc.x, loc.y)
         lib.vfx.debris(loc.x, loc.y, env.style.color.c0)
         lib.vfx.debris(loc.x, loc.y, env.style.color.c1)
-        sfx.play('burn', env.mixer.level.burn)
         pod.shake()
         //setTimeout(() => {
         //}, 300 + RND(700))
@@ -90,12 +92,12 @@ class Pod {
         let fix = this.df.hits - this.hits
         if (fix > hits) fix = hits
 
-        this.hits += fix
         hits -= fix
 
         const pod = this
         const loc = this.ship.visualGrid.cellScreenCoord(this)
         setTimeout(() => {
+            pod.hits += fix
             lib.vfx.hintAt('+' + fix + ' hits', loc.x, loc.y, env.style.color.c2)
             //lib.vfx.debris(loc.x, loc.y, env.style.color.c3)
             sfx.play('noisy', env.mixer.level.repair)

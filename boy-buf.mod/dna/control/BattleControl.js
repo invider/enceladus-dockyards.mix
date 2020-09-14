@@ -231,11 +231,7 @@ class BattleControl {
             return true
         }
         
-        const as = this.shipA.activeSystems()
-        const aw = this.shipA.activeWeapons()
-        const bs = this.shipB.activeSystems()
-        const bw = this.shipB.activeWeapons()
-        if (as === 0 || as === 0 || bs === 0 || bw === 0) {
+        if (this.shipA.isDestroyed() || this.shipB.isDestroyed()) {
             this.finishBattle()
             return true
         }
@@ -261,6 +257,7 @@ class BattleControl {
         log('====================')
 
         this.turnA()
+        sfx.play('select', env.mixer.level.nextTurn)
     }
 
     activate(action) {
@@ -274,15 +271,11 @@ class BattleControl {
         const B = this.shipB
 
         if (!A.status && !B.status) {
-            const as = A.activeSystems()
-            const aw = A.activeWeapons()
-            const bs = B.activeSystems()
-            const bw = B.activeWeapons()
             const ah = A.systemHits()
             const bh = B.systemHits()
 
-            if (as === 0 || aw === 0) this.shipA.status = 'destroyed'
-            if (bs === 0 || bw === 0) this.shipB.status = 'destroyed'
+            if (A.isDestroyed()) A.destroy()
+            if (B.isDestroyed()) B.destroy()
 
             if (A.status === 'destroyed' && !B.status) B.status = 'win'
             if (B.status === 'destroyed' && !A.status) A.status = 'win'

@@ -12,6 +12,10 @@ const mixer = {
         driver: 0.4,
 
         repair: 0.5,
+        consume: 0.7,
+
+        destroyed: 1,
+        nextTurn: 0.5,
     }
 }
 

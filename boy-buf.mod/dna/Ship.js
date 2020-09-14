@@ -479,4 +479,15 @@ class Ship {
         })
         return weapons
     }
+
+    isDestroyed() {
+        const systems = this.activeSystems()
+        const weapons = this.activeWeapons()
+        return (systems === 0 && weapons === 0)
+    }
+
+    destroy() {
+        this.status = 'destroyed'
+        sfx.play('explosion2', env.mixer.level.destroyed)
+    }
 }
