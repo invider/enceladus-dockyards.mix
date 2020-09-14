@@ -8,9 +8,10 @@ const mixer = {
 
         launch:  .5,
         burn:    .5,
-        laser:   .2,
+        laser:   .15,
         driver:  .4,
         deflect: .5,
+        missed:  .6,
         denied:  .7,
 
         repair:  .5,
@@ -19,6 +20,7 @@ const mixer = {
         destroyed:  1,
         nextTurn:  .5,
         finish:     1,
-    }
+    },
+    destroyBurns: 5,
 }
 

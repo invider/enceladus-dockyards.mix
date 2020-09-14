@@ -230,10 +230,13 @@ class Ship {
 
     hit(attack, x, y) {
         const pod = this.getPod(x, y)
-        if (pod) {
+        if (pod && pod.tag !== 'debris' && pod.tag !== 'x') {
             log(`hitting ${this.name}/${pod.name}`)
             pod.hit(attack)
         } else {
+            const loc = this.visualGrid.cellScreenCoord({x, y})
+            sfx.play('missed', env.mixer.level.missed)
+            lib.vfx.deflect(loc.x, loc.y)
             log(`attack at ${x}:${y} missed!`)
         }
     }
@@ -503,6 +506,7 @@ class Ship {
         this.status = 'destroyed'
         sfx.play('explosion2', env.mixer.level.destroyed)
 
+        let burns = env.mixer.destroyBurns
         for (let i = 0; i < env.style.destroyExplosions; i++) {
             const x = RND(this.blueprint.w)
             const y = RND(this.blueprint.h)
@@ -513,6 +517,11 @@ class Ship {
                 setTimeout(() => {
                     ship.mountPod(new dna.ypods.XPod(), orig.x, orig.y)
                     lib.vfx.explosion(loc.x, loc.y, env.style.color.c3)
+
+                    if (burns > 0) {
+                        sfx.play('explosion2', env.mixer.level.burn)
+                        burns--
+                    }
                 }, RND(env.tune.finishBattleDelay))
             }
         }
