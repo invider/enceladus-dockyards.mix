@@ -1,6 +1,9 @@
 const df = {
     x: 0,
     y: 0,
+    timer: 0,
+    targetPeriod:  .8,
+    targetShift:   4,
 }
 
 class ShipGrid {
@@ -45,6 +48,8 @@ class ShipGrid {
     drawGrid(layer) {
         const chargedPods = []
         const s = env.style.cellSize
+
+        lineWidth(1)
         for (let y = 0; y < 7; y++) {
             for (let x = 0; x < 5; x++) {
                 const pod = this.blueprint.podAt(x, y)
@@ -103,26 +108,51 @@ class ShipGrid {
         }
     }
 
+    drawTarget() {
+        const x = this.target.x
+        const y = this.target.y
+        const s = env.style.cellSize
+
+        const t = 1-(this.timer % this.targetPeriod)/this.targetPeriod
+        const u = floor(t * this.targetShift)
+
+        lineWidth(1)
+        stroke(env.style.color.c3)
+        //rect(x*s-u, y*s-u, s-1 + 2*u, s-1 + 2*u)
+
+        const w = 4.5
+        const x1 = x*s - u
+        const x2 = x*s + s-1 + u
+        const y1 = y*s - u
+        const y2 = y*s + s-1 + u
+
+        line(x1-.5, y1, x1+w, y1  )
+        line(x1, y1-.5, x1,   y1+w)
+
+        line(x2+.5, y1, x2-w, y1  )
+        line(x2, y1-.5, x2,   y1+w)
+
+        line(x1-.5, y2, x1+w, y2  )
+        line(x1, y2+.5, x1,   y2-w)
+
+        line(x2+.5, y2, x2-w, y2  )
+        line(x2, y2+.5, x2,   y2-w)
+    }
+
     draw() {
         if (!this.blueprint) return
         save()
         translate(this.x + .5, this.y + .5)
 
-        lineWidth(1)
-
         this.drawGrid(0)
         this.drawGrid(1)
-
-        // mark target
-        if (this.playerId) {
-            const x = this.target.x
-            const y = this.target.y
-            const s = env.style.cellSize
-            stroke(env.style.color.c3)
-            rect(x*s, y*s, s, s)
-        }
+        if (this.playerId) this.drawTarget()
 
         restore()
+    }
+
+    evo(dt) {
+        this.timer += dt
     }
 
     setBlueprint(blueprint) {
