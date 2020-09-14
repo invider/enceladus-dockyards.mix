@@ -47,6 +47,7 @@ function getTilex(name, pod) {
         case 'shell':   tilex = 0; break;
         case 'armor':   tilex = 4; break;
         case 'debris':  tilex = 1; break;
+        case 'x':       tilex = -9; break;
         case 'laser':
             if (!pod || pod.isReady()) tilex = 13
             else tilex = 12
