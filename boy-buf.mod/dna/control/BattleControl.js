@@ -97,7 +97,7 @@ class BattleControl {
         rechargeModes.current = rechargeModes.indexOf(source.rechargePriority)
 
         actions.push('skip')
-        actions.push('yield')
+        actions.push('-- yield --')
 
         menu.selectFrom({
             items: actions,
@@ -108,14 +108,18 @@ class BattleControl {
                     this.hidden = false
                     return
                 }
+                if (selected === '-- yield --') {
+                    this.items[this.current] = 'yield'
+                    sfx.play('ddenied', env.mixer.level.denied)
+                    return
+                }
 
                 if (isArray(selected)) {
                     this.right()
                     return
                 }
+
                 this.hide()
-                lab.control.player.bindAll(this)
-                
                 if (selected === 'yield') {
                     source.status = 'yield'
                     target.status = 'win'

@@ -11,6 +11,7 @@ const mixer = {
         laser:   .2,
         driver:  .4,
         deflect: .5,
+        denied:  .7,
 
         repair:  .5,
         consume: .7,
