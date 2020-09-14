@@ -11,6 +11,7 @@ function downloadJSON(json) {
 }
 
 function loadFile(file) {
+    lab.layout.control.lock()
 	let input = file.target
 
 	let reader = new FileReader()
@@ -22,6 +23,7 @@ function loadFile(file) {
 }
 
 function uploadJSON() {
+    lab.control.player.stopAll()
     let input = document.createElement('input')
     input.setAttribute('type', 'file')
     input.setAttribute('accept', 'text/bas')

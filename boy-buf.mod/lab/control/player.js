@@ -1,4 +1,5 @@
 const MAX_PLAYERS = 8
+const MAX_ACTIONS = 8
 
 const ON = 1
 const OFF = 0
@@ -77,10 +78,15 @@ function stop(action, playerId) {
                 target.deactivate(action + 1)
             }
         }
-        if (action === 4) {
-            //console.log('deactivating #' + playerId + ':' + action)
-        }
         ctrl[playerId][action] = OFF
+    }
+}
+
+function stopAll() {
+    for (let p = 0; p < MAX_PLAYERS; p++) {
+        for (let i = 0; i < MAX_ACTIONS; i++) {
+            stop(i, p)
+        }
     }
 }
 

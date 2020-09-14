@@ -43,7 +43,7 @@ class LayoutControl {
 
     selectFor(player) {
         this.player = player
-        this.state = 0
+        this.unlock()
         this.compileBlueprints(player)
 
         if (player.human) {
@@ -112,6 +112,11 @@ class LayoutControl {
         lab.control.player.unbindAll(this)
     }
 
+    unlock() {
+        this.state = 0
+        lab.control.player.bindAll(this)
+    }
+
     designForBlueprint(blueprint) {
         const player = this.player
         player.blueprint = blueprint
@@ -124,10 +129,9 @@ class LayoutControl {
     }
 
     done() {
-        this.lock()
-
         const blueprint = this.currentBlueprint()
         if (blueprint) {
+            this.lock()
             this.designForBlueprint(blueprint)
         } else {
             lib.util.uploadJSON()
