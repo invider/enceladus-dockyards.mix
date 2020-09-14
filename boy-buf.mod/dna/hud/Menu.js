@@ -70,6 +70,7 @@ class Menu {
     }
 
     next() {
+        if (this.hidden) return
         this.current ++
         if (this.current >= this.items.length) this.current = 0
 
@@ -85,6 +86,7 @@ class Menu {
     }
 
     prev() {
+        if (this.hidden) return
         this.current --
         if (this.current < 0) this.current = this.items.length - 1
 
@@ -99,6 +101,7 @@ class Menu {
     }
 
     left() {
+        if (this.hidden) return
         const item = this.currentItem()
         if (isArray(item)) {
             item.current --
@@ -110,6 +113,7 @@ class Menu {
     }
 
     right() {
+        if (this.hidden) return
         const item = this.currentItem()
         if (isArray(item)) {
             item.current ++
