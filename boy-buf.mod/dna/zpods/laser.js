@@ -1,6 +1,6 @@
 const df = {
     name: 'laser',
-    title: 'Laser Mk1',
+    title: 'Laser',
     action: 'lasers',
     tag: 'laser',
     system: true,

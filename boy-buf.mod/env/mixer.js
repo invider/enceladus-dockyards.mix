@@ -6,10 +6,10 @@ const mixer = {
         denied:   .3,
         remove:   .8,
 
-        launch:  .5,
+        launch:  .3,
         burn:    .5,
         laser:   .15,
-        driver:  .4,
+        driver:  .3,
         deflect: .5,
         missed:  .6,
         denied:  .7,
