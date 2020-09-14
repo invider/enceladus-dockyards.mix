@@ -7,7 +7,8 @@ class Blueprint {
     constructor(st) {
         augment(this, st)
         if (!this.layout) this.layout = dna.spec.layout.nova
-        if (!this.grid) this.fillGrid()
+        if (this.grid) this.cloneGrid()
+        else this.fillGrid()
         if (!this.name) this.name = this.layout.name
         if (!this.cost) this.cost = this.layout.cost
         if (!this.layoutCost) this.layoutCost = this.layout.cost
@@ -32,6 +33,11 @@ class Blueprint {
         }
         this.w = w
         this.h = h
+        this.grid = grid
+    }
+
+    cloneGrid() {
+        const grid = this.grid.slice()
         this.grid = grid
     }
 
