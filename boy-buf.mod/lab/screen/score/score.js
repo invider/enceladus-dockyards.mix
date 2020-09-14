@@ -22,6 +22,23 @@ function drawPlayerStat(ship, x) {
     font(env.style.font)
     y += 15
     text(ship.status, x, y)
+
+    const x1 = x - 25
+    const x2 = x + 20
+    x -= 20
+    y += 15
+    alignLeft()
+    text('shots:', x1, y)
+    text('' + ship.score.shots, x2, y)
+    y += 10
+    text('hits:', x1, y)
+    text('' + ship.foe.score.hits, x2, y)
+    y += 10
+    text('kills:', x1, y)
+    text('' + ship.foe.score.lost, x2, y)
+    y += 10
+    text('energy:', x1, y)
+    text('' + ship.foe.score.energy, x2, y)
 }
 
 function draw() {

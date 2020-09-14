@@ -4,7 +4,7 @@ const style = {
 
     holdBeforeStart: 2.5,
     titleTimeout: 4,
-    scoreTimeout: 10,
+    scoreTimeout: 20,
 
     fadeIn: .5,
     keep:   .3,

@@ -71,6 +71,7 @@ class Pod {
         if (pod.hits <= 0) {
             pod.hits = 0
             pod.kill()
+            this.ship.score.lost ++
             log(`${pod.name} is destroyed`)
             sfx.play('explosion1', env.mixer.level.burn)
             lib.vfx.hintAt('-1 pod', loc.x, loc.y)
@@ -79,6 +80,7 @@ class Pod {
             lib.vfx.hintAt('-' + attack + ' hits', loc.x, loc.y)
         }
 
+        this.ship.score.hits ++
         lib.vfx.debris(loc.x, loc.y, env.style.color.c0)
         lib.vfx.debris(loc.x, loc.y, env.style.color.c1)
         pod.shake()

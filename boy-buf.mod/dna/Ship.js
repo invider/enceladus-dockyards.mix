@@ -24,6 +24,13 @@ class Ship {
         this.rechargePriority = 'weapons'
         this.targetAutoSelection = true
         this.targetPriority = 'systems'
+
+        this.score = {
+            shots: 0,  // shots made
+            hits: 0,   // hits sustained
+            lost: 0,   // pods lost
+            energy: 0, // energy consumed
+        }
     }
 
     cellType(x, y) {
@@ -126,6 +133,7 @@ class Ship {
             }
 
             if (cell) {
+                this.score.shots ++
                 pod.activate(target, cell.x, cell.y)
             } else {
                 log(`[${this.name}] failed to select a target`)

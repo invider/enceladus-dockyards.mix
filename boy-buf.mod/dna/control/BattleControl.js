@@ -58,6 +58,8 @@ class BattleControl {
         this.subturn = 0
         this.shipA = shipA
         this.shipB = shipB
+        shipA.foe = shipB
+        shipB.foe = shipA
         this.left.setBlueprint(shipA)
         this.right.setBlueprint(shipB)
         this.leftPanel.monitor(shipA)

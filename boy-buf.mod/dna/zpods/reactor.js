@@ -85,6 +85,7 @@ class reactor extends dna.Pod {
         const consumed = originalOutput - leftover
 
         log(`[${this.ship.name}/${this.name}] consumed ${consumed}/${originalOutput}`)
+        this.ship.score.energy += consumed
 
         if (consumed > 0) {
             const loc = this.ship.visualGrid.cellScreenCoord(this)
