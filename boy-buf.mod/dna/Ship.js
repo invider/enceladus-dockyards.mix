@@ -55,6 +55,12 @@ class Ship {
     }
 
     mountPod(pod, x, y) {
+        // clean up the cell from possible existing pod
+        if (this.getPod(x, y)) {
+            this.killPod(x, y)
+        }
+
+        // mount
         pod.x = x
         pod.y = y
         pod.ship = this
@@ -493,18 +499,21 @@ class Ship {
     }
 
     destroy() {
+        const ship = this
         this.status = 'destroyed'
         sfx.play('explosion2', env.mixer.level.destroyed)
 
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < env.style.destroyExplosions; i++) {
             const x = RND(this.blueprint.w)
             const y = RND(this.blueprint.h)
             const cell = this.blueprint.cellAt(x, y)
             if (cell !== 'x') {
-                const loc = this.visualGrid.cellScreenCoord({x, y})
+                const orig = {x, y}
+                const loc = this.visualGrid.cellScreenCoord(orig)
                 setTimeout(() => {
+                    ship.mountPod(new dna.ypods.XPod(), orig.x, orig.y)
                     lib.vfx.explosion(loc.x, loc.y, env.style.color.c3)
-                }, RND(2000))
+                }, RND(env.tune.finishBattleDelay))
             }
         }
     }

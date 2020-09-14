@@ -12,6 +12,7 @@ const style = {
 
     cellSize: 14,
     repairBlinkPeriod: 0.3,
+    destroyExplosions: 120,
 
     border: '#252123',
 

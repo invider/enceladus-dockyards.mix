@@ -27,10 +27,14 @@ class driver extends dna.WeaponPod {
         const ammoPods = this.ship.pods.filter((pod) => pod.tag === 'kinetic')
         if (ammoPods.length > 0) {
             const pod = lib.math.rnde(ammoPods)
-            this.shots += pod.shots
+            const shots = pod.shots
+            this.shots += shots
             pod.shots = 0
-            pod.hit(pod.hits)
+            pod.kill()
+                
             log(`[${this.ship.name}]/${this.name} resupplied x${this.shots}`)
+            const loc = this.ship.visualGrid.cellScreenCoord(pod)
+            lib.vfx.mintAt(`-${shots} shots`, loc.x, loc.y)
             sfx.play('consume', env.mixer.level.consume)
         }
     }

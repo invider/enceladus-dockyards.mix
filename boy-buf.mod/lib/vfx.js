@@ -16,6 +16,24 @@ function hintAt(text, x, y, color) {
     })
 }
 
+function mintAt(text, x, y, color) {
+    color = color || env.style.color.c2
+    lab.screen.battle.vfx.spawn(dna.hud.fadeText, {
+        text: text,
+        font: env.style.font,
+        fillStyle: color,
+        align: 'left',
+        ttl: 4,
+        tti: 0.3,
+        ttf: 1,
+
+        x: x,
+        y: y,
+        dx: RND(12) - 6,
+        dy: 4 + RND(10),
+    })
+}
+
 function debris(x, y, color) {
     color = color || env.style.color.c1
     lab.screen.battle.vfx.spawn(dna.Emitter, {

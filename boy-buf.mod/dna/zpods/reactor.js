@@ -88,8 +88,7 @@ class reactor extends dna.Pod {
 
         if (consumed > 0) {
             const loc = this.ship.visualGrid.cellScreenCoord(this)
-            lib.vfx.hintAt('+' + consumed + ' energy', loc.x, loc.y,
-                env.style.color.c2)
+            lib.vfx.mintAt('+' + consumed + ' energy', loc.x, loc.y)
         }
     }
 }
