@@ -18,6 +18,7 @@ const mixer = {
 
         destroyed:  1,
         nextTurn:  .5,
+        finish:     1,
     }
 }
 

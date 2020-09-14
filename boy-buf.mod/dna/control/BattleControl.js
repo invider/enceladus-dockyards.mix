@@ -313,6 +313,7 @@ class BattleControl {
         let delay = env.tune.finishBattleDelay
         if (scoreData.yield) delay = env.tune.yieldBattleDelay
 
+        sfx.play('powerDown', env.mixer.level.finish)
         lab.vfx.itransit(() => {
             activeScreen.hide()
             trap('score', scoreData)
