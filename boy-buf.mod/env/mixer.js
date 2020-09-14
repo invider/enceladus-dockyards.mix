@@ -1,21 +1,22 @@
 const mixer = {
     level: {
-        select: 0.5,
-        'switch': 0.3,
-        apply: 0.7,
-        denied: 0.3,
-        remove: 0.8,
+        select:   .5,
+        'switch': .3,
+        apply:    .7,
+        denied:   .3,
+        remove:   .8,
 
-        launch: 0.5,
-        burn: 0.5,
-        laser: 0.2,
-        driver: 0.4,
+        launch:  .5,
+        burn:    .5,
+        laser:   .2,
+        driver:  .4,
+        deflect: .5,
 
-        repair: 0.5,
-        consume: 0.7,
+        repair:  .5,
+        consume: .7,
 
-        destroyed: 1,
-        nextTurn: 0.5,
+        destroyed:  1,
+        nextTurn:  .5,
     }
 }
 

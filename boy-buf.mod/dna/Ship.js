@@ -303,6 +303,12 @@ class Ship {
             attack = this.shieldFromLaser(attack)
             if (attack < origAttack) {
                 log(`laser deflected: ${origAttack-attack}/${origAttack}`)
+                y = -1
+                this.incomingProjectile(weapon, x, y, () => {
+                    const loc = target.visualGrid.cellScreenCoord({x, y})
+                    lib.vfx.deflect(loc.x, loc.y)
+                    sfx.play('deflect', env.mixer.level.deflect)
+                })
             }
 
             if (attack > 0) {
