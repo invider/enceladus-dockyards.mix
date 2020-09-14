@@ -224,7 +224,8 @@ class BattleControl {
     }
 
     endCondition() {
-        if (this.shipA.skipped >= 5 && this.shipB.skipped >= 5) {
+        if (this.shipA.skipped >= env.tune.skipsToDraw
+                && this.shipB.skipped >= env.tune.skipsToDraw) {
             this.shipA.status = 'draw'
             this.shipB.status = 'draw'
             this.finishBattle()

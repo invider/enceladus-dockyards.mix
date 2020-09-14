@@ -495,5 +495,17 @@ class Ship {
     destroy() {
         this.status = 'destroyed'
         sfx.play('explosion2', env.mixer.level.destroyed)
+
+        for (let i = 0; i < 40; i++) {
+            const x = RND(this.blueprint.w)
+            const y = RND(this.blueprint.h)
+            const cell = this.blueprint.cellAt(x, y)
+            if (cell !== 'x') {
+                const loc = this.visualGrid.cellScreenCoord({x, y})
+                setTimeout(() => {
+                    lib.vfx.explosion(loc.x, loc.y, env.style.color.c3)
+                }, RND(2000))
+            }
+        }
     }
 }
