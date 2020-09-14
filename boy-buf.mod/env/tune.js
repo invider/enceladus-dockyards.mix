@@ -5,6 +5,7 @@ const tune = {
     turnSkipDelay: 300,
     humanTurnDelay: 2000,
     finishBattleDelay: 2000,
+    laserSpread: 800,
 
     incomingProjectileSpread: 60,
 }

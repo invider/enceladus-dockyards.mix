@@ -148,7 +148,11 @@ class Ship {
             if (action === 'lasers') {
                 // volley fire!
                 const ship = this
-                pods.forEach(pod => ship.takePodAction(pod, target, cell))
+                pods.forEach(pod =>
+                    setTimeout(() => {
+                        ship.takePodAction(pod, target, cell)
+                    }, RND(env.tune.laserSpread))
+                )
 
             } else {
                 const pod = _$.lib.math.rnde(pods)
