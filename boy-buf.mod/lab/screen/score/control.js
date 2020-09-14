@@ -5,6 +5,10 @@ const items = [
 
 let timeout = 0
 
+function onMove(item) {
+    this.__.control.keep(env.style.scoreTimeout)
+}
+
 function onSelect(item) {
     if (item === 'rematch') {
         this.__.control.rematch()
@@ -34,10 +38,13 @@ function setup() {
             this.hidden = false
             this.control.state = 0
             this.control.data = data
+            this.control.keep(env.style.scoreTimeout)
+
             score.show(data)
             this.menu.selectFrom({
                 items,
                 onSelect,
+                onMove,
             })
             this.menu.current = 1
         },

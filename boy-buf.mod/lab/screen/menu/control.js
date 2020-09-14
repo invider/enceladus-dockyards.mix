@@ -1,4 +1,3 @@
-
 const items = [
     'new game',
     'options',
@@ -10,7 +9,6 @@ const items = [
     ['$1000', '$1200', '$1600', '$2000', '$400', '$600', '$800'],
 ]
 const SELECT = 3
-
 
 function onSelect(item) {
     if (item === 'new game') {

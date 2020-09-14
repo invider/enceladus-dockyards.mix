@@ -9,7 +9,7 @@ const df = {
     step: 10,
     current: 0,
     border: 2,
-    IDLE: 30,
+    IDLE: 20,
 }
 class Menu {
 
@@ -47,7 +47,6 @@ class Menu {
     }
 
     selectFrom(st) {
-        // (items, onSelect, onSwitch, preservePos) {
         extend(this, st)
         if (!this.preservePos) this.current = 0
 
@@ -79,6 +78,7 @@ class Menu {
             this.next()
         } else {
             // landed
+            if (this.onMove) this.onMove(item)
             sfx.play('select', env.mixer.level.select)
         }
         
@@ -93,6 +93,7 @@ class Menu {
             this.prev()
         } else {
             // landed
+            if (this.onMove) this.onMove(item)
             sfx.play('select', env.mixer.level.select)
         }
     }
@@ -105,6 +106,7 @@ class Menu {
             if (this.onSwitch) this.onSwitch(item, this.current)
             sfx.play('apply', env.mixer.level.switch)
         }
+        if (this.onMove) this.onMove(item)
     }
 
     right() {
@@ -115,6 +117,7 @@ class Menu {
             if (this.onSwitch) this.onSwitch(item, this.current)
             sfx.play('apply', env.mixer.level.switch)
         }
+        if (this.onMove) this.onMove(item)
     }
 
     select() {
