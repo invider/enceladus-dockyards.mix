@@ -291,6 +291,9 @@ class BattleControl {
             shipA: this.shipA,
             shipB: this.shipB,
         }
+        if (res.shipA.status === 'yield' || res.shipB.status === 'yield') {
+            res.yield = true
+        }
         return res
     }
 
@@ -300,9 +303,12 @@ class BattleControl {
         lab.control.player.unbindAll()
         const scoreData = this.determineWinner()
 
+        let delay = env.tune.finishBattleDelay
+        if (scoreData.yield) delay = env.tune.yieldBattleDelay
+
         lab.vfx.itransit(() => {
             activeScreen.hide()
             trap('score', scoreData)
-        }, env.tune.finishBattleDelay)
+        }, delay)
     }
 }
