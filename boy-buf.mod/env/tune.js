@@ -1,5 +1,6 @@
 const tune = {
     skipsToDraw: 10,
+    maxTurns:    256,
 
     launchDelay:        250,
     actionDelay:        200,

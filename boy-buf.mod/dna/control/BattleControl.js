@@ -228,8 +228,9 @@ class BattleControl {
     }
 
     endCondition() {
-        if (this.shipA.skipped >= env.tune.skipsToDraw
-                && this.shipB.skipped >= env.tune.skipsToDraw) {
+        if (this.turn > env.tune.maxTurns
+                || (this.shipA.skipped >= env.tune.skipsToDraw
+                    && this.shipB.skipped >= env.tune.skipsToDraw)) {
             this.shipA.status = 'draw'
             this.shipB.status = 'draw'
             this.finishBattle()
@@ -261,8 +262,10 @@ class BattleControl {
         log('Turn: ' + this.turn)
         log('====================')
 
-        this.turnA()
-        sfx.play('select', env.mixer.level.nextTurn)
+        if (!this.endCondition()) {
+            this.turnA()
+            sfx.play('select', env.mixer.level.nextTurn)
+        }
     }
 
     activate(action) {
