@@ -30,3 +30,36 @@ function uploadJSON() {
     input.setAttribute('onchange', "$.mod['boy-buf'].lib.util.loadFile(event)")
     input.click()
 }
+
+function clearCache() {
+    if (typeof(Storage) === 'undefined') return
+    try {
+        window.localStorage.removeItem(env.cfg.storage)
+    } catch(e) {
+        log.error(e)
+    }
+}
+
+function loadCache() {
+    if (typeof(Storage) === 'undefined') return {}
+    try {
+        const cache = window.localStorage.getItem(env.cfg.storage)
+        return JSON.parse(cache)
+
+    } catch (e) {
+        log.error(e)
+    }
+}
+
+function saveCache(cache) {
+    if (typeof(Storage) === 'undefined') return
+    try {
+        window.setItem(env.cfg.storage, JSON.stringify(cache))
+
+    } catch (e) {
+        log.error(e)
+    }
+}
+
+function saveDesign(blueprint) {
+}
