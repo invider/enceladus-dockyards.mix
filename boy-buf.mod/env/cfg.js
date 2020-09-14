@@ -1,0 +1,3 @@
+const cfg = {
+    storage: 'enceladus',
+}

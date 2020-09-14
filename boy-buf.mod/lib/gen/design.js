@@ -10,11 +10,19 @@ function design() {
         w: ctx.width/2 - 2,
         h: ctx.height - 1,
     })
+
+    const title = design.spawn(dna.hud.Label, {
+        x: 39,
+        y: 19,
+        text: 'blueprint',
+        color: env.style.color.c1,
+    })
+
     const grid = design.spawn(dna.hud.ShipGrid, {
         Z: 11,
         name: 'grid',
         x: 4,
-        y: 24,
+        y: 28,
         apply: function() {
             if (this.pod) {
                 const {x, y} = this.target
@@ -69,6 +77,7 @@ function design() {
 
     design.spawn(dna.control.DesignControl, {
         grid: grid,
+        title: title,
         designer: designer,
         playerData: playerData,
     })

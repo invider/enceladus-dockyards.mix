@@ -9,6 +9,7 @@ class DesignControl {
         this.state = 0
         this.player = player
         this.blueprint = player.blueprint
+        this.title.setText(this.blueprint.name)
         this.player.buy(this.blueprint.estimateCost(), true)
         this.grid.setBlueprint(this.blueprint)
         this.playerData.setPlayer(player)

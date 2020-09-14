@@ -1,3 +1,30 @@
+function uniquelyName(blueprint, map) {
+    const exist = map[blueprint.name]
+    if (exist) {
+        // need to find a new name
+        let base = blueprint.name
+        const i = base.indexOf(' mk')
+        if (i > 0) {
+            // remove "mk" suffix
+            base = base.substring(0, i)
+            log('BASE IS: ' + base)
+
+            let mk = 2
+            let looking = true
+            while(looking) {
+                const name = base + ' mk' + mk++
+                if (!map[name]) {
+                    blueprint.name = name
+                    looking = false
+                }
+            }
+        } else {
+            blueprint.name = base + ' mk2'
+        }
+    }
+    map[blueprint.name] = blueprint
+}
+
 class LayoutControl {
 
     constructor(st) {
@@ -6,9 +33,10 @@ class LayoutControl {
     }
 
     compileBlueprints(player) {
+        const blueprints = []
+        const blueprintsMap = {}
         const readyBlueprints = []
         const readyBlueprintsMap = {}
-        const blueprints = []
         const budget = player.balance
 
         // create a blueprint for each layout available
@@ -18,6 +46,7 @@ class LayoutControl {
                     layout: layout,
                 })
                 blueprints.push(blueprint)
+                uniquelyName(blueprint, blueprintsMap)
             }
         })
 
@@ -29,6 +58,7 @@ class LayoutControl {
                     return lib.pods.podCost(podName)
                 })
                 blueprints.push(blueprint)
+                uniquelyName(blueprint, blueprintsMap)
                 readyBlueprints.push(blueprint)
                 readyBlueprintsMap[blueprint.name] = blueprint
             }
@@ -37,6 +67,7 @@ class LayoutControl {
 
         this.current = 0
         this.blueprints = blueprints
+        this.blueprintsMap = blueprintsMap
         this.readyBlueprints = readyBlueprints
         this.readyBlueprintsMap = readyBlueprintsMap
     }
@@ -73,6 +104,7 @@ class LayoutControl {
     selectForBot(player) {
         const blueprint = _.bot.selectBlueprint(player, this.readyBlueprints)
         player.blueprint = blueprint
+
         log('bot selected a blueprint ' + blueprint.name + ' for ' + player.name)
         lab.screen.design.control.constructShip(player, blueprint)
         
@@ -118,11 +150,13 @@ class LayoutControl {
     }
 
     designForBlueprint(blueprint) {
+        const control = this
         const player = this.player
         player.blueprint = blueprint
 
         lab.vfx.itransit(() => {
             lab.screen.layout.hide()
+            uniquelyName(blueprint, control.blueprintsMap)
             trap('design', player)
         })
         sfx.play('apply', env.mixer.level.apply)
