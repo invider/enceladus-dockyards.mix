@@ -21,6 +21,10 @@ class Designer {
         })
 
         // special actions
+        pods.push({
+            name: 'remove',
+            special: true,
+        })
         if (!env.opt.autosave) {
             pods.push({
                 name: 'save',
@@ -29,10 +33,6 @@ class Designer {
         }
         pods.push({
             name: 'download',
-            special: true,
-        })
-        pods.push({
-            name: 'remove',
             special: true,
         })
         pods.push({
