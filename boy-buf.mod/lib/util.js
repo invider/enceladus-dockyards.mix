@@ -11,7 +11,7 @@ function downloadJSON(json) {
 }
 
 function loadFile(file) {
-    lab.layout.control.lock()
+    lab.screen.layout.control.lock()
 	let input = file.target
 
 	let reader = new FileReader()
@@ -36,7 +36,7 @@ function clearCache() {
     try {
         window.localStorage.removeItem(env.cfg.storage)
     } catch(e) {
-        log.error(e)
+        log.err(e)
     }
 }
 
@@ -44,22 +44,32 @@ function loadCache() {
     if (typeof(Storage) === 'undefined') return {}
     try {
         const cache = window.localStorage.getItem(env.cfg.storage)
-        return JSON.parse(cache)
+        return JSON.parse(cache) || {}
 
     } catch (e) {
-        log.error(e)
+        log.err(e)
+        return {}
     }
 }
 
 function saveCache(cache) {
     if (typeof(Storage) === 'undefined') return
     try {
-        window.setItem(env.cfg.storage, JSON.stringify(cache))
+        window.localStorage.setItem(env.cfg.storage, JSON.stringify(cache))
 
     } catch (e) {
-        log.error(e)
+        log.err(e)
     }
 }
 
 function saveDesign(blueprint) {
+    log('caching')
+    log.dump(blueprint)
+
+    const cache = loadCache()
+    if (!cache.blueprints) {
+        cache.blueprints = {}
+    }
+    cache.blueprints[blueprint.name] = blueprint
+    saveCache(cache)
 }

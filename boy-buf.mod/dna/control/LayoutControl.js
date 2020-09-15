@@ -8,18 +8,16 @@ function uniquelyName(blueprint, map) {
             // remove "mk" suffix
             base = base.substring(0, i)
             log('BASE IS: ' + base)
+        }
 
-            let mk = 2
-            let looking = true
-            while(looking) {
-                const name = base + ' mk' + mk++
-                if (!map[name]) {
-                    blueprint.name = name
-                    looking = false
-                }
+        let mk = 2
+        let looking = true
+        while(looking) {
+            const name = base + ' mk' + mk++
+            if (!map[name]) {
+                blueprint.name = name
+                looking = false
             }
-        } else {
-            blueprint.name = base + ' mk2'
         }
     }
     map[blueprint.name] = blueprint
@@ -52,18 +50,34 @@ class LayoutControl {
 
         // create blueprints form blueprint dumps
         dna.spec.blueprints. _ls.forEach(blueprintDump => {
-            if (blueprintDump.cost < budget) {
-                const blueprint = new dna.Blueprint(blueprintDump)
-                blueprint.estimateCost((podName) => {
-                    return lib.pods.podCost(podName)
-                })
+            const blueprint = new dna.Blueprint(blueprintDump)
+            blueprint.estimateCost((podName) => {
+                return lib.pods.podCost(podName)
+            })
+            if (blueprint.cost < budget) {
                 blueprints.push(blueprint)
                 uniquelyName(blueprint, blueprintsMap)
                 readyBlueprints.push(blueprint)
                 readyBlueprintsMap[blueprint.name] = blueprint
             }
         })
-        // TODO include existing/local-stored designs
+
+        // create blueprints from local store
+        const cache = lib.util.loadCache()
+        if (cache.blueprints) {
+            Object.values(cache.blueprints).forEach(blueprintDump => {
+                const blueprint = new dna.Blueprint(blueprintDump)
+                blueprint.estimateCost((podName) => {
+                    return lib.pods.podCost(podName)
+                })
+                if (blueprint.cost < budget) {
+                    blueprints.push(blueprint)
+                    uniquelyName(blueprint, blueprintsMap)
+                    readyBlueprints.push(blueprint)
+                    readyBlueprintsMap[blueprint.name] = blueprint
+                }
+            })
+        }
 
         this.current = 0
         this.blueprints = blueprints

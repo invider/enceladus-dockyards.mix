@@ -39,6 +39,10 @@ class DesignControl {
         } else if (pod.name === 'download') {
             this.blueprint.download()
 
+        } else if (pod.name === 'save') {
+            this.blueprint.save()
+
+
         } else {
             this.__.parts.active = false
             this.__.blueprint.active = true

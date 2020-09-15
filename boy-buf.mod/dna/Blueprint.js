@@ -132,4 +132,8 @@ class Blueprint {
     download() {
         lib.util.downloadJSON( this.dump() )
     }
+
+    save() {
+        lib.util.saveDesign( this.dump() )
+    }
 }
