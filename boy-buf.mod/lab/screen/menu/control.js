@@ -13,7 +13,7 @@ const SELECT = 3
 function onSelect(item) {
     if (item === 'new game') {
         this.__.control.newGame()
-    } else if ('options') {
+    } else if (item === 'options') {
         this.__.control.options()
     }
 }
