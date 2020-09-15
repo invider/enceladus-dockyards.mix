@@ -66,8 +66,7 @@ function remap() {
     env.style.palette[DEFAULT] = original
     res.theme[DEFAULT] = res.pods.img
 
-    // TODO load from local store config?
-    setTheme(DEFAULT)
+    setTheme(env.opt.theme || DEFAULT)
 }
 
 function setTheme(name) {
@@ -78,6 +77,7 @@ function setTheme(name) {
     res.pods.img = tiles
     env.style.color = color
     env.style.theme = name
+    env.opt.theme = name
 
     lab.applyAll((node) => {
         if (node.syncTheme) node.syncTheme()
