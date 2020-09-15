@@ -19,6 +19,13 @@ class DesignControl {
         this.selectPod()
     }
 
+    designForBot(player) {
+        this.player = player
+        this.blueprint = player.blueprint
+        this.designer.compilePods()
+        this.player.buy(this.blueprint.estimateCost(), true)
+    }
+
     selectPod() {
         this.__.blueprint.active = false
         this.__.parts.active = true
@@ -41,7 +48,6 @@ class DesignControl {
 
         } else if (pod.name === 'save') {
             this.blueprint.save()
-
 
         } else {
             this.__.parts.active = false

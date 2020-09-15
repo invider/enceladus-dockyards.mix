@@ -68,6 +68,39 @@ class Blueprint {
         return this.hits
     }
 
+    freeSpace() {
+        let free = 0
+        for (let y = 0; y < this.h; y++) {
+            for (let x = 0; x < this.w; x++) {
+                if (this.podAt(x, y) === 'free') free ++
+            }
+        }
+        return free
+    }
+
+    randomFreeCell() {
+        if (this.freeSpace() === 0) return
+        let i = RND(this.grid.length - 1)
+        let icell = -1
+        while (i < this.grid.length && icell < 0) {
+            if (this.grid[i] === 'free') icell = i
+            i++
+        }
+        if (icell < 0) {
+            i = 0
+            while (i < this.grid.length && icell < 0) {
+                if (this.grid[i] === 'free') icell = i
+                i++
+            }
+        }
+        if (icell >= 0) {
+            return {
+                x: icell % this.w,
+                y: floor(icell / this.h),
+            }
+        }
+    }
+
     getSpace() {
         return this.space
     }

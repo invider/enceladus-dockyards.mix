@@ -32,6 +32,7 @@ class LayoutControl {
     compileBlueprints(player) {
         const blueprints = []
         const blueprintsMap = {}
+        const emptyBlueprints = []
         const readyBlueprints = []
         const readyBlueprintsMap = {}
         const budget = player.balance
@@ -44,6 +45,7 @@ class LayoutControl {
                 })
                 blueprints.push(blueprint)
                 uniquelyName(blueprint, blueprintsMap)
+                emptyBlueprints.push(blueprint)
             }
         })
 
@@ -81,6 +83,7 @@ class LayoutControl {
         this.current = 0
         this.blueprints = blueprints
         this.blueprintsMap = blueprintsMap
+        this.emptyBlueprints = emptyBlueprints
         this.readyBlueprints = readyBlueprints
         this.readyBlueprintsMap = readyBlueprintsMap
     }
@@ -115,7 +118,9 @@ class LayoutControl {
     }
 
     selectForBot(player) {
-        const blueprint = _.bot.selectBlueprint(player, this.readyBlueprints)
+        //const blueprint = _.bot.selectBlueprint(player, this.readyBlueprints)
+        const blueprint = _.bot.createBlueprint(player,
+            lab.screen.design.control, this.emptyBlueprints)
         player.blueprint = blueprint
 
         log('bot selected a blueprint ' + blueprint.name + ' for ' + player.name)
