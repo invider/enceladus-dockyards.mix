@@ -74,3 +74,19 @@ function saveDesign(blueprint) {
     cache.blueprints[blueprint.name] = blueprint
     saveCache(cache)
 }
+
+function loadConfig() {
+    const cache = loadCache()
+    if (cache.config) {
+        log('loaded config:')
+        log.dump(cache.config)
+        extend(env.opt, cache.config)
+    }
+}
+
+function saveConfig() {
+    const opt = extend({}, env.opt)
+    const cache = loadCache()
+    cache.config = opt
+    saveCache(cache)
+}

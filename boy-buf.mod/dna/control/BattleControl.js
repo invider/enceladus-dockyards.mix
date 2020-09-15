@@ -115,11 +115,7 @@ class BattleControl {
                     sfx.play('ddenied', env.mixer.level.denied)
                     return
                 }
-
-                if (isArray(selected)) {
-                    this.right()
-                    return
-                }
+                if (isObj(selected)) return
 
                 this.hide()
                 if (selected === 'yield') {
@@ -178,7 +174,6 @@ class BattleControl {
 
                 case 'targets':
                     source.targetPriority = val
-                    log(source.name + ' targets ' + val)
                     break
                 }
             },

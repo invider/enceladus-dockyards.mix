@@ -1,5 +1,6 @@
 module.exports = function() {
     lib.debug.configure()
+    lib.util.loadConfig()
 
     // patches
     _$.boy = _ // mix shortcut

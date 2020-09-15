@@ -11,6 +11,15 @@ const df = {
     border: 2,
     IDLE: 20,
 }
+
+function isSwitch(item) {
+    return isArray(item)
+}
+
+function isOption(item) {
+    return (isObj(item) && item.option)
+}
+
 class Menu {
 
     constructor(st) {
@@ -51,8 +60,9 @@ class Menu {
         if (!this.preservePos) this.current = 0
 
         this.items.forEach(item => {
-            if (isArray(item)) {
+            if (isSwitch(item) || isOption(item)) {
                 if (!item.current) item.current = 0
+                if (item.load) item.load()
             }
         })
 
@@ -103,10 +113,16 @@ class Menu {
     left() {
         if (this.hidden) return
         const item = this.currentItem()
-        if (isArray(item)) {
+        if (isSwitch(item)) {
             item.current --
             if (item.current < 0) item.current = item.length - 1
             if (this.onSwitch) this.onSwitch(item, this.current)
+            sfx.play('apply', env.mixer.level.switch)
+        } else if (isOption(item)) {
+            item.current --
+            if (item.current < 0) item.current = item.options.length - 1
+            if (this.onSwitch) this.onSwitch(item, this.current)
+            if (item.sync) item.sync()
             sfx.play('apply', env.mixer.level.switch)
         }
         if (this.onMove) this.onMove(item)
@@ -115,20 +131,31 @@ class Menu {
     right() {
         if (this.hidden) return
         const item = this.currentItem()
-        if (isArray(item)) {
+        if (isSwitch(item)) {
             item.current ++
             if (item.current >= item.length) item.current = 0
             if (this.onSwitch) this.onSwitch(item, this.current)
+            sfx.play('apply', env.mixer.level.switch)
+        } else if (isOption(item)) {
+            item.current ++
+            if (item.current >= item.options.length) item.current = 0
+            if (this.onSwitch) this.onSwitch(item, this.current)
+            if (item.sync) item.sync()
             sfx.play('apply', env.mixer.level.switch)
         }
         if (this.onMove) this.onMove(item)
     }
 
     select() {
-        if (this.onSelect) {
-            this.onSelect( this.currentItem() )
+        const item = this.currentItem()
+        if (isSwitch(item) || isOption(item)) {
+            this.right()
+        } else {
+            if (this.onSelect) {
+                this.onSelect(item)
+                sfx.play('use', env.mixer.level.apply)
+            }
         }
-        sfx.play('use', env.mixer.level.apply)
     }
 
     back() {
@@ -181,9 +208,13 @@ class Menu {
                 if (item.hidden) hidden = true
                 if (item.disabled) disabled = true
                 item = '< ' + item[item.current] + ' >'
-            } else if (isObj(item) && item.section) {
-                active = false
-                item = item.title
+            } else if (isObj(item)) {
+                if (item.section) {
+                    active = false
+                    item = item.title
+                } else if (item.option) {
+                    item = item.title + ': ' + item.options[item.current]
+                }
             }
 
             if (!hidden) {
