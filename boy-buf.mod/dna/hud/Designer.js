@@ -21,10 +21,12 @@ class Designer {
         })
 
         // special actions
-        pods.push({
-            name: 'save',
-            special: true,
-        })
+        if (!env.opt.autosave) {
+            pods.push({
+                name: 'save',
+                special: true,
+            })
+        }
         pods.push({
             name: 'download',
             special: true,

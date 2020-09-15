@@ -7,7 +7,6 @@ function uniquelyName(blueprint, map) {
         if (i > 0) {
             // remove "mk" suffix
             base = base.substring(0, i)
-            log('BASE IS: ' + base)
         }
 
         let mk = 2
@@ -49,7 +48,7 @@ class LayoutControl {
         })
 
         // create blueprints form blueprint dumps
-        dna.spec.blueprints. _ls.forEach(blueprintDump => {
+        dna.spec.blueprints._ls.forEach(blueprintDump => {
             const blueprint = new dna.Blueprint(blueprintDump)
             blueprint.estimateCost((podName) => {
                 return lib.pods.podCost(podName)

@@ -93,3 +93,23 @@ function deflect(x, y, color) {
         }
     })
 }
+
+function poof(target, x, y, color) {
+    color = color || env.style.color.c3
+    target.spawn(dna.Emitter, {
+        x: x,
+        y: y,
+        color: color,
+        lifespan: 0.05,
+        force: 1000,
+        radius: 0,
+        size: 1,
+        speed: 10, vspeed: 0,
+        angle: 0, spread: 2*Math.PI,
+        minLifespan: 0.4, vLifespan: 0.2,
+        drawParticle: function() {
+            fill(this.color)
+            rect(floor(this.x), floor(this.y), this.r, this.r)
+        }
+    })
+}

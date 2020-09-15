@@ -32,6 +32,8 @@ function uploadJSON() {
 }
 
 function clearCache() {
+    log('removing saved blueprints')
+
     if (typeof(Storage) === 'undefined') return
     try {
         window.localStorage.removeItem(env.cfg.storage)
@@ -63,8 +65,7 @@ function saveCache(cache) {
 }
 
 function saveDesign(blueprint) {
-    log('caching')
-    log.dump(blueprint)
+    log(`saveing ${blueprint.name}`)
 
     const cache = loadCache()
     if (!cache.blueprints) {

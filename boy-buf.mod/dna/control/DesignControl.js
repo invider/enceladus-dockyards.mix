@@ -91,11 +91,20 @@ class DesignControl {
         return ship
     }
 
+    saveBlueprint(blueprint) {
+        if (env.opt.autosave) {
+            blueprint.save()
+        } else {
+            dna.spec.blueprints.attach( blueprint.dump() )
+        }
+    }
+
     build() {
         if (this.state > 0) return
         this.state = 1
 
         this.finalizeBlueprint(this.blueprint)
+        this.saveBlueprint(this.blueprint)
         const ship = this.constructShip(this.player, this.blueprint)
 
         const player = ship.player

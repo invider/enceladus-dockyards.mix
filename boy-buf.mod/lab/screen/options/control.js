@@ -3,12 +3,27 @@ const themes = []
 const items = [
     { section: true, title: 'theme' },
     themes,
+    'remove saved',
     'back',
 ]
 
 function onSelect(item) {
     if (item === 'back') {
         this.__.control.mainMenu()
+    } else if (item === 'remove saved') {
+        lib.util.clearCache()
+        sfx.play('powerDown', env.mixer.level.powerdown)
+
+        const cache = lib.util.loadCache()
+        if (cache.blueprints) {
+            const N = Object.keys(cache.blueprints).length
+            for (let i = 0; i < N; i++) {
+                setTimeout(() => {
+                    sfx.play('noisy', env.mixer.level.clean)
+                    lib.vfx.poof(this.__, RND(ctx.width), RND(ctx.height))
+                }, RND(1000))
+            }
+        }
     }
 }
 
@@ -18,7 +33,7 @@ function onSwitch(item) {
 }
 
 function setup() {
-    const W = 70
+    const W = 90
     const B = floor((ctx.width-W)/2)
     const menu = this.__.spawn(dna.hud.Menu, {
         Z: 1,

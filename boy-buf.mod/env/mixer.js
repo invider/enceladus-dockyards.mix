@@ -5,6 +5,7 @@ const mixer = {
         apply:    .7,
         denied:   .3,
         remove:   .8,
+        clean:    .5,
 
         launch:  .3,
         burn:    .5,
