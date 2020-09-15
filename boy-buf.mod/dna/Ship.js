@@ -1,3 +1,11 @@
+function bend(weapon, targetC, spread) {
+    if (rnd() > weapon.precision) {
+        const delta = RND(1, spread) * lib.math.rnds()
+        targetC += delta
+    }
+    return targetC
+}
+
 class Ship {
 
     constructor(blueprint) {
@@ -329,12 +337,8 @@ class Ship {
             }
 
             if (attack > 0) {
-                const dx = RND(2) - 1
-                const dy = RND(2) - 1
-                log('laser delta: ' + dx + ':' + dy)
-                x += dx
-                y += dy
-
+                x = bend(weapon, x, 1)
+                y = bend(weapon, y, 1)
                 this.incomingProjectile(weapon, x, y, () => {
                     target.hit(attack, x, y)
                 })
@@ -349,6 +353,9 @@ class Ship {
                 }
 
                 if (attack > 0) {
+                    log('original target at ' + x + ':' + y)
+                    x = bend(weapon, x, 1)
+                    y = bend(weapon, y, 1)
                     log('hitting cells at ' + x + ':' + y)
                     target.hit(floor(attack * .4), x, y)
                     target.hit(floor(attack * .15), x-1, y)

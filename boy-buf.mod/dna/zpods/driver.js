@@ -9,6 +9,7 @@ const df = {
     charge: 75,
     attack: 100,
     shots: 10,
+    precision: .7,
 }
 
 class driver extends dna.WeaponPod {

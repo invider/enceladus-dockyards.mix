@@ -8,6 +8,7 @@ const df = {
     hits: 25,
     charge: 10,
     attack: 20,
+    precision: .2,
 }
 
 class laser extends dna.WeaponPod {
