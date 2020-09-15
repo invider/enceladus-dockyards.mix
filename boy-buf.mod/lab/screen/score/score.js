@@ -25,7 +25,7 @@ function drawPlayerStat(ship, x) {
 
     const x1 = x - 25
     const x2 = x + 20
-    x -= 20
+    x -= 25
     y += 15
     alignLeft()
     text('shots:', x1, y)
