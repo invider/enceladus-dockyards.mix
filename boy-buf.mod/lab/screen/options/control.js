@@ -15,6 +15,7 @@ function onSelect(item) {
         sfx.play('powerDown', env.mixer.level.powerdown)
 
         const cache = lib.util.loadCache()
+        debugger
         if (cache.blueprints) {
             const N = Object.keys(cache.blueprints).length
             for (let i = 0; i < N; i++) {

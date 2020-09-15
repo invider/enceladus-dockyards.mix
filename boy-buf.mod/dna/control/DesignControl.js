@@ -92,6 +92,10 @@ class DesignControl {
     }
 
     saveBlueprint(blueprint) {
+        if (!blueprint.dirty) {
+            log(`skipping ${blueprint.name} save - nothing is changed!`)
+            return
+        }
         if (env.opt.autosave) {
             blueprint.save()
         } else {

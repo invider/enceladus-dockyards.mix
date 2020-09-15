@@ -14,6 +14,7 @@ class Blueprint {
         if (!this.layoutCost) this.layoutCost = this.layout.cost
         if (!this.hits) this.hits = 0
         if (!this.space) this.space = this.layout.space
+        this.dirty = false
     }
 
     fillGrid() {
@@ -94,6 +95,7 @@ class Blueprint {
         if (y < 0 || y >= this.h) return
         this.grid[y * this.w + x] = pod
         this.cost += price
+        this.dirty = true
     }
 
     removePod(x, y, priceFun) {

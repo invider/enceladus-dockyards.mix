@@ -1,7 +1,7 @@
 function bend(weapon, targetC, spread) {
     if (rnd() > weapon.precision) {
         const delta = RND(1, spread) * lib.math.rnds()
-        targetC += delta
+        argetC += delta
     }
     return targetC
 }

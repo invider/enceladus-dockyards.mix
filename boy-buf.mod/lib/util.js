@@ -65,7 +65,7 @@ function saveCache(cache) {
 }
 
 function saveDesign(blueprint) {
-    log(`saveing ${blueprint.name}`)
+    log(`saving ${blueprint.name}...`)
 
     const cache = loadCache()
     if (!cache.blueprints) {
