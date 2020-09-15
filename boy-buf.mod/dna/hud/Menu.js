@@ -131,7 +131,12 @@ class Menu {
         sfx.play('use', env.mixer.level.apply)
     }
 
-    alt() {}
+    back() {
+        if (this.onBack) {
+            this.onBack( this.currentItem() )
+        }
+        sfx.play('noisy', env.mixer.level.apply)
+    }
 
     activate(action) {
         this.lastTouch = Date.now()
@@ -141,7 +146,7 @@ class Menu {
             case 3: this.next(); break;
             case 4: this.right(); break;
             case 5: this.select(); break;
-            case 6: this.alt(); break;
+            case 6: this.back(); break;
         }
     }
 

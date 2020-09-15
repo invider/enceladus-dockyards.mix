@@ -52,7 +52,7 @@ function battle() {
         w: 79,
         h: 100,
         showBackground: true,
-        alt: function() {
+        onBack: function() {
             if (this.state) this.hidden = !this.hidden
         }
     })
@@ -82,7 +82,7 @@ function battle() {
         w: 79,
         h: 100,
         showBackground: true,
-        alt: function() {
+        onBack: function() {
             if (this.state) this.hidden = !this.hidden
         }
     })

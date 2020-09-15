@@ -32,6 +32,10 @@ function onSwitch(item) {
     lib.remap.tiles.setTheme(themeName)
 }
 
+function onBack(item) {
+    this.__.control.mainMenu()
+}
+
 function setup() {
     const W = 90
     const B = floor((ctx.width-W)/2)
@@ -61,6 +65,7 @@ function setup() {
                 items,
                 onSelect,
                 onSwitch,
+                onBack,
             })
         },
         hide: function() {
