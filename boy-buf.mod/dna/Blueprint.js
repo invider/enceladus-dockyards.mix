@@ -114,7 +114,7 @@ class Blueprint {
 
     cellType(x, y) {
         if (!this.layout[y]) return 0
-        return this.layout[y][x]
+        return this.layout[y][x] || 0
     }
 
     cellAt(x, y) {
