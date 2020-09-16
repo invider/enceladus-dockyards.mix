@@ -25,10 +25,26 @@ class ShipGrid {
         let nx = this.target.x
         let ny = this.target.y
         switch(action) {
-            case 1: ny--; break;
-            case 2: nx--; break;
-            case 3: ny++; break;
-            case 4: nx++; break;
+            case 1:
+                ny--
+                if (this.blueprint.cellType(nx, ny) === 0) nx--
+                if (this.blueprint.cellType(nx, ny) === 0) nx += 2
+                break
+            case 2:
+                nx--
+                if (this.blueprint.cellType(nx, ny) === 0) ny--
+                if (this.blueprint.cellType(nx, ny) === 0) ny += 2
+                break
+            case 3:
+                ny++
+                if (this.blueprint.cellType(nx, ny) === 0) nx++
+                if (this.blueprint.cellType(nx, ny) === 0) nx -= 2
+                break
+            case 4:
+                nx++
+                if (this.blueprint.cellType(nx, ny) === 0) ny++
+                if (this.blueprint.cellType(nx, ny) === 0) ny -= 2
+                break
             case 5: if (this.apply) this.apply(); return;
             case 6: if (this.back) this.back();  return;
         }
