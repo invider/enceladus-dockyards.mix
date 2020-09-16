@@ -33,7 +33,11 @@ class ShipPanel extends sys.LabFrame {
                 const system = panel.ship.systemHits()
                 const SYSTEM = panel.ship.maxSystemHits
                 return system/SYSTEM
-            }
+            },
+            syncTheme() {
+                this.bcolor = env.style.color.c1
+                this.lcolor = env.style.color.c2
+            },
         })
 
         const W2 = floor(this.w/2)
@@ -49,7 +53,11 @@ class ShipPanel extends sys.LabFrame {
                 const shields = this.ship.shields()
                 const maxShields = this.ship.maxShields
                 return shields/maxShields
-            }
+            },
+            syncTheme() {
+                this.bcolor = env.style.color.c2
+                this.lcolor = env.style.color.c0
+            },
         })
 
         this.spawn(dna.hud.HLevel, {
@@ -64,7 +72,11 @@ class ShipPanel extends sys.LabFrame {
                 const weapons = this.ship.weaponsCharge()
                 const maxWeapons = this.ship.weaponsMaxCharge()
                 return weapons/maxWeapons
-            }
+            },
+            syncTheme() {
+                this.bcolor = env.style.color.c1
+                this.lcolor = env.style.color.c3
+            },
         })
 
 

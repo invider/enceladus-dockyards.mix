@@ -27,11 +27,19 @@ function fadeOut() {
 }
 
 function draw() {
+
+    image(res.title, 0, 0, rx(1), ry(1))
+
     alignCenter()
     baseMiddle()
-    fill(env.style.color.c3)
     font(env.style.titleFont)
+
+    fill(env.style.color.c0)
+    text(env.msg.gameTitle, rx(.5)+1, ry(.5)+1)
+
+    fill(env.style.color.c3)
     text(env.msg.gameTitle, rx(.5), ry(.5))
+
 
     alignRight()
     baseBottom()

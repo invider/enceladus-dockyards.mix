@@ -56,15 +56,19 @@ function remap() {
     const originalRGB = splitPaletteToComponents(original)
 
     const theme = {}
+    const titles = {}
     res.attach(theme, 'theme')
+    res.attach(titles, 'titles')
 
     Object.entries(env.style.palette).forEach(([palName, pal]) => {
         const palRGB = splitPaletteToComponents(pal)
         theme[palName] = ( mapColors(res.pods.img, originalRGB, palRGB) )
+        titles[palName] = ( mapColors(res.title, originalRGB, palRGB) )
     })
     // include original color set to available styles
     env.style.palette[DEFAULT] = original
     res.theme[DEFAULT] = res.pods.img
+    res.titles[DEFAULT] = res.title
 
     setTheme(env.opt.theme || DEFAULT)
 }
@@ -72,8 +76,10 @@ function remap() {
 function setTheme(name) {
     const color = env.style.palette[name]
     const tiles = res.theme[name]
+    const title = res.titles[name]
     if (!color || !tiles) throw `can't find theme [${name}]`
 
+    res.title = title
     res.pods.img = tiles
     env.style.color = color
     env.style.theme = name
@@ -83,4 +89,3 @@ function setTheme(name) {
         if (node.syncTheme) node.syncTheme()
     })
 }
-

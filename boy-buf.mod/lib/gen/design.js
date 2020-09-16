@@ -16,6 +16,9 @@ function design() {
         y: 19,
         text: 'blueprint',
         color: env.style.color.c1,
+        syncTheme: function() {
+            this.color =  env.style.color.c1
+        },
     })
 
     const grid = design.spawn(dna.hud.ShipGrid, {

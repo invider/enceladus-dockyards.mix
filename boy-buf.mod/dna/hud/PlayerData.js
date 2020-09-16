@@ -2,7 +2,11 @@ class PlayerData {
 
     constructor(st) {
         augment(this, st)
-        if (!this.color) this.color = env.style.color.c1
+        this.color = env.style.color.c1
+    }
+
+    syncTheme() {
+        this.color = env.style.color.c1
     }
 
     draw() {
