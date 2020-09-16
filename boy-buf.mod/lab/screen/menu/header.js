@@ -6,4 +6,12 @@ function draw() {
     text(env.msg.gameTitle, rx(.5), 16)
 
     text('menu', rx(.5), 40)
+
+
+    alignRight()
+    baseBottom()
+    font(env.style.font)
+    let x = rx(1) - 2
+    let y = 32
+    text('v1.1', x, y)
 }

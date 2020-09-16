@@ -44,7 +44,9 @@ function draw() {
     alignRight()
     baseBottom()
     font(env.style.font)
-    text('by Igor Khotin', rx(1)-8, ry(1)-8)
+    let x = rx(1) - 8
+    let y = ry(1) - 8
+    text('by Igor Khotin', x, y)
 }
 
 function activate(action) {
