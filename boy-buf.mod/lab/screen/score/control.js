@@ -25,7 +25,7 @@ function setup() {
         Z: 1,
         name: 'menu',
         x: B,
-        y: 80,
+        y: 90,
         w: W,
         h: ctx.height-60,
         background: false,
