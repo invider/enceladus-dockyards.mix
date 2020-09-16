@@ -6,6 +6,7 @@ class DesignControl {
     }
 
     designFor(player) {
+        env.state = 'design'
         this.state = 0
         this.player = player
         this.blueprint = player.blueprint
@@ -20,6 +21,7 @@ class DesignControl {
     }
 
     designForBot(player) {
+        env.state = 'design'
         this.player = player
         this.blueprint = player.blueprint
         this.designer.compilePods()

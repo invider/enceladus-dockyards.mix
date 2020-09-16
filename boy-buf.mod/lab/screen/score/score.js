@@ -1,6 +1,7 @@
 const Z = 22
 
 function show(data) {
+    env.state = 'score'
     this.state = 0
     this.hidden = false
     this.data = data

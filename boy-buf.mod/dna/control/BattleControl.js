@@ -44,6 +44,7 @@ class BattleControl {
     }
 
     startBattle(playerA, playerB) {
+        env.state = 'battle'
         const shipA = playerA.ship
         const shipB = playerB.ship
         if (playerA.hybrid) playerA.human = false

@@ -89,6 +89,7 @@ class LayoutControl {
     }
 
     selectFor(player) {
+        env.state = 'layout'
         this.player = player
         this.unlock()
         this.compileBlueprints(player)
@@ -118,6 +119,7 @@ class LayoutControl {
     }
 
     selectForBot(player) {
+        env.state = 'layout'
         let blueprint
         if (rnd() < env.tune.selectExistingBlueprint) {
             blueprint = _.bot.selectBlueprint(player, this.readyBlueprints)
