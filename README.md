@@ -109,6 +109,19 @@ jam play
 ```
 
 
+## Cheats
+
+Bots are capturing control of the ship after the battle menu
+has been idle for 30 seconds.
+
+You can capture control from a bot by executing
+the following sequences:
+
+```
+    <<A<< - capture player A
+    >>A>> - capture player B
+```
+
 
 ## Debug
 

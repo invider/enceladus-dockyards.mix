@@ -63,6 +63,7 @@ function act(action, playerId) {
         if (target && target.activate) {
             target.activate(action + 1)
         }
+        lab.control.cheat(action + 1)
     }
 }
 

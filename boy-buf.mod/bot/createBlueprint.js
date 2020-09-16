@@ -71,16 +71,13 @@ function placeNewPod(player, control, blueprint) {
     if (!pod) return
 
     control.installPod(pod, loc.x, loc.y)
-    log('+ ' + pod.name + ' $' + pod.cost)
 
     if (loc.x < 2) {
         loc.x = 4 - loc.x
         control.installPod(pod, loc.x, loc.y)
-        log('+ ' + pod.name + ' $' + pod.cost)
     } else if (loc.x > 2) {
         loc.x = 4 - loc.x
         control.installPod(pod, loc.x, loc.y)
-        log('+ ' + pod.name + ' $' + pod.cost)
     }
     return pod
 }
