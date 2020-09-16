@@ -2,6 +2,8 @@ const tune = {
     skipsToDraw: 10,
     maxTurns:    256,
 
+    selectExistingBlueprint: .25,
+
     launchDelay:        250,
     actionDelay:        200,
     subturnDelay:       2000,

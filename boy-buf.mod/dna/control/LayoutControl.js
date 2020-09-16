@@ -118,9 +118,13 @@ class LayoutControl {
     }
 
     selectForBot(player) {
-        //const blueprint = _.bot.selectBlueprint(player, this.readyBlueprints)
-        const blueprint = _.bot.createBlueprint(player,
-            lab.screen.design.control, this.emptyBlueprints)
+        let blueprint
+        if (rnd() < env.tune.selectExistingBlueprint) {
+            blueprint = _.bot.selectBlueprint(player, this.readyBlueprints)
+        } else {
+            blueprint = _.bot.createBlueprint(player,
+                lab.screen.design.control, this.emptyBlueprints)
+        }
         player.blueprint = blueprint
 
         log('bot selected a blueprint ' + blueprint.name + ' for ' + player.name)
