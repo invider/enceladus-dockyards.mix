@@ -26,12 +26,14 @@ function layout() {
             alignCenter()
             fill(this.color)
 
-            if (blueprint) {
+            if (blueprint === 'random') {
+                text('random', x, 60)
+            } else if (blueprint === 'upload') {
+                text('upload', x, 60)
+            } else if (blueprint) {
                 text(blueprint.name, x, 12)
                 text('$' + blueprint.estimateCost(), x, 20)
                 text('space: ' + blueprint.getSpace(), x, 134)
-            } else {
-                text('upload', x, 60)
             }
         }
     })

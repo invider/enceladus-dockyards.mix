@@ -155,7 +155,7 @@ class LayoutControl {
 
     next() {
         this.current ++
-        if (this.current > this.blueprints.length) {
+        if (this.current > this.blueprints.length + 1) {
             this.current = 0
         }
         this.sync()
@@ -165,7 +165,7 @@ class LayoutControl {
     prev() {
         this.current --
         if (this.current < 0) {
-            this.current = this.blueprints.length
+            this.current = this.blueprints.length + 1
         }
         this.sync()
         sfx.play('select', env.mixer.level.select)
@@ -196,12 +196,18 @@ class LayoutControl {
     }
 
     done() {
-        const blueprint = this.currentBlueprint()
-        if (blueprint) {
+        let blueprint = this.currentBlueprint()
+        if (blueprint === 'upload') {
+            lib.util.uploadJSON()
+
+        } else if (blueprint === 'random') {
+            this.lock()
+            blueprint = _.bot.selectBlueprint(this.player, this.readyBlueprints)
+            this.designForBlueprint(blueprint)
+
+        } else if (blueprint) {
             this.lock()
             this.designForBlueprint(blueprint)
-        } else {
-            lib.util.uploadJSON()
         }
     }
 
@@ -215,7 +221,12 @@ class LayoutControl {
     }
 
     sync() {
-        this.__.grid.setBlueprint(this.currentBlueprint())
+        const blueprint = this.currentBlueprint()
+        if (isObj(blueprint)) {
+            this.__.grid.setBlueprint(blueprint)
+        } else {
+            this.__.grid.setBlueprint()
+        }
     }
 
     currentPlayer() {
@@ -223,7 +234,10 @@ class LayoutControl {
     }
 
     currentBlueprint() {
-        return this.blueprints[this.current]
+        const N = this.blueprints.length
+        if (this.current === N) return 'random'
+        else if (this.current === N+1) return 'upload'
+        else return this.blueprints[this.current]
     }
 
     activate(action) {
