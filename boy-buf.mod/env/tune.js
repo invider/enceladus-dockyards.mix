@@ -3,6 +3,7 @@ const tune = {
     maxTurns:    256,
 
     selectExistingBlueprint: .25,
+    botControlIn: 30,
 
     launchDelay:        250,
     actionDelay:        200,

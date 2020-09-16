@@ -38,13 +38,10 @@ class BattleControl {
     }
 
     installAutopilot(ship) {
-        if (!ship.player.human) {
-            log('installing autopilot for ' + ship.name + '/' + ship.player.name)
-            ship.autoSelect = _.bot.computingCore.autoSelect
-            ship.autoPilot = _.bot.computingCore.autoPilot
-        }
+        log('installing autopilot for ' + ship.name + '/' + ship.player.name)
+        ship.autoSelect = _.bot.computingCore.autoSelect
+        ship.autoPilot = _.bot.computingCore.autoPilot
     }
-
 
     startBattle(playerA, playerB) {
         const shipA = playerA.ship
@@ -176,6 +173,14 @@ class BattleControl {
                     source.targetPriority = val
                     break
                 }
+            },
+            onIdle: function() {
+                this.focusOn('skip')
+                setTimeout(() => {
+                    log(`[${source.name}] bot captures control!`)
+                    source.player.human = false
+                    this.select()
+                }, 200)
             },
         })
     }

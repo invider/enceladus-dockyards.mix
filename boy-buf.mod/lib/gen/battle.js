@@ -54,7 +54,8 @@ function battle() {
         showBackground: true,
         onBack: function() {
             if (this.state) this.hidden = !this.hidden
-        }
+        },
+        IDLE: env.tune.botControlIn,
     })
 
     const right = battle.spawn(dna.hud.ShipGrid, {
@@ -84,7 +85,8 @@ function battle() {
         showBackground: true,
         onBack: function() {
             if (this.state) this.hidden = !this.hidden
-        }
+        },
+        IDLE: env.tune.botControlIn,
     })
 
     battle.touch('vfx', {

@@ -177,6 +177,11 @@ class Menu {
         }
     }
 
+    focusOn(name) {
+        const i = this.items.indexOf(name)
+        if (i >= 0) this.current = i
+    }
+
     draw() {
         if (!this.items) return
         const n = this.items.length
@@ -246,7 +251,12 @@ class Menu {
     }
 
     evo(dt) {
+        if (this.state === DISABLED) return
+
         const idle = (Date.now() - this.lastTouch)/1000
-        if (this.onIdle && idle >= this.IDLE) this.onIdle()
+        if (this.onIdle && idle >= this.IDLE) {
+            this.onIdle()
+            this.lastTouch = Date.now()
+        }
     }
 }
