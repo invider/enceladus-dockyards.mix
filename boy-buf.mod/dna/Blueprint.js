@@ -83,21 +83,28 @@ class Blueprint {
         let i = RND(this.grid.length - 1)
         let icell = -1
         while (i < this.grid.length && icell < 0) {
-            if (this.grid[i] === 'free') icell = i
+            if (this.grid[i] === FREE) icell = i
             i++
         }
         if (icell < 0) {
             i = 0
             while (i < this.grid.length && icell < 0) {
-                if (this.grid[i] === 'free') icell = i
+                if (this.grid[i] === FREE) icell = i
                 i++
             }
         }
         if (icell >= 0) {
             return {
                 x: icell % this.w,
-                y: floor(icell / this.h),
+                y: floor(icell / this.w),
             }
+        }
+    }
+
+    freeAxisCell() {
+        const x = floor(this.w/2)
+        for (let y = this.h - 1; y >= 0; y--) {
+            if (this.podAt(x, y) === FREE) return { x, y }
         }
     }
 
@@ -126,7 +133,10 @@ class Blueprint {
     placePod(x, y, pod, price) {
         if (x < 0 || x >= this.w) return
         if (y < 0 || y >= this.h) return
-        this.grid[y * this.w + x] = pod
+        const i = y * this.w + x
+        if (this.grid[i] !== FREE) throw `![${pod}] placement failed`
+            + ` - cell at ${x}:${y} is already occupied`
+        this.grid[i] = pod
         this.cost += price
         this.dirty = true
     }
