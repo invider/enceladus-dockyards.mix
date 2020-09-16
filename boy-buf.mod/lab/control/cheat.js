@@ -14,7 +14,6 @@ function captureRight() {
 
 function match() {
     const s = sequence.join('')
-    log(s)
     switch (s) {
         case '22522': captureLeft(); break;
         case '44544': captureRight(); break;

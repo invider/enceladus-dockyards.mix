@@ -1,18 +1,26 @@
-function uniquelyName(blueprint, map) {
+function uniquelyName(blueprint, map, suffix) {
+    suffix = suffix || 'mk'
     const exist = map[blueprint.name]
     if (exist) {
         // need to find a new name
         let base = blueprint.name
-        const i = base.indexOf(' mk')
+
+        let i = base.indexOf(' mk')
         if (i > 0) {
             // remove "mk" suffix
             base = base.substring(0, i)
+        } else {
+            i = base.indexOf(' v')
+            if (i > 0) {
+                // remove "v" suffix
+                base = base.substring(0, i)
+            }
         }
 
         let mk = 2
         let looking = true
         while(looking) {
-            const name = base + ' mk' + mk++
+            const name = base + ' ' + suffix + mk++
             if (!map[name]) {
                 blueprint.name = name
                 looking = false
@@ -127,6 +135,7 @@ class LayoutControl {
             blueprint = _.bot.createBlueprint(player,
                 lab.screen.design.control, this.emptyBlueprints)
         }
+        uniquelyName(blueprint, this.blueprintsMap, 'v')
         player.blueprint = blueprint
 
         log('bot selected a blueprint ' + blueprint.name + ' for ' + player.name)
