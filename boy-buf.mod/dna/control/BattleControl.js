@@ -59,12 +59,14 @@ class BattleControl {
         shipA.foe = shipB
         shipB.foe = shipA
         this.left.setBlueprint(shipA)
+        shipA.left = true
         this.right.setBlueprint(shipB)
+        shipB.right = true
         this.leftPanel.monitor(shipA)
         this.rightPanel.monitor(shipB)
         this.leftMenu.hide()
         this.rightMenu.hide()
-        this.__.vfx.hidden = false
+        this.__.vfx.showAll()
 
         shipA.name += ' A'
         shipA.chargeForBattle()

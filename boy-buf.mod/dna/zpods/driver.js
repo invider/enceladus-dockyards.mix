@@ -35,7 +35,7 @@ class driver extends dna.WeaponPod {
                 
             log(`[${this.ship.name}]/${this.name} resupplied x${this.shots}`)
             const loc = this.ship.visualGrid.cellScreenCoord(pod)
-            lib.vfx.mintAt(`+${shots} shots`, loc.x, loc.y)
+            lib.vfx.mintAt(`+${shots} shots`, loc.x, loc.y, this.ship.left)
             sfx.play('consume', env.mixer.level.consume)
         }
     }

@@ -74,15 +74,15 @@ class Pod {
             this.ship.score.lost ++
             log(`${pod.name} is destroyed`)
             sfx.play('explosion1', env.mixer.level.burn)
-            lib.vfx.hintAt('-1 pod', loc.x, loc.y)
+            lib.vfx.hintAt('-1 pod', loc.x, loc.y, this.ship.left)
         } else {
             sfx.play('burn', env.mixer.level.burn)
-            lib.vfx.hintAt('-' + attack + ' hits', loc.x, loc.y)
+            lib.vfx.hintAt('-' + attack + ' hits', loc.x, loc.y, this.ship.left)
         }
 
         this.ship.score.hits ++
-        lib.vfx.debris(loc.x, loc.y, env.style.color.c0)
-        lib.vfx.debris(loc.x, loc.y, env.style.color.c1)
+        lib.vfx.debris(loc.x, loc.y, this.ship.left, env.style.color.c0)
+        lib.vfx.debris(loc.x, loc.y, this.ship.left, env.style.color.c1)
         pod.shake()
         //setTimeout(() => {
         //}, 300 + RND(700))
@@ -101,8 +101,8 @@ class Pod {
         const loc = this.ship.visualGrid.cellScreenCoord(this)
         setTimeout(() => {
             pod.hits += fix
-            lib.vfx.mintAt('+' + fix + ' hits', loc.x, loc.y)
-            //lib.vfx.debris(loc.x, loc.y, env.style.color.c3)
+            lib.vfx.mintAt('+' + fix + ' hits', loc.x, loc.y, this.ship.left)
+            //lib.vfx.debris(loc.x, loc.y, this.ship.left, env.style.color.c3)
             sfx.play('noisy', env.mixer.level.repair)
             pod.blink()
         }, 1200)
@@ -193,6 +193,6 @@ class Pod {
             new dna.ypods.DebrisPod(), this.x, this.y)
 
         const loc = this.ship.visualGrid.cellScreenCoord(this)
-        lib.vfx.explosion(loc.x, loc.y, env.style.color.c3)
+        lib.vfx.explosion(loc.x, loc.y, this.ship.left, env.style.color.c3)
     }
 }

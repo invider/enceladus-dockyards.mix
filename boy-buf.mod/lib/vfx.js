@@ -1,6 +1,9 @@
-function hintAt(text, x, y, color) {
+function hintAt(text, x, y, left, color) {
     color = color || env.style.color.c3
-    lab.screen.battle.vfx.spawn(dna.hud.fadeText, {
+    const vfx = lab.screen.battle.vfx
+    const target = left? vfx.left : vfx.right
+
+    target.spawn(dna.hud.fadeText, {
         text: text,
         font: env.style.font,
         fillStyle: color,
@@ -16,9 +19,12 @@ function hintAt(text, x, y, color) {
     })
 }
 
-function mintAt(text, x, y, color) {
+function mintAt(text, x, y, left, color) {
     color = color || env.style.color.c2
-    lab.screen.battle.vfx.spawn(dna.hud.fadeText, {
+
+    const vfx = lab.screen.battle.vfx
+    const target = left? vfx.left : vfx.right
+    target.spawn(dna.hud.fadeText, {
         text: text,
         font: env.style.font,
         fillStyle: color,
@@ -34,9 +40,12 @@ function mintAt(text, x, y, color) {
     })
 }
 
-function debris(x, y, color) {
+function debris(x, y, left, color) {
     color = color || env.style.color.c1
-    lab.screen.battle.vfx.spawn(dna.Emitter, {
+
+    const vfx = lab.screen.battle.vfx
+    const target = left? vfx.left : vfx.right
+    target.spawn(dna.Emitter, {
         x: x,
         y: y,
         color: color,
@@ -54,9 +63,12 @@ function debris(x, y, color) {
     })
 }
 
-function explosion(x, y, color) {
+function explosion(x, y, left, color) {
     color = color || env.style.color.c1
-    lab.screen.battle.vfx.spawn(dna.Emitter, {
+
+    const vfx = lab.screen.battle.vfx
+    const target = left? vfx.left : vfx.right
+    target.spawn(dna.Emitter, {
         x: x,
         y: y,
         color: color,
@@ -74,9 +86,12 @@ function explosion(x, y, color) {
     })
 }
 
-function deflect(x, y, color) {
+function deflect(x, y, left, color) {
     color = color || env.style.color.c3
-    lab.screen.battle.vfx.spawn(dna.Emitter, {
+
+    const vfx = lab.screen.battle.vfx
+    const target = left? vfx.left : vfx.right
+    target.spawn(dna.Emitter, {
         x: x,
         y: y,
         color: color,
@@ -96,6 +111,7 @@ function deflect(x, y, color) {
 
 function poof(target, x, y, color) {
     color = color || env.style.color.c3
+
     target.spawn(dna.Emitter, {
         x: x,
         y: y,

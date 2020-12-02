@@ -252,7 +252,7 @@ class Ship {
         } else {
             const loc = this.visualGrid.cellScreenCoord({x, y})
             sfx.play('missed', env.mixer.level.missed)
-            lib.vfx.deflect(loc.x, loc.y)
+            lib.vfx.deflect(loc.x, loc.y, this.left)
             log(`attack at ${x}:${y} missed!`)
         }
     }
@@ -331,7 +331,7 @@ class Ship {
                 y = -1
                 this.incomingProjectile(weapon, x, y, () => {
                     const loc = target.visualGrid.cellScreenCoord({x, y})
-                    lib.vfx.deflect(loc.x, loc.y)
+                    lib.vfx.deflect(loc.x, loc.y, this.left)
                     sfx.play('deflect', env.mixer.level.deflect)
                 })
             }
@@ -531,7 +531,7 @@ class Ship {
                 const loc = this.visualGrid.cellScreenCoord(orig)
                 setTimeout(() => {
                     ship.mountPod(new dna.ypods.XPod(), orig.x, orig.y)
-                    lib.vfx.explosion(loc.x, loc.y, env.style.color.c3)
+                    lib.vfx.explosion(loc.x, loc.y, this.left, env.style.color.c3)
 
                     if (burns > 0) {
                         sfx.play('explosion2', env.mixer.level.burn)

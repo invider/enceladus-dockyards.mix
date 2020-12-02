@@ -92,6 +92,20 @@ function battle() {
     battle.touch('vfx', {
         Z: 21,
     })
+    battle.vfx.attach(new dna.ClipFrame({
+        name: 'left',
+        x: 0,
+        y: 0,
+        w: 79,
+        h: 144,
+    }))
+    battle.vfx.attach(new dna.ClipFrame({
+        name: 'right',
+        x: 81,
+        y: 0,
+        w: 79,
+        h: 144,
+    }))
 
     battle.spawn(dna.control.BattleControl, {
         name: 'control',
