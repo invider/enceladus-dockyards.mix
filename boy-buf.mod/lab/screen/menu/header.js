@@ -13,5 +13,5 @@ function draw() {
     font(env.style.font)
     let x = rx(1) - 2
     let y = 32
-    text('v1.1', x, y)
+    text(env.msg.version, x, y)
 }
