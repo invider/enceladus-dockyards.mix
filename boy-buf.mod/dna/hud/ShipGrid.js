@@ -158,7 +158,8 @@ class ShipGrid {
     draw() {
         if (!this.blueprint) return
         save()
-        translate(this.x + .5, this.y + .5)
+        //translate(this.x + .5, this.y + .5)
+        translate(this.x, this.y)
 
         this.drawGrid(0)
         this.drawGrid(1)

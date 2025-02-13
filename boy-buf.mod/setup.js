@@ -8,14 +8,14 @@ module.exports = function() {
     res.pods.drawImage = image
 
     lib.remap.sfx()
-    lib.remap.tiles.remap()
+    lib.remap.tiles.adjustHue()
 
     lib.pods.populate()
 
     lib.gen.screen()
     lib.util.hideCursor()
 
-    lab.screen.hideAll()
+    lab.screen.apply(e => e.hide())
 
     if (!lib.debug.hyperjump()) {
         lab.vfx.transit({

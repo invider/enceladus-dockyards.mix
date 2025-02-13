@@ -28,6 +28,6 @@ class HLevel {
     normalValue() {
         const v = this.value()
         if (isNaN(v)) return 0
-        else return limit(this.value(), 0, 1)
+        else return clamp(this.value(), 0, 1)
     }
 }

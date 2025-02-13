@@ -188,6 +188,8 @@ class Menu {
         const cx = this.x + floor(this.w/2)
         const cy = this.y + floor(this.h/2)
 
+        const { sx, sy } = env.style.textShift
+
         alignCenter()
         baseTop()
         font(env.style.font)
@@ -232,7 +234,7 @@ class Menu {
                 else if (disabled) fill(this.color.dcolor)
                 else if (i === this.current) fill(this.color.acolor)
                 else fill(this.color.main)
-                text(item, x, y)
+                text(item, x + sx, y + sy)
                 y += this.step
             }
         }

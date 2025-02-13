@@ -5,7 +5,7 @@ const FREE = 'free'
 class Blueprint {
 
     constructor(st) {
-        augment(this, st)
+        extend(this, st)
         if (!this.layout) this.layout = dna.spec.layout.nova
         if (this.grid) this.cloneGrid()
         else this.fillGrid()

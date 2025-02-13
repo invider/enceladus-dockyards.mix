@@ -46,7 +46,7 @@ class LayoutControl {
         const budget = player.balance
 
         // create a blueprint for each layout available
-        dna.spec.layout._ls.forEach(layout => {
+        dna.spec.layout._ls.forEach((layout, i) => {
             if (layout.cost < budget) {
                 const blueprint = new dna.Blueprint({
                     layout: layout,

@@ -51,7 +51,7 @@ function mapColors(img, sourcePalette, targetPalette) {
     return fixedImage
 }
 
-function remap() {
+function adjustHue() {
     const original = env.style.color
     const originalRGB = splitPaletteToComponents(original)
 

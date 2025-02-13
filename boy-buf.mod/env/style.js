@@ -1,6 +1,10 @@
 const style = {
     font: '8px retro',
     titleFont: '8px gameboy',
+    textShift: {
+        sx: 0,
+        sy: 0,
+    },
 
     holdBeforeStart: 2.5,
     titleTimeout: 7,

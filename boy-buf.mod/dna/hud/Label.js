@@ -17,7 +17,7 @@ class Label {
         baseMiddle()
         alignCenter()
         font(env.style.font)
-        text(this.text, this.x, this.y)
+        text(this.text, this.x + env.style.textShift.x, this.y + env.style.textShift.y)
     }
 
     setText(t) {
