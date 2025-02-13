@@ -1,6 +1,7 @@
 const style = {
     font: '8px retro',
-    titleFont: '8px gameboy',
+    titleFont: '8px gameboy', // TODO fix placement issues in Firefox
+    //titleFont: '8px retro', // this one works in Firefox correctly
     textShift: {
         sx: 0,
         sy: 0,

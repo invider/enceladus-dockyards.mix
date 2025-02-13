@@ -65,6 +65,7 @@ class ShipGrid {
         const chargedPods = []
         const s = env.style.cellSize
 
+        blocky()
         lineWidth(1)
         for (let y = 0; y < 7; y++) {
             for (let x = 0; x < 5; x++) {
@@ -158,8 +159,7 @@ class ShipGrid {
     draw() {
         if (!this.blueprint) return
         save()
-        //translate(this.x + .5, this.y + .5)
-        translate(this.x, this.y)
+        translate(this.x + .5, this.y + .5)
 
         this.drawGrid(0)
         this.drawGrid(1)

@@ -7,7 +7,6 @@ function draw() {
 
     text('menu', rx(.5), 40)
 
-
     alignRight()
     baseBottom()
     font(env.style.font)

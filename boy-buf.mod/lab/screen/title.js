@@ -27,7 +27,7 @@ function fadeOut() {
 }
 
 function draw() {
-
+    blocky()
     image(res.title, 0, 0, rx(1), ry(1))
 
     alignCenter()
